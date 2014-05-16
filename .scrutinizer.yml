@@ -1,0 +1,60 @@
+# inherit the next configuration down the chain
+inherit: true
+
+filter:
+  paths:
+    - 'src/*'
+
+before_commands:
+  - 'composer install --no-interaction --no-scripts'
+
+tools:
+  php_mess_detector:
+    config:
+      code_size_rules:
+        cyclomatic_complexity: true
+        npath_complexity: true
+        excessive_method_length: true
+        excessive_class_length: true
+        excessive_parameter_list: true
+        excessive_public_count: true
+        too_many_fields: true
+        too_many_methods: true
+        excessive_class_complexity: true
+      design_rules:
+        number_of_class_children: true
+        depth_of_inheritance: true
+        coupling_between_objects: true
+      unused_code_rules:
+        unused_local_variable: true
+        unused_private_method: true
+        unused_formal_parameter: true
+      naming_rules:
+        short_variable: true
+        long_variable: true
+        short_method: true
+        boolean_method_name: true
+      controversial_rules: ~
+  php_cs_fixer:
+    config:
+      level: all
+  php_analyzer:
+    config:
+      suspicious_code: { enabled: true, overriding_parameter: true }
+      verify_php_doc_comments: { enabled: true }
+      loops_must_use_braces: { enabled: true }
+      simplify_boolean_return: { enabled: true }
+      phpunit_checks: { enabled: true }
+      reflection_fixes: { enabled: true }
+      use_statement_fixes: { enabled: true, order_alphabetically: true }
+  php_code_sniffer:
+    config:
+      standard: PSR2
+  sensiolabs_security_checker: true
+  php_cpd: false
+  php_loc: true
+  php_pdepend: true
+  php_sim: true
+  php_changetracking: true
+  external_code_coverage:
+    timeout: 600

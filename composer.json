@@ -14,7 +14,7 @@
   "require":      {
     "symfony/framework-bundle": "~2.4",
     "symfony/console": "~2.4",
-    "guzzle/guzzle": "~3.9"
+    "guzzle/guzzle": "~3.7"
   },
   "autoload":     {
     "psr-0": { "CL\\Bundle\\SlackBundle": "" }

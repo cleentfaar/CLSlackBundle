@@ -69,7 +69,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
      */
     protected function createMessage(InputInterface $input)
     {
-        $sentences = [];
+        $sentences   = [];
         $sentences[] = 'The {{ project }}-project has been deployed with revision {{ revision }}.';
 
         if ($input->getOption('target')) {
