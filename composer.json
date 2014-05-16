@@ -1,0 +1,23 @@
+{
+  "name":         "cleentfaar/slack-bundle",
+  "description":  "This bundle provides integration with the Slack API and webhooks",
+  "keywords":     ["slack"],
+  "type":         "symfony-bundle",
+  "license":      "MIT",
+  "authors":      [
+    {
+        "name":     "Cas Leentfaar",
+        "homepage": "https://github.com/cleentfaar",
+        "email":    "info@casleentfaar.com"
+    }
+  ],
+  "require":      {
+    "symfony/framework-bundle": "~2.4",
+    "symfony/console": "~2.4",
+    "guzzle/guzzle": "~3.9"
+  },
+  "autoload":     {
+    "psr-0": { "CL\\Bundle\\SlackBundle": "" }
+  },
+  "target-dir": "CL/Bundle/SlackBundle"
+}

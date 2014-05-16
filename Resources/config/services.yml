@@ -1,0 +1,7 @@
+parameters:
+#    cl_slack.example.class: CL\Bundle\SlackBundle\Example
+
+services:
+#    cl_slack.example:
+#        class: %cl_slack.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
