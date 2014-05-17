@@ -21,4 +21,4 @@ The documentation for this bundle is available in the `Resources/doc` directory 
 
 ## Credits
 
-This bundle was based on an idea suggested by [@fieg](http://github.com/fieg),
+This bundle was based on an idea suggested by [@fieg](http://github.com/fieg).
