@@ -39,11 +39,8 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     {
         parent::configure();
         $this->setName('slack:notify-deployment');
-        $this->addArgument(
-            'project',
-            InputArgument::REQUIRED,
-            'The name of the project that is being deployed'
-        );
+        $this->setDescription('Notifies Slack that a new deployment has been made');
+        $this->addArgument('project', InputArgument::REQUIRED, 'The name of the project that is being deployed');
         $this->addArgument(
             'target',
             InputArgument::REQUIRED,
@@ -61,13 +58,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             InputOption::VALUE_REQUIRED,
             'The URL to a comparison between the previous revision and the current revision'
         );
-        $this->addOption(
-            'changelog',
-            'l',
-            InputOption::VALUE_REQUIRED,
-            'A list of changes for this deployment'
-        );
-        $this->setDescription('Notifies Slack that a new deployment has been made');
+        $this->addOption('changelog', 'l', InputOption::VALUE_REQUIRED, 'A list of changes for this deployment');
     }
 
     /**
@@ -75,7 +66,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
      */
     protected function createMessage(InputInterface $input)
     {
-        $sentences   = [];
+        $sentences = [];
         if ($input->getOption('project-url')) {
             $sentences[] = 'The <{{ project-url }}|{{ project }}> project has been deployed to \'{{ target }}\'.';
         } else {
@@ -91,13 +82,13 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
         }
 
         $variables = [
-            'project'         => $input->getArgument('project'),
-            'target'          => $input->getArgument('target'),
-            'project-url'     => $input->getOption('project-url'),
-            'diff-url'        => $input->getOption('diff-url'),
-            'username'        => $input->getOption('username'),
-            'channel'         => $input->getOption('channel'),
-            'changelog'       => $input->getOption('changelog'),
+            'project'     => $input->getArgument('project'),
+            'target'      => $input->getArgument('target'),
+            'project-url' => $input->getOption('project-url'),
+            'diff-url'    => $input->getOption('diff-url'),
+            'username'    => $input->getOption('username'),
+            'channel'     => $input->getOption('channel'),
+            'changelog'   => $input->getOption('changelog'),
         ];
 
         $message = implode(" ", $sentences);

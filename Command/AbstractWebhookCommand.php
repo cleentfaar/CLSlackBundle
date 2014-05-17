@@ -41,33 +41,10 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this->addOption(
-            'username',
-            'u',
-            InputOption::VALUE_REQUIRED,
-            'The Slack username that sends the message',
-            $this->defaultUsername
-        );
-        $this->addOption(
-            'channel',
-            'c',
-            InputOption::VALUE_REQUIRED,
-            'The Slack channel to send the message to',
-            $this->defaultChannel
-        );
-        $this->addOption(
-            'icon',
-            'i',
-            InputOption::VALUE_REQUIRED,
-            'The icon to display next to the message (can be one of: ghost, ...)',
-            $this->defaultIcon
-        );
-        $this->addOption(
-            'dry-run',
-            'd',
-            InputOption::VALUE_NONE,
-            'Debugging option to only see what would be sent to Slack, and not actually send it.'
-        );
+        $this->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'The Slack username that sends the message', $this->defaultUsername );
+        $this->addOption('channel', 'c', InputOption::VALUE_REQUIRED, 'The Slack channel to send the message to', $this->defaultChannel);
+        $this->addOption('icon', 'i', InputOption::VALUE_REQUIRED, 'The icon to display next to the message (can be one of: ghost, ...)', $this->defaultIcon);
+        $this->addOption('dry-run', 'd', InputOption::VALUE_NONE, 'Debugging option to only see what would be sent to Slack, and not actually send it.');
     }
 
     /**
@@ -113,8 +90,14 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      *
      * @return int
      */
-    protected function report(Response $response, OutputInterface $output)
+    protected function report($response = null, OutputInterface $output)
     {
+        if (null === $response) {
+            $output->writeln("No response was returned");
+
+            return 1;
+        }
+
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {
             case 200:
