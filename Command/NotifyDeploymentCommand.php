@@ -30,7 +30,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     /**
      * {@inheritdoc}
      */
-    protected $defaultIcon = 'ghost'; // TODO find a better suited icon
+    protected $defaultIcon = ':truck:';
 
     /**
      * {@inheritDoc}
