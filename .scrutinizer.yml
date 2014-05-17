@@ -1,9 +1,7 @@
-# inherit the next configuration down the chain
 inherit: true
 
 filter:
-  paths:
-    - 'src/*'
+  excluded_paths: [vendor/*]
 
 before_commands:
   - 'composer install --no-interaction --no-scripts'
