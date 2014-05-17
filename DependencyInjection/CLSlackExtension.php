@@ -19,7 +19,8 @@ use Symfony\Component\DependencyInjection\Loader;
 class CLSlackExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * @param array[]          $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -34,7 +35,7 @@ class CLSlackExtension extends Extension
 
     /**
      * @param ContainerBuilder $container
-     * @param array            $config
+     * @param string[]         $config
      */
     protected function setParameters(ContainerBuilder $container, array $config)
     {

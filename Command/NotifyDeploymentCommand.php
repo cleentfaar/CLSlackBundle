@@ -64,7 +64,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     /**
      * @param InputInterface $input
      *
-     * @return array
+     * @return string[]
      */
     protected function gatherSentences(InputInterface $input)
     {
