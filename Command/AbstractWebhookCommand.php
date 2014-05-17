@@ -171,7 +171,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      * @param null   $channel
      * @param null   $icon
      *
-     * @return array<string,string|null>|array<string,string>
+     * @return array<string,string|null>
      */
     protected function createPayload($text, $username = null, $channel = null, $icon = null)
     {
