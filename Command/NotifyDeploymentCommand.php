@@ -50,16 +50,10 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             'The target/servername on which the project was deployed'
         );
         $this->addOption(
-            'revision-before',
-            'rb',
+            'diff-url',
+            'diff',
             InputOption::VALUE_REQUIRED,
-            'The revision number before deployment (e.g., git commit SHA)'
-        );
-        $this->addOption(
-            'revision-after',
-            'ra',
-            InputOption::VALUE_REQUIRED,
-            'The revision number after deployment (e.g., git commit SHA)'
+            'The URL to a comparison between the previous revision and the current revision'
         );
         $this->addOption(
             'changelog',
@@ -76,10 +70,10 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     protected function createMessage(InputInterface $input)
     {
         $sentences   = [];
-        $sentences[] = 'The {{ project }}-project has been deployed with revision {{ revision }}.';
+        $sentences[] = 'The {{ project }}-project has been deployed to \'{{ target }}\'.';
 
-        if ($input->getOption('target')) {
-            $sentences[] = "\n\nThe target was {{ target }}.";
+        if ($input->getOption('diff-url')) {
+            $sentences[] = "\n\nThe diff of this deployment can be found <{{ diff-url }}|here>.";
         }
 
         if ($input->getOption('changelog')) {
@@ -87,12 +81,12 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
         }
 
         $variables = [
-            'project'   => $input->getArgument('project'),
-            'revision'  => $input->getArgument('revision'),
-            'username'  => $input->getOption('username'),
-            'channel'   => $input->getOption('channel'),
-            'target'    => $input->getOption('target'),
-            'changelog' => $input->getOption('changelog'),
+            'project'         => $input->getArgument('project'),
+            'target'          => $input->getArgument('target'),
+            'diff-url'        => $input->getOption('diff-url'),
+            'username'        => $input->getOption('username'),
+            'channel'         => $input->getOption('channel'),
+            'changelog'       => $input->getOption('changelog'),
         ];
 
         $message = implode(" ", $sentences);
