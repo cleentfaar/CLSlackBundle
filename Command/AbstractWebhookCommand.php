@@ -13,6 +13,7 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ServerErrorResponseException;
+use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Http\Message\Response;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -115,7 +116,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      *
      * @return int
      */
-    protected function report($response = null, OutputInterface $output)
+    protected function report($response, OutputInterface $output)
     {
         if (null === $response) {
             $output->writeln("No response was returned");
@@ -137,8 +138,8 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string $message
-     * @param array  $variables
+     * @param string        $message
+     * @param array<string> $variables
      *
      * @return string
      */
@@ -155,7 +156,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param $token
+     * @param string $token
      *
      * @return string
      */
@@ -170,7 +171,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      * @param null   $channel
      * @param null   $icon
      *
-     * @return array
+     * @return array<string>
      */
     protected function createPayload($text, $username = null, $channel = null, $icon = null)
     {
@@ -190,14 +191,18 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string $url
-     * @param array  $payload
+     * @param string        $url
+     * @param array<string> $payload
      *
      * @return \Guzzle\Http\Message\Response
+     *
+     * @throws \LogicException
      */
     protected function sendPayload($url, array $payload)
     {
         $client  = new Client();
+
+        /** @var EntityEnclosingRequestInterface $request */
         $request = $client->post(
             $url,
             [
@@ -205,8 +210,13 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
             ]
         );
         $request->setBody(json_encode($payload));
+        $response = $client->send($request);
 
-        return $client->send($request);
+        if (false === is_object($response) || false === $response instanceof Response) {
+            throw new \LogicException("Expected client to return a response, got %s", var_export($response, true));
+        }
+
+        return $response;
     }
 
     /**
