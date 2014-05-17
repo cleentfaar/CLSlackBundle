@@ -77,7 +77,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     {
         $sentences   = [];
         if ($input->getOption('project-url')) {
-            $sentences[] = 'The <{{project-url}}|{{ project }}> project has been deployed to \'{{ target }}\'.';
+            $sentences[] = 'The <{{ project-url }}|{{ project }}> project has been deployed to \'{{ target }}\'.';
         } else {
             $sentences[] = 'The {{ project }}-project has been deployed to \'{{ target }}\'.';
         }
