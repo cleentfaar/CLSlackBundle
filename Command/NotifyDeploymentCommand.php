@@ -62,9 +62,11 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     }
 
     /**
-     * {@inheritdoc}
+     * @param InputInterface $input
+     *
+     * @return array
      */
-    protected function createMessage(InputInterface $input)
+    protected function gatherSentences(InputInterface $input)
     {
         $sentences = [];
         if ($input->getOption('project-url')) {
@@ -81,6 +83,15 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             $sentences[] = "\n\nAdditionally, the following changelog was provided:\n\n{{ changelog }}.";
         }
 
+        return $sentences;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createMessage(InputInterface $input)
+    {
+        $message   = implode(" ", $this->gatherSentences($input));
         $variables = [
             'project'     => $input->getArgument('project'),
             'target'      => $input->getArgument('target'),
@@ -90,8 +101,6 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             'channel'     => $input->getOption('channel'),
             'changelog'   => $input->getOption('changelog'),
         ];
-
-        $message = implode(" ", $sentences);
 
         return parent::parseMessage($message, $variables);
     }
