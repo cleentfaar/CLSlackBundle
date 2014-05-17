@@ -25,7 +25,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     /**
      * {@inheritdoc}
      */
-    protected $defaultChannel = 'deployment';
+    protected $defaultChannel = '#deployment';
 
     /**
      * {@inheritdoc}
@@ -50,8 +50,14 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             'The target/servername on which the project was deployed'
         );
         $this->addOption(
+            'project-url',
+            'url',
+            InputOption::VALUE_REQUIRED,
+            'The URL to a comparison between the previous revision and the current revision'
+        );
+        $this->addOption(
             'diff-url',
-            'diff',
+            null,
             InputOption::VALUE_REQUIRED,
             'The URL to a comparison between the previous revision and the current revision'
         );
@@ -70,7 +76,11 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     protected function createMessage(InputInterface $input)
     {
         $sentences   = [];
-        $sentences[] = 'The {{ project }}-project has been deployed to \'{{ target }}\'.';
+        if ($input->getOption('project-url')) {
+            $sentences[] = 'The <{{project-url}}|{{ project }}> project has been deployed to \'{{ target }}\'.';
+        } else {
+            $sentences[] = 'The {{ project }}-project has been deployed to \'{{ target }}\'.';
+        }
 
         if ($input->getOption('diff-url')) {
             $sentences[] = "\n\nThe diff of this deployment can be found <{{ diff-url }}|here>.";
@@ -83,6 +93,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
         $variables = [
             'project'         => $input->getArgument('project'),
             'target'          => $input->getArgument('target'),
+            'project-url'     => $input->getOption('project-url'),
             'diff-url'        => $input->getOption('diff-url'),
             'username'        => $input->getOption('username'),
             'channel'         => $input->getOption('channel'),

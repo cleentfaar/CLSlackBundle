@@ -12,6 +12,7 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use Guzzle\Http\Client;
+use Guzzle\Http\Exception\ServerErrorResponseException;
 use Guzzle\Http\Message\Response;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -84,9 +85,16 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
         $payload = $this->createPayload($message, $username, $channel, $icon);
 
         if (false === $input->getOption('dry-run')) {
-            $response = $this->sendPayload($url, $payload);
+            try {
+                $response = $this->sendPayload($url, $payload);
 
-            return $this->report($response, $output);
+                return $this->report($response, $output);
+            } catch (ServerErrorResponseException $e) {
+                $output->writeln('<error>Failed to send payload, the following response was returned:</error>');
+                $output->writeln($e->getResponse()->getBody(true));
+
+                return 1;
+            }
         } else {
             $output->writeln("<comment>Would've sent the following payload:</comment>");
             $output->writeln(sprintf("URL: %s", $url));
@@ -188,7 +196,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
                 'content-type' => 'application/json',
             ]
         );
-        $request->setBody($payload);
+        $request->setBody(json_encode($payload));
 
         return $client->send($request);
     }
