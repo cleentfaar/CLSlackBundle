@@ -20,7 +20,7 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     /**
      * {@inheritdoc}
      */
-    protected $defaultUsername = 'deployer';
+    protected $defaultUsername = 'deploybot';
 
     /**
      * {@inheritdoc}
