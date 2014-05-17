@@ -138,8 +138,8 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string        $message
-     * @param array<string> $variables
+     * @param string   $message
+     * @param string[] $variables
      *
      * @return string
      */
@@ -171,7 +171,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      * @param null   $channel
      * @param null   $icon
      *
-     * @return array<string>
+     * @return string[]
      */
     protected function createPayload($text, $username = null, $channel = null, $icon = null)
     {
@@ -191,8 +191,8 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string        $url
-     * @param array<string> $payload
+     * @param string   $url
+     * @param string[] $payload
      *
      * @return \Guzzle\Http\Message\Response
      *
