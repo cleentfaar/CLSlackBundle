@@ -45,15 +45,21 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             'The name of the project that is being deployed'
         );
         $this->addArgument(
-            'revision',
+            'target',
             InputArgument::REQUIRED,
-            'A revision number (e.g., git commit SHA)'
+            'The target/servername on which the project was deployed'
         );
         $this->addOption(
-            'target',
-            't',
+            'revision-before',
+            'rb',
             InputOption::VALUE_REQUIRED,
-            'The target/servername on which the project was deployed'
+            'The revision number before deployment (e.g., git commit SHA)'
+        );
+        $this->addOption(
+            'revision-after',
+            'ra',
+            InputOption::VALUE_REQUIRED,
+            'The revision number after deployment (e.g., git commit SHA)'
         );
         $this->addOption(
             'changelog',
