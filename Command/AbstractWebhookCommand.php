@@ -41,10 +41,33 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this->addOption('username', 'u', InputOption::VALUE_REQUIRED, 'The Slack username that sends the message', $this->defaultUsername );
-        $this->addOption('channel', 'c', InputOption::VALUE_REQUIRED, 'The Slack channel to send the message to', $this->defaultChannel);
-        $this->addOption('icon', 'i', InputOption::VALUE_REQUIRED, 'The icon to display next to the message (can be one of: ghost, ...)', $this->defaultIcon);
-        $this->addOption('dry-run', 'd', InputOption::VALUE_NONE, 'Debugging option to only see what would be sent to Slack, and not actually send it.');
+        $this->addOption(
+            'username',
+            'u',
+            InputOption::VALUE_REQUIRED,
+            'The Slack username that sends the message',
+            $this->defaultUsername
+        );
+        $this->addOption(
+            'channel',
+            'c',
+            InputOption::VALUE_REQUIRED,
+            'The Slack channel to send the message to',
+            $this->defaultChannel
+        );
+        $this->addOption(
+            'icon',
+            'i',
+            InputOption::VALUE_REQUIRED,
+            'The icon to display next to the message (can be one of: ghost, ...)',
+            $this->defaultIcon
+        );
+        $this->addOption(
+            'dry-run',
+            'd',
+            InputOption::VALUE_NONE,
+            'Debugging option to only see what would be sent to Slack, and not actually send it.'
+        );
     }
 
     /**
@@ -67,8 +90,10 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
 
                 return $this->report($response, $output);
             } catch (ServerErrorResponseException $e) {
-                $output->writeln('<error>Failed to send payload, the following response was returned:</error>');
-                $output->writeln($e->getResponse()->getBody(true));
+                if (null !== $e->getResponse()) {
+                    $output->writeln('<error>Failed to send payload, the following response was returned:</error>');
+                    $output->writeln($e->getResponse()->getBody(true));
+                }
 
                 return 1;
             }
@@ -168,7 +193,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      * @param string $url
      * @param array  $payload
      *
-     * @return array|\Guzzle\Http\Message\Response|null
+     * @return \Guzzle\Http\Message\Response
      */
     protected function sendPayload($url, array $payload)
     {
