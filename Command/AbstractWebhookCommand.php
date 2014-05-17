@@ -145,8 +145,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function createUrl($token)
     {
-        //return sprintf('https://treehouselabs.slack.com/services/hooks/incoming-webhook?token=%s', $token);
-        return sprintf('http://symfony-tests/services/hooks/incoming-webhook?token=%s', $token);
+        return sprintf('https://treehouselabs.slack.com/services/hooks/incoming-webhook?token=%s', $token);
     }
 
     /**
