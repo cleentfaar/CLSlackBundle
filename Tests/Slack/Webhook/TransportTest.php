@@ -20,7 +20,7 @@ class TransportTest extends TestCase
     /**
      * @dataProvider getUrls
      */
-    public function testConstruct($url)
+    public function testGetUrl($url)
     {
         $transportMock = $this->getCustomMock(
             '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
