@@ -1,7 +1,7 @@
 parameters:
-#    cl_slack.example.class: CL\Bundle\SlackBundle\Example
+    cl_slack.payload.transport.class: CL\Bundle\SlackBundle\Slack\Payload\Transport
 
 services:
-#    cl_slack.example:
-#        class: %cl_slack.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    cl_slack.payload.transport:
+        class: %cl_slack.payload.transport.class%
+        arguments: [%cl_slack.username%, %cl_slack.token%]

@@ -26,6 +26,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('username')
+                    ->isRequired()
+                ->end()
                 ->scalarNode('token')
                     ->isRequired()
                 ->end()

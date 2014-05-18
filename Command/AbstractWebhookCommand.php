@@ -11,11 +11,12 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use Guzzle\Http\Client;
+use CL\Bundle\SlackBundle\Slack\Payload\Payload;
+use CL\Bundle\SlackBundle\Slack\Payload\Transport;
 use Guzzle\Http\Exception\ServerErrorResponseException;
-use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Http\Message\Response;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -42,19 +43,17 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
+        $this->addArgument(
+            'channel',
+            InputArgument::REQUIRED,
+            'The Slack channel to send the message to'
+        );
         $this->addOption(
             'username',
             'u',
             InputOption::VALUE_REQUIRED,
             'The Slack username that sends the message',
             $this->defaultUsername
-        );
-        $this->addOption(
-            'channel',
-            'c',
-            InputOption::VALUE_REQUIRED,
-            'The Slack channel to send the message to',
-            $this->defaultChannel
         );
         $this->addOption(
             'icon',
@@ -76,18 +75,18 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $token    = $this->getContainer()->getParameter('cl_slack.token');
+        /** @var Transport $transport */
+        $transport = $this->getContainer()->get('cl_slack.payload.transport');
+
+        $channel  = '#' . $input->getArgument('channel');
         $message  = $this->createMessage($input);
-        $channel  = $input->getOption('channel');
         $username = $input->getOption('username');
         $icon     = $input->getOption('icon');
-
-        $url     = $this->createUrl($token);
-        $payload = $this->createPayload($message, $username, $channel, $icon);
+        $payload  = $this->createPayload($channel, $message, $username, $icon);
 
         if (false === $input->getOption('dry-run')) {
             try {
-                $response = $this->sendPayload($url, $payload);
+                $response = $transport->send($payload);
 
                 return $this->report($response, $output);
             } catch (ServerErrorResponseException $e) {
@@ -100,9 +99,8 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
             }
         } else {
             $output->writeln("<comment>Would've sent the following payload:</comment>");
-            $output->writeln(sprintf("URL: %s", $url));
-            $output->writeln("Fields: ");
-            foreach ($payload as $key => $value) {
+            $output->writeln(sprintf("URL: <comment>%s</comment>", $transport->getUrl()));
+            foreach ($payload->toArray() as $key => $value) {
                 $output->writeln("\t" . $key . ": " . $value);
             }
 
@@ -156,67 +154,24 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string $token
-     *
-     * @return string
-     */
-    protected function createUrl($token)
-    {
-        return sprintf('https://treehouselabs.slack.com/services/hooks/incoming-webhook?token=%s', $token);
-    }
-
-    /**
      * @param string $text
+     * @param string $channel
      * @param null   $username
-     * @param null   $channel
      * @param null   $icon
      *
-     * @return array<string,string|null>|array<string,string>
+     * @return Payload
      */
-    protected function createPayload($text, $username = null, $channel = null, $icon = null)
+    protected function createPayload($channel, $text, $username = null, $icon = null)
     {
-        $payload         = [];
-        $payload['text'] = $text;
-        if (null !== $channel) {
-            $payload['channel'] = $channel;
-        }
+        $payload = new Payload($channel, $text);
         if (null !== $username) {
-            $payload['username'] = $username;
+            $payload->setUsername($username);
         }
         if (null !== $icon) {
-            $payload['icon_emoji'] = $icon; // ghost, ... ?
+            $payload->setIcon($icon);
         }
 
         return $payload;
-    }
-
-    /**
-     * @param string   $url
-     * @param string[] $payload
-     *
-     * @return \Guzzle\Http\Message\Response
-     *
-     * @throws \LogicException
-     */
-    protected function sendPayload($url, array $payload)
-    {
-        $client  = new Client();
-
-        /** @var EntityEnclosingRequestInterface $request */
-        $request = $client->post(
-            $url,
-            [
-                'content-type' => 'application/json',
-            ]
-        );
-        $request->setBody(json_encode($payload));
-        $response = $client->send($request);
-
-        if (false === is_object($response) || false === $response instanceof Response) {
-            throw new \LogicException("Expected client to return a response, got %s", var_export($response, true));
-        }
-
-        return $response;
     }
 
     /**

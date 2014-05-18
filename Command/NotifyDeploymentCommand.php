@@ -25,11 +25,6 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     /**
      * {@inheritdoc}
      */
-    protected $defaultChannel = '#deployment';
-
-    /**
-     * {@inheritdoc}
-     */
     protected $defaultIcon = ':truck:';
 
     /**
@@ -58,7 +53,12 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
             InputOption::VALUE_REQUIRED,
             'The URL to a comparison between the previous revision and the current revision'
         );
-        $this->addOption('changelog', 'l', InputOption::VALUE_REQUIRED, 'A list of changes for this deployment');
+        $this->addOption(
+            'changelog',
+            'l',
+            InputOption::VALUE_REQUIRED,
+            'A description of the changes made by this deployment'
+        );
     }
 
     /**
@@ -93,12 +93,12 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     {
         $message   = implode(" ", $this->gatherSentences($input));
         $variables = [
+            'channel'     => $input->getArgument('channel'),
             'project'     => $input->getArgument('project'),
             'target'      => $input->getArgument('target'),
             'project-url' => $input->getOption('project-url'),
             'diff-url'    => $input->getOption('diff-url'),
             'username'    => $input->getOption('username'),
-            'channel'     => $input->getOption('channel'),
             'changelog'   => $input->getOption('changelog'),
         ];
 

@@ -39,6 +39,7 @@ class CLSlackExtension extends Extension
      */
     protected function setParameters(ContainerBuilder $container, array $config)
     {
+        $container->setParameter('cl_slack.username', $config['username']);
         $container->setParameter('cl_slack.token', $config['token']);
     }
 }
