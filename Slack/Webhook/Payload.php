@@ -107,7 +107,7 @@ class Payload
     }
 
     /**
-     * @return array
+     * @return array<string,string>
      */
     public function toArray()
     {

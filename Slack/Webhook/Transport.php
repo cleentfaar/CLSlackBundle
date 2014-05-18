@@ -12,8 +12,7 @@
 namespace CL\Bundle\SlackBundle\Slack\Webhook;
 
 use Guzzle\Http\Client;
-use Guzzle\Http\Exception\ServerErrorResponseException;
-use Guzzle\Http\Message\EntityEnclosingRequestInterface;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
@@ -53,7 +52,7 @@ class Transport
      */
     public function send(Payload $payload)
     {
-        $request  = $this->createRequest($payload);
+        $request = $this->createRequest($payload);
         $response = $this->sendRequest($request);
 
         return $response;
@@ -62,18 +61,17 @@ class Transport
     /**
      * @param Payload $payload
      *
-     * @return EntityEnclosingRequestInterface
+     * @return Request
      */
     protected function createRequest(Payload $payload)
     {
-        /** @var EntityEnclosingRequestInterface $request */
         $request = $this->httpClient->post(
             $this->getUrl(),
             [
                 'content-type' => 'application/json',
-            ]
+            ],
+            json_encode($payload->toArray())
         );
-        $request->setBody(json_encode($payload->toArray()));
 
         return $request;
     }
@@ -81,7 +79,7 @@ class Transport
     /**
      * @param Request $request
      *
-     * @return array|Response|null
+     * @return Response
      *
      * @throws \LogicException
      */
@@ -89,20 +87,20 @@ class Transport
     {
         try {
             $response = $this->httpClient->send($request);
-        } catch (\Exception $e) {
-            if ($e instanceof ServerErrorResponseException && null !== $e->getResponse()) {
-                throw new \LogicException(sprintf(
-                    "%s \nthe response body was: \n%s",
-                    $e->getMessage(),
-                    $e->getResponse()->getBody(true)
-                ));
-            }
-
-            throw new \LogicException(sprintf("Failed to send request (%d): %s", $e->getCode(), $e->getMessage()));
+        } catch (BadResponseException $e) {
+            throw new \LogicException(sprintf(
+                "Failed to send request (%d): %s, \nthe response body was: \n%s",
+                $e->getResponse()->getStatusCode(),
+                $e->getMessage(),
+                $e->getResponse()->getBody(true)
+            ));
         }
 
         if (false === is_object($response) || false === $response instanceof Response) {
-            throw new \LogicException("Expected client to return a response, got %s", var_export($response, true));
+            throw new \LogicException(sprintf(
+                "Expected client to return a Response instance, got %s",
+                var_export($response, true)
+            ));
         }
 
         return $response;

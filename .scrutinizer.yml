@@ -7,7 +7,7 @@ filter:
     - 'Tests/*'
 
 before_commands:
-  - 'composer self-update'
+  - 'sudo composer self-update'
   - 'composer install --no-interaction --no-scripts'
 
 tools:
