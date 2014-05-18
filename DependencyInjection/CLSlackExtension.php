@@ -25,9 +25,9 @@ class CLSlackExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
         $this->setParameters($container, $config);
@@ -39,7 +39,11 @@ class CLSlackExtension extends Extension
      */
     protected function setParameters(ContainerBuilder $container, array $config)
     {
-        $container->setParameter('cl_slack.username', $config['username']);
-        $container->setParameter('cl_slack.token', $config['token']);
+        $payloadUrl = sprintf(
+            'https://%s.slack.com/services/hooks/incoming-webhook?token=%s',
+            $config['username'],
+            $config['token']
+        );
+        $container->setParameter('cl_slack.webhook_url', $payloadUrl);
     }
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload;
+namespace CL\Bundle\SlackBundle\Slack\Webhook;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ServerErrorResponseException;
@@ -30,17 +30,12 @@ class Transport
     protected $url;
 
     /**
-     * @param string $username
-     * @param string $token
+     * @param string $url
      */
-    public function __construct($username, $token)
+    public function __construct($url)
     {
         $this->httpClient = new Client();
-        $this->url        = sprintf(
-            'https://%s.slack.com/services/hooks/incoming-webhook?token=%s',
-            $username,
-            $token
-        );
+        $this->url        = $url;
     }
 
     /**
@@ -58,7 +53,7 @@ class Transport
      */
     public function send(Payload $payload)
     {
-        $request = $this->createRequest($payload);
+        $request  = $this->createRequest($payload);
         $response = $this->sendRequest($request);
 
         return $response;

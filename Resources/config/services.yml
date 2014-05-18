@@ -1,7 +1,7 @@
 parameters:
-    cl_slack.payload.transport.class: CL\Bundle\SlackBundle\Slack\Payload\Transport
+    cl_slack.payload.transport.class: CL\Bundle\SlackBundle\Slack\Webhook\Transport
 
 services:
     cl_slack.payload.transport:
         class: %cl_slack.payload.transport.class%
-        arguments: [%cl_slack.username%, %cl_slack.token%]
+        arguments: [%cl_slack.webhook_url%]

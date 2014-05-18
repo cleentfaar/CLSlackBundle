@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload;
+namespace CL\Bundle\SlackBundle\Slack\Webhook;
 
 class Payload
 {

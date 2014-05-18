@@ -11,8 +11,8 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Bundle\SlackBundle\Slack\Payload\Payload;
-use CL\Bundle\SlackBundle\Slack\Payload\Transport;
+use CL\Bundle\SlackBundle\Slack\Webhook\Payload;
+use CL\Bundle\SlackBundle\Slack\Webhook\Transport;
 use Guzzle\Http\Exception\ServerErrorResponseException;
 use Guzzle\Http\Message\Response;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -97,15 +97,27 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
 
                 return 1;
             }
-        } else {
-            $output->writeln("<comment>Would've sent the following payload:</comment>");
-            $output->writeln(sprintf("URL: <comment>%s</comment>", $transport->getUrl()));
-            foreach ($payload->toArray() as $key => $value) {
-                $output->writeln("\t" . $key . ": " . $value);
-            }
-
-            return 0;
         }
+
+        return $this->reportDry($transport->getUrl(), $payload, $output);
+    }
+
+    /**
+     * @param string          $url
+     * @param Payload         $payload
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
+    protected function reportDry($url, Payload $payload, OutputInterface $output)
+    {
+        $output->writeln("<comment>Would've sent the following payload:</comment>");
+        $output->writeln(sprintf("URL: <comment>%s</comment>", $url));
+        foreach ($payload->toArray() as $key => $value) {
+            $output->writeln("\t" . $key . ": " . $value);
+        }
+
+        return 0;
     }
 
     /**
@@ -116,12 +128,6 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
      */
     protected function report($response, OutputInterface $output)
     {
-        if (null === $response) {
-            $output->writeln("No response was returned");
-
-            return 1;
-        }
-
         $statusCode = $response->getStatusCode();
         switch ($statusCode) {
             case 200:
@@ -130,6 +136,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
                 return 0;
             default:
                 $output->writeln(sprintf("Slack returned an unexpected status-code (%d)", $statusCode));
+                $output->writeln(sprintf("The response body was:\n %s", $response->getBody(true)));
 
                 return 1;
         }
