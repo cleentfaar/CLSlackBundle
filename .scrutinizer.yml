@@ -1,9 +1,13 @@
 inherit: true
 
 filter:
-  excluded_paths: [vendor/*]
+  excluded_paths:
+    - 'vendor/*'
+    - 'Resources/*'
+    - 'Tests/*'
 
 before_commands:
+  - 'composer self-update'
   - 'composer install --no-interaction --no-scripts'
 
 tools:
