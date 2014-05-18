@@ -26,45 +26,6 @@ class TransportTest extends TestCase
         $this->assertEquals($url, $transportMock->getUrl(), 'Expected url does not match actual url');
     }
 
-    public function testCreateRequest()
-    {
-        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');
-        $transportMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
-            null,
-            ['createRequest', 'sendRequest']
-        );
-        $requestMock = $this->getCustomMock('\Guzzle\Http\Message\Request');
-
-        $transportMock->expects($this->once())->method('createRequest')->with($payloadMock)->will(
-            $this->returnValue($requestMock)
-        );
-
-        $transportMock->send($payloadMock);
-    }
-
-    public function testSendRequest()
-    {
-        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');
-        $transportMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
-            null,
-            ['createRequest', 'sendRequest']
-        );
-        $requestMock = $this->getCustomMock('\Guzzle\Http\Message\Request');
-        $responseMock = $this->getCustomMock('\Guzzle\Http\Message\Response');
-
-        $transportMock->expects($this->once())->method('createRequest')->with($payloadMock)->will(
-            $this->returnValue($requestMock)
-        );
-
-        $transportMock->expects($this->once())->method('sendRequest')->with($requestMock)->will(
-            $this->returnValue($responseMock)
-        );
-
-        $transportMock->send($payloadMock);
-    }
-
     public function testSend()
     {
         $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');

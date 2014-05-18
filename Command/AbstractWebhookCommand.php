@@ -30,11 +30,6 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     /**
      * @var string|null
      */
-    protected $defaultChannel;
-
-    /**
-     * @var string|null
-     */
     protected $defaultIcon;
 
     /**
