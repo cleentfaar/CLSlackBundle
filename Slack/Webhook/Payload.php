@@ -16,12 +16,12 @@ class Payload
     /**
      * @var string
      */
-    protected $text;
+    protected $channel;
 
     /**
      * @var string
      */
-    protected $channel;
+    protected $text;
 
     /**
      * @var string|null
@@ -36,26 +36,11 @@ class Payload
     /**
      * @param string $channel
      * @param string $text
-     *
-     * @throws \InvalidArgumentException
      */
     public function __construct($channel, $text)
     {
-        if (!is_string($channel) || empty($channel) || '#' !== substr($channel, 0, 1)) {
-            throw new \InvalidArgumentException(sprintf(
-                "A channel must be a non-empty string, and start with a hash (#), got: %s",
-                var_export($channel, true)
-            ));
-        }
-        $this->channel = $channel;
-
-        if (!is_string($text) || empty($text)) {
-            throw new \InvalidArgumentException(sprintf(
-                "The text to send must be a non-empty string, got: %s",
-                var_export($text, true)
-            ));
-        }
-        $this->text = $text;
+        $this->setChannel($channel);
+        $this->setText($text);
     }
 
     /**
@@ -124,5 +109,37 @@ class Payload
         }
 
         return $payload;
+    }
+
+    /**
+     * @param string $channel
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function setChannel($channel)
+    {
+        if (!is_string($channel) || empty($channel) || '#' !== substr($channel, 0, 1)) {
+            throw new \InvalidArgumentException(sprintf(
+                "A channel must be a non-empty string, and start with a hash (#), got: %s",
+                var_export($channel, true)
+            ));
+        }
+        $this->channel = $channel;
+    }
+
+    /**
+     * @param string $text
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function setText($text)
+    {
+        if (!is_string($text) || empty($text)) {
+            throw new \InvalidArgumentException(sprintf(
+                "The text to send must be a non-empty string, got: %s",
+                var_export($text, true)
+            ));
+        }
+        $this->text = $text;
     }
 }
