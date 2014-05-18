@@ -75,7 +75,7 @@ abstract class AbstractWebhookCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var Transport $transport */
-        $transport = $this->getContainer()->get('cl_slack.payload.transport');
+        $transport = $this->getContainer()->get('cl_slack.webhook.transport');
 
         $channel  = '#' . $input->getArgument('channel');
         $message  = $this->createMessage($input);

@@ -12,16 +12,12 @@
 namespace CL\Bundle\SlackBundle\Tests\Slack\Webhook;
 
 use CL\Bundle\SlackBundle\Tests\TestCase;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
 
 class TransportTest extends TestCase
 {
-    /**
-     * @dataProvider getUrls
-     */
-    public function testGetUrl($url)
+    public function testGetUrl()
     {
+        $url = 'http://my-testing-url.com';
         $transportMock = $this->getCustomMock(
             '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
             [$url],
@@ -30,38 +26,20 @@ class TransportTest extends TestCase
         $this->assertEquals($url, $transportMock->getUrl(), 'Expected url does not match actual url');
     }
 
-    /**
-     * @dataProvider getUrls
-     */
-    public function testSend($url)
+    public function testSend()
     {
-        $payloadMock   = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');
+        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');
         $transportMock = $this->getCustomMock(
             '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
             null,
-            [
-                'createRequest',
-                'sendRequest'
-            ]
+            ['send']
         );
-        $request       = new Request('GET', $url);
-        $response      = new Response(200);
+        $responseMock = $this->getCustomMock('\Guzzle\Http\Message\Response');
 
-        $transportMock->expects($this->once())->method('createRequest')->will($this->returnValue($request));
-        $transportMock->expects($this->once())->method('sendRequest')->with($request)->will(
-            $this->returnValue($response)
+        $transportMock->expects($this->once())->method('send')->with($payloadMock)->will(
+            $this->returnValue($responseMock)
         );
 
         $transportMock->send($payloadMock);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getUrls()
-    {
-        return [
-            ['http://my-testing-url.com'],
-        ];
     }
 }
