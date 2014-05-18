@@ -22,8 +22,7 @@ class PayloadTest extends TestCase
         $text          = 'My test message';
         $transportMock = $this->getCustomMock(
             '\CL\Bundle\SlackBundle\Slack\Webhook\Payload',
-            [$channel, $text],
-            ['setChannel', 'setText']
+            [$channel, $text]
         );
         $this->assertEquals($channel, $transportMock->getChannel(), "The channel given as constructor does not match the value returned by getChannel");
         $this->assertEquals($text, $transportMock->getText(), "The text given as constructor does not match the value returned by getText");

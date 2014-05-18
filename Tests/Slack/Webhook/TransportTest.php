@@ -13,6 +13,7 @@ namespace CL\Bundle\SlackBundle\Tests\Slack\Webhook;
 
 use CL\Bundle\SlackBundle\Tests\TestCase;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class TransportTest extends TestCase
 {
@@ -44,9 +45,12 @@ class TransportTest extends TestCase
             ]
         );
         $request       = new Request('GET', $url);
+        $response      = new Response(200);
 
         $transportMock->expects($this->once())->method('createRequest')->will($this->returnValue($request));
-        $transportMock->expects($this->once())->method('sendRequest')->with($request);
+        $transportMock->expects($this->once())->method('sendRequest')->with($request)->will(
+            $this->returnValue($response)
+        );
 
         $transportMock->send($payloadMock);
     }
