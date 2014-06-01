@@ -14,6 +14,9 @@ namespace CL\Bundle\SlackBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -26,12 +29,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('username')
-                    ->isRequired()
-                ->end()
-                ->scalarNode('token')
-                    ->isRequired()
-                ->end()
+                ->scalarNode('team')->end()
+                ->scalarNode('api_token')->end()
+                ->scalarNode('incoming_webhook_token')->end()
             ->end()
         ;
 

@@ -9,14 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Webhook;
+namespace CL\Bundle\SlackBundle\Slack\Transport;
 
+use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class Transport
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
+abstract class AbstractTransport implements TransportInterface
 {
     /**
      * @var \Guzzle\Http\Client
@@ -29,7 +33,7 @@ class Transport
     protected $url;
 
     /**
-     * @param string $url
+     * {@inheritdoc}
      */
     public function __construct($url)
     {
@@ -38,7 +42,7 @@ class Transport
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getUrl()
     {
@@ -46,11 +50,9 @@ class Transport
     }
 
     /**
-     * @param Payload $payload
-     *
-     * @return \Guzzle\Http\Message\Response
+     * {@inheritdoc}
      */
-    public function send(Payload $payload)
+    protected function sendPayload(PayloadInterface $payload)
     {
         $request = $this->createRequest($payload);
         $response = $this->sendRequest($request);
@@ -59,18 +61,26 @@ class Transport
     }
 
     /**
-     * @param Payload $payload
+     * @param string $url
+     */
+    protected function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @param PayloadInterface $payload
      *
      * @return Request
      */
-    protected function createRequest(Payload $payload)
+    protected function createRequest(PayloadInterface $payload)
     {
         $request = $this->httpClient->post(
             $this->getUrl(),
             [
                 'content-type' => 'application/json',
             ],
-            json_encode($payload->toArray())
+            json_encode($payload->getOptions())
         );
 
         return $request;

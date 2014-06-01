@@ -11,8 +11,14 @@
 
 namespace CL\Bundle\SlackBundle;
 
+use CL\Bundle\SlackBundle\DependencyInjection\Compiler\RegisterPayloadTypesPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class CLSlackBundle extends Bundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new RegisterPayloadTypesPass());
+    }
 }

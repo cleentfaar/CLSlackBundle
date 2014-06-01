@@ -9,19 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Tests\Slack\Webhook;
+namespace CL\Bundle\SlackBundle\Tests\Slack\Payload\Type;
 
-use CL\Bundle\SlackBundle\Slack\Webhook\Payload;
+use CL\Bundle\SlackBundle\Slack\Payload\Payload;
+use CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType;
 use CL\Bundle\SlackBundle\Tests\TestCase;
 
-class PayloadTest extends TestCase
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
+class IncomingWebhookTypeTest extends TestCase
 {
     public function testConstruct()
     {
         $channel       = '#foobar';
         $text          = 'My test message';
         $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Payload',
+            '\CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType',
             [$channel, $text]
         );
         $this->assertEquals(
@@ -41,7 +45,7 @@ class PayloadTest extends TestCase
      */
     public function testValidChannel($channel)
     {
-        new Payload($channel, 'My test message');
+        new IncomingWebhookType($channel, 'My test message');
 
         $this->assertTrue(true, "No exception should be thrown with a valid channel");
     }
@@ -52,7 +56,7 @@ class PayloadTest extends TestCase
      */
     public function testInvalidChannel($channel)
     {
-        new Payload($channel, 'My test message');
+        new IncomingWebhookType($channel, 'My test message');
     }
 
     /**
@@ -60,7 +64,7 @@ class PayloadTest extends TestCase
      */
     public function testValidText($text)
     {
-        new Payload('#foobar', $text);
+        new IncomingWebhookType('#foobar', $text);
 
         $this->assertTrue(true, "No exception should be thrown with a valid text");
     }
@@ -71,14 +75,16 @@ class PayloadTest extends TestCase
      */
     public function testInvalidText($text)
     {
-        new Payload('#foobar', $text);
+        new IncomingWebhookType('#foobar', $text);
     }
 
     public function testGetUsername()
     {
         $username = 'testbot';
+
+        /** @var Payload|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
         $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Payload',
+            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
             ['#foobar', 'My testing message']
         );
         $payloadMock->setUsername($username);
@@ -90,7 +96,7 @@ class PayloadTest extends TestCase
     {
         $icon = ':test:';
         $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Payload',
+            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
             ['#foobar', 'My testing message']
         );
         $payloadMock->setIcon($icon);
@@ -103,8 +109,9 @@ class PayloadTest extends TestCase
      */
     public function testToArray(array $payloadArrayBefore, array $payloadArrayAfter)
     {
+        /** @var Payload|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
         $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Payload',
+            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
             [$payloadArrayBefore['channel'], $payloadArrayBefore['text']]
         );
         foreach (['username', 'icon'] as $optionalSetter) {
@@ -112,7 +119,7 @@ class PayloadTest extends TestCase
                 $payloadMock->{'set' . ucfirst($optionalSetter)}($payloadArrayBefore[$optionalSetter]);
             }
         }
-        $payloadArrayActual = $payloadMock->toArray();
+        $payloadArrayActual = $payloadMock->getOptions();
         foreach (['channel', 'text'] as $requiredKey) {
             $this->assertArrayHasKey(
                 $requiredKey,

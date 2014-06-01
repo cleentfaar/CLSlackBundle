@@ -11,15 +11,22 @@
 
 namespace CL\Bundle\SlackBundle\Tests\Slack\Webhook;
 
+use CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType;
+use CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport;
 use CL\Bundle\SlackBundle\Tests\TestCase;
 
-class TransportTest extends TestCase
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
+class IncomingWebhookTransportTest extends TestCase
 {
     public function testGetUrl()
     {
         $url = 'http://my-testing-url.com';
+
+        /** @var IncomingWebhookTransport|\PHPUnit_Framework_MockObject_MockObject $transportMock */
         $transportMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
+            '\CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport',
             [$url],
             ['setUrl']
         );
@@ -28,9 +35,12 @@ class TransportTest extends TestCase
 
     public function testSend()
     {
-        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Webhook\Payload');
+        /** @var IncomingWebhookType|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
+        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType');
+
+        /** @var IncomingWebhookTransport|\PHPUnit_Framework_MockObject_MockObject $transportMock */
         $transportMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Webhook\Transport',
+            '\CL\Bundle\SlackBundle\Slack\Transport\WebhookTransport',
             null,
             ['send']
         );

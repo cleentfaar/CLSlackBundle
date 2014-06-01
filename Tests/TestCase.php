@@ -11,6 +11,9 @@
 
 namespace CL\Bundle\SlackBundle\Tests;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**

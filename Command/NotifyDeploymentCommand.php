@@ -15,12 +15,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
-class NotifyDeploymentCommand extends AbstractWebhookCommand
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
+class NotifyDeploymentCommand extends AbstractIncomingWebhookCommand
 {
     /**
      * {@inheritdoc}
      */
-    protected $defaultUsername = 'deploybot';
+    protected $defaultUsername;
 
     /**
      * {@inheritdoc}
@@ -62,6 +65,25 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function createMessage(InputInterface $input)
+    {
+        $message   = implode(" ", $this->gatherSentences($input));
+        $variables = [
+            'channel'     => $input->getArgument('channel'),
+            'project'     => $input->getArgument('project'),
+            'target'      => $input->getArgument('target'),
+            'project-url' => $input->getOption('project-url'),
+            'diff-url'    => $input->getOption('diff-url'),
+            'username'    => $input->getOption('username'),
+            'changelog'   => $input->getOption('changelog'),
+        ];
+
+        return parent::parseMessage($message, $variables);
+    }
+
+    /**
      * @param InputInterface $input
      *
      * @return string[]
@@ -84,24 +106,5 @@ class NotifyDeploymentCommand extends AbstractWebhookCommand
         }
 
         return $sentences;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function createMessage(InputInterface $input)
-    {
-        $message   = implode(" ", $this->gatherSentences($input));
-        $variables = [
-            'channel'     => $input->getArgument('channel'),
-            'project'     => $input->getArgument('project'),
-            'target'      => $input->getArgument('target'),
-            'project-url' => $input->getOption('project-url'),
-            'diff-url'    => $input->getOption('diff-url'),
-            'username'    => $input->getOption('username'),
-            'changelog'   => $input->getOption('changelog'),
-        ];
-
-        return parent::parseMessage($message, $variables);
     }
 }
