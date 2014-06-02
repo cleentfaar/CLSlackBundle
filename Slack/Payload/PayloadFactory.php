@@ -1,9 +1,21 @@
 <?php
 
+/*
+ * This file is part of CLSlackBundle.
+ *
+ * (c) Cas Leentfaar <info@casleentfaar.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace CL\Bundle\SlackBundle\Slack\Payload;
 
 use CL\Bundle\SlackBundle\Slack\Payload\Type\TypeInterface;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class PayloadFactory
 {
     /**
@@ -53,14 +65,11 @@ class PayloadFactory
      */
     public function getType($alias)
     {
-        if (true === $this->hasType($alias)) {
-            $type = $this->types[$alias];
-        } else {
-            var_dump($this->types);
+        if ($this->hasType($alias) !== true) {
             throw new \InvalidArgumentException(sprintf('Type with alias "%s" could not be found', $alias));
         }
 
-        return $type;
+        return $this->types[$alias];
     }
 
     /**

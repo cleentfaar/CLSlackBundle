@@ -15,6 +15,9 @@ use CL\Bundle\SlackBundle\DependencyInjection\Compiler\RegisterPayloadTypesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class CLSlackBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
