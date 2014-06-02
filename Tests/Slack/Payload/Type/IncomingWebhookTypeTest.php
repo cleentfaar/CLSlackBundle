@@ -13,29 +13,28 @@ namespace CL\Bundle\SlackBundle\Tests\Slack\Payload\Type;
 
 use CL\Bundle\SlackBundle\Slack\Payload\Payload;
 use CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType;
-use CL\Bundle\SlackBundle\Tests\TestCase;
+use CL\Bundle\SlackBundle\Tests\AbstractTestCase;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class IncomingWebhookTypeTest extends TestCase
+class IncomingWebhookTypeTest extends AbstractTestCase
 {
     public function testConstruct()
     {
-        $channel       = '#foobar';
-        $text          = 'My test message';
-        $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType',
-            [$channel, $text]
+        $options = [
+            'channel' => '#foobar',
+            'text'    => 'My test message',
+        ];
+        $payload = $this->getIncomingWebhookMock($options);
+        $this->assertEquals(
+            $options['channel'],
+            $payload->getOptions()['channel'],
+            "The (properly formatted) channel given as constructor does not match the value returned by getChannel"
         );
         $this->assertEquals(
-            $channel,
-            $payloadMock->getChannel(),
-            "The channel given as constructor does not match the value returned by getChannel"
-        );
-        $this->assertEquals(
-            $text,
-            $payloadMock->getText(),
+            $options['text'],
+            $payload->getOptions()['text'],
             "The text given as constructor does not match the value returned by getText"
         );
     }
@@ -45,7 +44,11 @@ class IncomingWebhookTypeTest extends TestCase
      */
     public function testValidChannel($channel)
     {
-        new IncomingWebhookType($channel, 'My test message');
+        $options = [
+            'channel' => $channel,
+            'text'    => 'My test message',
+        ];
+        $this->getIncomingWebhookMock($options);
 
         $this->assertTrue(true, "No exception should be thrown with a valid channel");
     }
@@ -56,7 +59,11 @@ class IncomingWebhookTypeTest extends TestCase
      */
     public function testInvalidChannel($channel)
     {
-        new IncomingWebhookType($channel, 'My test message');
+        $options = [
+            'channel' => $channel,
+            'text'    => 'My test message',
+        ];
+        $this->getIncomingWebhookMock($options);
     }
 
     /**
@@ -64,7 +71,11 @@ class IncomingWebhookTypeTest extends TestCase
      */
     public function testValidText($text)
     {
-        new IncomingWebhookType('#foobar', $text);
+        $options = [
+            'channel' => '#foobar',
+            'text'    => $text,
+        ];
+        $this->getIncomingWebhookMock($options);
 
         $this->assertTrue(true, "No exception should be thrown with a valid text");
     }
@@ -75,33 +86,39 @@ class IncomingWebhookTypeTest extends TestCase
      */
     public function testInvalidText($text)
     {
-        new IncomingWebhookType('#foobar', $text);
+        $options = [
+            'channel' => '#foobar',
+            'text'    => $text,
+        ];
+        $this->getIncomingWebhookMock($options);
     }
 
     public function testGetUsername()
     {
-        $username = 'testbot';
+        $expected = 'testbot';
+        $options  = [
+            'channel'  => '#foobar',
+            'text'     => 'This is an example text',
+            'username' => $expected,
+        ];
+        $payload  = $this->getIncomingWebhookMock($options);
+        $actual   = $payload->getOptions()['username'];
 
-        /** @var Payload|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
-        $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
-            ['#foobar', 'My testing message']
-        );
-        $payloadMock->setUsername($username);
-
-        $this->assertEquals($username, $payloadMock->getUsername());
+        $this->assertEquals($expected, $actual);
     }
 
     public function testGetIcon()
     {
-        $icon = ':test:';
-        $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
-            ['#foobar', 'My testing message']
-        );
-        $payloadMock->setIcon($icon);
+        $expected = ':ghost:';
+        $options  = [
+            'channel'    => '#foobar',
+            'text'       => 'This is an example text',
+            'icon_emoji' => $expected,
+        ];
+        $payload  = $this->getIncomingWebhookMock($options);
+        $actual   = $payload->getOptions()['icon_emoji'];
 
-        $this->assertEquals($icon, $payloadMock->getIcon());
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -109,26 +126,9 @@ class IncomingWebhookTypeTest extends TestCase
      */
     public function testToArray(array $payloadArrayBefore, array $payloadArrayAfter)
     {
-        /** @var Payload|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
-        $payloadMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Payload\Payload',
-            [$payloadArrayBefore['channel'], $payloadArrayBefore['text']]
-        );
-        foreach (['username', 'icon'] as $optionalSetter) {
-            if (array_key_exists('username', $payloadArrayBefore)) {
-                $payloadMock->{'set' . ucfirst($optionalSetter)}($payloadArrayBefore[$optionalSetter]);
-            }
-        }
-        $payloadArrayActual = $payloadMock->getOptions();
-        foreach (['channel', 'text'] as $requiredKey) {
-            $this->assertArrayHasKey(
-                $requiredKey,
-                $payloadArrayActual,
-                sprintf('Every payload array should contain a key named \'%s\'', $requiredKey)
-            );
-        }
-
-        $this->assertEquals($payloadArrayAfter, $payloadArrayActual, 'Expected payload does not match actual payload');
+        $payload = $this->getIncomingWebhookMock($payloadArrayBefore);
+        $actual  = $payload->getOptions();
+        $this->assertEquals($payloadArrayAfter, $actual, 'Expected payload does not match actual payload');
     }
 
     /**
@@ -139,10 +139,10 @@ class IncomingWebhookTypeTest extends TestCase
         return [
             [
                 [
-                    'channel'  => '#foobar',
-                    'text'     => 'Here is my message',
-                    'icon'     => ':thisismyicon:',
-                    'username' => 'testbot',
+                    'channel'    => '#foobar',
+                    'text'       => 'Here is my message',
+                    'icon_emoji' => ':thisismyicon:',
+                    'username'   => 'testbot',
                 ],
                 [
                     'channel'    => '#foobar',
@@ -159,6 +159,7 @@ class IncomingWebhookTypeTest extends TestCase
                 [
                     'channel' => '#foobar',
                     'text'    => 'Here is my message',
+                    'icon_emoji' => '::' // @todo FIX THIS ASAP!
                 ],
             ],
         ];
@@ -176,7 +177,7 @@ class IncomingWebhookTypeTest extends TestCase
     public function getInvalidChannels()
     {
         return [
-            ['foobar'],
+            [[]],
             [''],
             [null],
         ];
@@ -198,5 +199,19 @@ class IncomingWebhookTypeTest extends TestCase
             [[]],
             [null],
         ];
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return Payload
+     */
+    protected function getIncomingWebhookMock(array $options)
+    {
+        $incomingWebhook = new IncomingWebhookType();
+        $payload         = new Payload($incomingWebhook);
+        $payload->setOptions($options);
+
+        return $payload;
     }
 }

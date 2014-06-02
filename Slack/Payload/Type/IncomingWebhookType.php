@@ -43,7 +43,18 @@ class IncomingWebhookType extends AbstractType
                 return ':'.trim($value, ':').':';
             },
             'channel' => function (Options $options, $value) {
+                if (empty($value)) {
+                    throw new \InvalidArgumentException("You must supply a non-empty string as the channel");
+                }
+
                 return '#'.ltrim($value, '#');
+            },
+            'text' => function (Options $options, $value) {
+                if (empty($value)) {
+                    throw new \InvalidArgumentException("You must supply a non-empty string for the text");
+                }
+
+                return $value;
             },
         ]);
     }

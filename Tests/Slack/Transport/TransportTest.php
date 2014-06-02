@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Tests\Slack\Webhook;
+namespace CL\Bundle\SlackBundle\Tests\Slack\Transport;
 
 use CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType;
 use CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport;
-use CL\Bundle\SlackBundle\Tests\TestCase;
+use CL\Bundle\SlackBundle\Tests\AbstractTestCase;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class IncomingWebhookTransportTest extends TestCase
+class TransportTest extends AbstractTestCase
 {
     public function testGetUrl()
     {
@@ -40,7 +40,7 @@ class IncomingWebhookTransportTest extends TestCase
 
         /** @var IncomingWebhookTransport|\PHPUnit_Framework_MockObject_MockObject $transportMock */
         $transportMock = $this->getCustomMock(
-            '\CL\Bundle\SlackBundle\Slack\Transport\WebhookTransport',
+            '\CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport',
             null,
             ['send']
         );

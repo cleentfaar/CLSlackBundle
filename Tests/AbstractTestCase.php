@@ -11,10 +11,12 @@
 
 namespace CL\Bundle\SlackBundle\Tests;
 
+use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
+
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends WebTestCase
 {
     /**
      * @param string $class
