@@ -20,6 +20,8 @@ use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractApiType;
  */
 class ApiTransport extends AbstractTransport
 {
+    const BASE_URL = '';
+
     /**
      * @param PayloadInterface $payload
      *

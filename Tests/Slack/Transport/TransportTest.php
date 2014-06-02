@@ -36,7 +36,7 @@ class TransportTest extends AbstractTestCase
     public function testSend()
     {
         /** @var IncomingWebhookType|\PHPUnit_Framework_MockObject_MockObject $payloadMock */
-        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType');
+        $payloadMock = $this->getCustomMock('\CL\Bundle\SlackBundle\Slack\Payload\Payload');
 
         /** @var IncomingWebhookTransport|\PHPUnit_Framework_MockObject_MockObject $transportMock */
         $transportMock = $this->getCustomMock(
