@@ -10,5 +10,7 @@ tools:
   php_loc: true
   php_mess_detector: true
   php_pdepend: true
-  php_analyzer: true
+  php_analyzer:
+    excluded_paths:
+      - 'Tests/*'
   sensiolabs_security_checker: true
