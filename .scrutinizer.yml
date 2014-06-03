@@ -1,3 +1,9 @@
+inherit: true
+
+before_commands:
+  - 'sudo composer self-update'
+  - 'composer install --no-interaction --no-scripts'
+
 tools:
   php_code_sniffer:
     config:
@@ -14,3 +20,5 @@ tools:
     excluded_paths:
       - 'Tests/*'
   sensiolabs_security_checker: true
+  external_code_coverage:
+    timeout: 300
