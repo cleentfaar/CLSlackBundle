@@ -20,5 +20,4 @@ tools:
     excluded_paths:
       - 'Tests/*'
   sensiolabs_security_checker: true
-  external_code_coverage:
-    timeout: 300
+  external_code_coverage: true
