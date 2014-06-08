@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport;
+use CL\Bundle\SlackBundle\Slack\Transport\TransportInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -89,14 +89,14 @@ abstract class AbstractIncomingWebhookCommand extends AbstractCommand
         if (false === $input->getOption('dry-run')) {
             $response = $transport->send($payload);
 
-            return $this->report($transport->getUrl(), $payload, $response, $output);
+            return $this->report($transport->getRequest()->getUrl(), $payload, $response, $output);
         }
 
-        return $this->reportDry($transport->getUrl(), $payload, $output);
+        return $this->reportDry($transport->getRequest()->getUrl(), $payload, $output);
     }
 
     /**
-     * @return IncomingWebhookTransport
+     * @return TransportInterface
      */
     protected function getTransport()
     {

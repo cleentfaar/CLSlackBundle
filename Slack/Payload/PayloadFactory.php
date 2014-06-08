@@ -66,7 +66,7 @@ class PayloadFactory
     public function getType($alias)
     {
         if ($this->hasType($alias) !== true) {
-            throw new \InvalidArgumentException(sprintf('Type with alias "%s" could not be found', $alias));
+            throw new \InvalidArgumentException(sprintf('Payload type with alias "%s" could not be found', $alias));
         }
 
         return $this->types[$alias];
@@ -81,14 +81,12 @@ class PayloadFactory
     }
 
     /**
-     * Creates a payload with a specific type
+     * Creates a payload from the given type and options
      *
      * @param string|TypeInterface $type
      * @param array                $options
      *
      * @return Payload
-     *
-     * @throws \InvalidArgumentException
      */
     public function create($type, array $options = array())
     {

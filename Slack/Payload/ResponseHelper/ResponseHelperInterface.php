@@ -9,17 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
+namespace CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper;
+
+use Guzzle\Http\Message\Response;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-abstract class AbstractApiType extends AbstractType
+interface ResponseHelperInterface
 {
     /**
-     * Returns the API method slug for this type.
-     *
-     * @return string The method slug for this type
-    */
-    abstract public function getMethodSlug();
+     * @param Response $response
+     */
+    public function __construct(Response $response);
+
+    /**
+     * @return bool
+     */
+    public function isOk();
 }

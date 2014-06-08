@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Transport;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Transport;
 
 use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
+use CL\Bundle\SlackBundle\Slack\Payload\Response\ResponseHelperInterface;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Request;
@@ -20,7 +21,7 @@ use Guzzle\Http\Message\Response;
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-abstract class AbstractTransport implements TransportInterface
+class Transport implements TransportInterface
 {
     /**
      * @var \Guzzle\Http\Client
@@ -28,62 +29,71 @@ abstract class AbstractTransport implements TransportInterface
     protected $httpClient;
 
     /**
-     * @var string
+     * @var Request
      */
-    protected $url;
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
+     * @var ResponseHelperInterface
+     */
+    protected $responseHelper;
 
     /**
      * {@inheritdoc}
      */
-    public function __construct($url)
+    public function __construct($baseUrl)
     {
-        $this->httpClient = new Client();
-        $this->url        = $url;
+        $this->httpClient = new Client($baseUrl);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getUrl()
+    public function getRequest()
     {
-        return $this->url;
+        return $this->request;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function sendPayload(PayloadInterface $payload)
+    public function getResponse()
     {
-        $request = $this->createRequest($payload);
-        $response = $this->sendRequest($request);
-
-        return $response;
+        return $this->response;
     }
 
     /**
-     * @param string $url
+     * {@inheritdoc}
      */
-    protected function setUrl($url)
+    public function getResponseHelper()
     {
-        $this->url = $url;
+        return $this->responseHelper;
     }
 
     /**
-     * @param PayloadInterface $payload
-     *
-     * @return Request
+     * {@inheritdoc}
      */
-    protected function createRequest(PayloadInterface $payload)
+    public function getHttpClient()
     {
-        $request = $this->httpClient->post(
-            $this->getUrl(),
-            [
-                'content-type' => 'application/json',
-            ],
-            json_encode($payload->getOptions())
-        );
+        return $this->httpClient;
+    }
 
-        return $request;
+    /**
+     * {@inheritdoc}
+     */
+    public function send(PayloadInterface $payload)
+    {
+        $this->response       = null;
+        $this->request        = $payload->getType()->createRequest($payload, $this);
+        $this->response       = $this->sendRequest($this->request);
+        $this->responseHelper = $payload->getType()->createResponseHelper($this->response);
+
+        return $this->response;
     }
 
     /**
@@ -96,12 +106,12 @@ abstract class AbstractTransport implements TransportInterface
     protected function sendRequest(Request $request)
     {
         try {
-            $response = $this->httpClient->send($request);
+            $response = $this->getHttpClient()->send($request);
         } catch (BadResponseException $e) {
             throw new \LogicException(sprintf(
-                "Failed to send request (%d): %s, \nthe response body was: \n%s",
-                $e->getResponse()->getStatusCode(),
+                "Failed to send request: \n%s, \n[body-sent] %s\n[body-returned] %s",
                 $e->getMessage(),
+                implode(",", $request->getParams()->toArray()),
                 $e->getResponse()->getBody(true)
             ));
         }

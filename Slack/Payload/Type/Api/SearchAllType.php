@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
 
+use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchAllResponseHelper;
+use Guzzle\Http\Message\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -56,6 +58,14 @@ class SearchAllType extends AbstractApiType
                 return $value === true ? '1' : '0';
             },
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createResponseHelper(Response $response)
+    {
+        return new SearchAllResponseHelper($response);
     }
 
     /**

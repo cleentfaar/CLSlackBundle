@@ -9,31 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
 
 use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
 use CL\Bundle\SlackBundle\Slack\Payload\Transport\TransportInterface;
-use Guzzle\Http\Message\Request;
+use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractType;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-abstract class AbstractType implements TypeInterface
+abstract class AbstractApiType extends AbstractType
 {
     /**
-     * @param PayloadInterface   $payload
-     * @param TransportInterface $transport
+     * Returns the API method slug for this type.
      *
-     * @return Request
+     * @return string The method slug for this type
+     */
+    abstract public function getMethodSlug();
+
+    /**
+     * {@inheritdoc}
      */
     public function createRequest(PayloadInterface $payload, TransportInterface $transport)
     {
         $client  = $transport->getHttpClient();
-        $body    = json_encode($payload->getOptions());
-        $headers = [
-            'content-type' => 'application/json',
-        ];
-        $request = $client->createRequest('post', $client->getBaseUrl(), $headers, $body);
+        $request = $client->createRequest('get', sprintf($client->getBaseUrl(), $this->getMethodSlug()));
+        $request->getQuery()->merge($payload->getOptions());
 
         return $request;
     }

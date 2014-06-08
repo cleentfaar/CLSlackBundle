@@ -9,8 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhook;
 
+use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\ResponseHelper;
+use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractType;
+use Guzzle\Http\Message\Response;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -57,5 +60,13 @@ class IncomingWebhookType extends AbstractType
                 return $value;
             },
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createResponseHelper(Response $response)
+    {
+        return new ResponseHelper($response);
     }
 }

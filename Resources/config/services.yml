@@ -1,16 +1,15 @@
 parameters:
-  cl_slack.incoming_webhook.transport.class: CL\Bundle\SlackBundle\Slack\Transport\IncomingWebhookTransport
-  cl_slack.api.transport.class: CL\Bundle\SlackBundle\Slack\Transport\ApiTransport
+  cl_slack.transport.class: CL\Bundle\SlackBundle\Slack\Payload\Transport\Transport
   cl_slack.payload_factory.class: CL\Bundle\SlackBundle\Slack\Payload\PayloadFactory
-  cl_slack.payload_type.incoming_webhook.class: CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType
-  cl_slack.payload_type.api.search_all.class: CL\Bundle\SlackBundle\Slack\Payload\Type\SearchAllType
+  cl_slack.payload_type.incoming_webhook.class: CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhook\IncomingWebhookType
+  cl_slack.payload_type.api.search_all.class: CL\Bundle\SlackBundle\Slack\Payload\Type\Api\SearchAllType
 
 services:
   cl_slack.incoming_webhook.transport:
-    class: %cl_slack.incoming_webhook.transport.class%
+    class: %cl_slack.transport.class%
     arguments: [%cl_slack.incoming_webhook_url%]
   cl_slack.api.transport:
-    class: %cl_slack.api.transport.class%
+    class: %cl_slack.transport.class%
     arguments: [%cl_slack.api_base_url%]
   cl_slack.payload_factory:
     class: %cl_slack.payload_factory.class%
