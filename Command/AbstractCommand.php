@@ -14,7 +14,7 @@ namespace CL\Bundle\SlackBundle\Command;
 use CL\Bundle\SlackBundle\Slack\Payload\Payload;
 use CL\Bundle\SlackBundle\Slack\Payload\PayloadFactory;
 use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
-use CL\Bundle\SlackBundle\Slack\Transport\TransportInterface;
+use CL\Bundle\SlackBundle\Slack\Payload\Transport\TransportInterface;
 use Guzzle\Http\Message\Response;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,15 +41,16 @@ abstract class AbstractCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string           $url
+     * @param TransportInterface $transport
      * @param PayloadInterface $payload
      * @param Response         $response
      * @param OutputInterface  $output
      *
      * @return int
      */
-    protected function report($url, $payload, $response, OutputInterface $output)
+    protected function report(TransportInterface $transport, $payload, $response, OutputInterface $output)
     {
+        $url = $transport->getRequest()->getUrl(false);
         $responseBody = $response->getBody(true);
         if ($responseBody === "ok" || $responseBody === "error") {
             $status = $responseBody === "ok" ? true : false;

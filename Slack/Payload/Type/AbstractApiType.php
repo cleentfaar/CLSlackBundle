@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
 
 use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
+use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\ResponseHelper;
 use CL\Bundle\SlackBundle\Slack\Payload\Transport\TransportInterface;
-use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractType;
+use Guzzle\Http\Message\Response;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -37,5 +38,13 @@ abstract class AbstractApiType extends AbstractType
         $request->getQuery()->merge($payload->getOptions());
 
         return $request;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createResponseHelper(Response $response)
+    {
+        return new ResponseHelper($response);
     }
 }

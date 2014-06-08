@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
 
-use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchAllResponseHelper;
+use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchFilesResponseHelper;
 use Guzzle\Http\Message\Response;
 
 /**
@@ -19,14 +19,14 @@ use Guzzle\Http\Message\Response;
  *
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class SearchAllType extends AbstractSearchType
+class SearchFilesType extends AbstractSearchType
 {
     /**
      * {@inheritdoc}
      */
     public function createResponseHelper(Response $response)
     {
-        return new SearchAllResponseHelper($response);
+        return new SearchFilesResponseHelper($response);
     }
 
     /**
@@ -34,6 +34,6 @@ class SearchAllType extends AbstractSearchType
      */
     public function getMethodSlug()
     {
-        return 'search.all';
+        return 'search.files';
     }
 }

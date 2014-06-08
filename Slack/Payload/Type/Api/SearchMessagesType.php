@@ -11,22 +11,22 @@
 
 namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
 
-use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchAllResponseHelper;
+use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchMessagesResponseHelper;
 use Guzzle\Http\Message\Response;
 
 /**
- * This payload allows you to search in Slack's messages and files.
+ * This payload allows you to search in Slack's messages.
  *
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class SearchAllType extends AbstractSearchType
+class SearchMessagesType extends AbstractSearchType
 {
     /**
      * {@inheritdoc}
      */
     public function createResponseHelper(Response $response)
     {
-        return new SearchAllResponseHelper($response);
+        return new SearchMessagesResponseHelper($response);
     }
 
     /**
@@ -34,6 +34,6 @@ class SearchAllType extends AbstractSearchType
      */
     public function getMethodSlug()
     {
-        return 'search.all';
+        return 'search.messages';
     }
 }

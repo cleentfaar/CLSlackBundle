@@ -14,7 +14,7 @@ namespace CL\Bundle\SlackBundle\Command;
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class ApiSearchAllCommand extends AbstractApiSearchCommand
+class ApiSearchFilesCommand extends AbstractApiSearchCommand
 {
     /**
      * {@inheritDoc}
@@ -22,8 +22,8 @@ class ApiSearchAllCommand extends AbstractApiSearchCommand
     protected function configure()
     {
         parent::configure();
-        $this->setName('slack:api:search-all');
-        $this->setDescription('Searches your Slack\'s instance for messages and files matching a given query.');
+        $this->setName('slack:api:search-files');
+        $this->setDescription('Searches your Slack\'s instance for files matching a given query.');
     }
 
     /**
@@ -31,6 +31,6 @@ class ApiSearchAllCommand extends AbstractApiSearchCommand
      */
     protected function getType()
     {
-        return 'search.all';
+        return 'search.files';
     }
 }

@@ -11,10 +11,13 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class ApiSearchAllCommand extends AbstractApiSearchCommand
+abstract class AbstractApiSearchCommand extends AbstractApiCommand
 {
     /**
      * {@inheritDoc}
@@ -22,15 +25,20 @@ class ApiSearchAllCommand extends AbstractApiSearchCommand
     protected function configure()
     {
         parent::configure();
-        $this->setName('slack:api:search-all');
-        $this->setDescription('Searches your Slack\'s instance for messages and files matching a given query.');
+        $this->addArgument(
+            'query',
+            InputArgument::REQUIRED,
+            'The query to search with.'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function getType()
+    protected function buildOptions(array $options, InputInterface $input)
     {
-        return 'search.all';
+        $options['query'] = $input->getArgument('query');
+
+        return $options;
     }
 }

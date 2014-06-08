@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class NotifyDeploymentCommand extends AbstractIncomingWebhookCommand
+class IncomingWebhookNotifyDeploymentCommand extends AbstractIncomingWebhookCommand
 {
     /**
      * {@inheritdoc}
@@ -36,8 +36,8 @@ class NotifyDeploymentCommand extends AbstractIncomingWebhookCommand
     protected function configure()
     {
         parent::configure();
-        $this->setName('slack:notify-deployment');
-        $this->setDescription('Notifies Slack that a new deployment has been made');
+        $this->setName('slack:incoming-webhook:notify-deployment');
+        $this->setDescription('Notifies Slack that your project has been deployed (to be used in deployment hooks)');
         $this->addArgument('project', InputArgument::REQUIRED, 'The name of the project that is being deployed');
         $this->addArgument(
             'target',

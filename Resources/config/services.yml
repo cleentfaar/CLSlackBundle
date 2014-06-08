@@ -1,8 +1,11 @@
 parameters:
   cl_slack.transport.class: CL\Bundle\SlackBundle\Slack\Payload\Transport\Transport
   cl_slack.payload_factory.class: CL\Bundle\SlackBundle\Slack\Payload\PayloadFactory
-  cl_slack.payload_type.incoming_webhook.class: CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhook\IncomingWebhookType
+  cl_slack.payload_type.incoming_webhook.class: CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhookType
   cl_slack.payload_type.api.search_all.class: CL\Bundle\SlackBundle\Slack\Payload\Type\Api\SearchAllType
+  cl_slack.payload_type.api.search_files.class: CL\Bundle\SlackBundle\Slack\Payload\Type\Api\SearchFilesType
+  cl_slack.payload_type.api.search_messages.class: CL\Bundle\SlackBundle\Slack\Payload\Type\Api\SearchMessagesType
+  cl_slack.payload_type.api.auth_test.class: CL\Bundle\SlackBundle\Slack\Payload\Type\Api\AuthTestType
 
 services:
   cl_slack.incoming_webhook.transport:
@@ -21,3 +24,15 @@ services:
     class: %cl_slack.payload_type.api.search_all.class%
     tags:
       - { name: cl_slack.payload_type, alias: search.all }
+  cl_slack.payload_type.api.search_files:
+    class: %cl_slack.payload_type.api.search_files.class%
+    tags:
+      - { name: cl_slack.payload_type, alias: search.files }
+  cl_slack.payload_type.api.search_messages:
+    class: %cl_slack.payload_type.api.search_messages.class%
+    tags:
+      - { name: cl_slack.payload_type, alias: search.messages }
+  cl_slack.payload_type.api.auth_test:
+    class: %cl_slack.payload_type.api.auth_test.class%
+    tags:
+      - { name: cl_slack.payload_type, alias: auth.test }

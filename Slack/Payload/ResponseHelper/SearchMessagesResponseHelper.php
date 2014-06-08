@@ -14,7 +14,7 @@ namespace CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper;
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class SearchAllResponseHelper extends AbstractSearchResponseHelper
+class SearchMessagesResponseHelper extends AbstractSearchResponseHelper
 {
     /**
      * @return array
@@ -22,13 +22,5 @@ class SearchAllResponseHelper extends AbstractSearchResponseHelper
     public function getMessages()
     {
         return (array) $this->responseBody->getCustomData('messages');
-    }
-
-    /**
-     * @return array
-     */
-    public function getFiles()
-    {
-        return (array) $this->responseBody->getCustomData('files');
     }
 }

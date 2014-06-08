@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type\IncomingWebhook;
+namespace CL\Bundle\SlackBundle\Slack\Payload\Type;
 
 use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\ResponseHelper;
-use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractType;
 use Guzzle\Http\Message\Response;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

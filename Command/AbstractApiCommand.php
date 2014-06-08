@@ -11,9 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -21,6 +19,18 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class AbstractApiCommand extends AbstractCommand
 {
+    protected function configure()
+    {
+        $this->setHelp(sprintf(<<<EOF
+These API commands all follow Slack's API documentation as closely as possible.
+You can get detailed usage information about the current command with the URL below:
+
+<info>https://api.slack.com/methods/%s</info>
+
+EOF
+        , $this->getType()));
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -31,7 +41,7 @@ abstract class AbstractApiCommand extends AbstractCommand
         $payload   = $this->createPayload($typeAlias, $options);
         $response  = $this->getTransport()->send($payload);
 
-        return $this->report($this->getTransport()->getRequest()->getUrl(), $payload, $response, $output);
+        return $this->report($this->getTransport(), $payload, $response, $output);
     }
 
     /**
@@ -51,6 +61,10 @@ abstract class AbstractApiCommand extends AbstractCommand
     abstract protected function buildOptions(array $options, InputInterface $input);
 
     /**
+     * @todo Find a way so we only have to define the alias in the service definition itself.
+     *       This is currently impossible because we need it's value during configure();
+     *       where the container is not yet available
+     *
      * @return string
      */
     abstract protected function getType();
