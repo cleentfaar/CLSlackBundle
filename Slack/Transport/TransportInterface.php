@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of CLSlackBundle.
+ * This file is part of the CLSlackBundle.
  *
  * (c) Cas Leentfaar <info@casleentfaar.com>
  *
