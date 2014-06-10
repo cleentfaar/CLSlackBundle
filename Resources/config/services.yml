@@ -31,4 +31,4 @@ services:
       - { name: cl_slack.api_method, alias: auth.test }
   cl_slack.outgoing_webhook.request_factory:
     class: %cl_slack.outgoing_webhook.request_factory.class%
-    arguments: [%cl_slack.outgoing_webhook_tokens%]
+    arguments: [%cl_slack.outgoing_webhooks%]
