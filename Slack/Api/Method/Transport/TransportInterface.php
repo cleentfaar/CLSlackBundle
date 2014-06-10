@@ -9,11 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Transport;
+namespace CL\Bundle\SlackBundle\Slack\Api\Method\Transport;
 
-use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\Response\ApiMethodResponseInterface;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 
 /**
@@ -32,9 +34,14 @@ interface TransportInterface
     public function getRequest();
 
     /**
-     * @return Response
+     * @return ApiMethodResponseInterface
      */
     public function getResponse();
+
+    /**
+     * @return Response
+     */
+    public function getHttpResponse();
 
     /**
      * @return ClientInterface
@@ -42,9 +49,10 @@ interface TransportInterface
     public function getHttpClient();
 
     /**
-     * @param PayloadInterface $payload
+     * @param ApiMethodInterface $method
+     * @param RequestInterface   $request
      *
-     * @return mixed
+     * @return ApiMethodResponseInterface
      */
-    public function send(PayloadInterface $payload);
+    public function send(ApiMethodInterface $method, RequestInterface $request);
 }

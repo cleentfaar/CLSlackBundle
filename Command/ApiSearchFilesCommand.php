@@ -11,6 +11,8 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Bundle\SlackBundle\Slack\Api\Method\SearchFilesApiMethod;
+
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
@@ -29,8 +31,8 @@ class ApiSearchFilesCommand extends AbstractApiSearchCommand
     /**
      * {@inheritdoc}
      */
-    protected function getType()
+    protected function getMethodSlug()
     {
-        return 'search.files';
+        return SearchFilesApiMethod::getSlug();
     }
 }

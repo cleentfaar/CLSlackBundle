@@ -9,30 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
+namespace CL\Bundle\SlackBundle\Slack\Api\Method;
 
-use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchAllResponseHelper;
+use CL\Bundle\SlackBundle\Slack\Api\Method\Response\SearchAllApiMethodResponse;
 use Guzzle\Http\Message\Response;
 
 /**
- * This payload allows you to search in Slack's messages and files.
- *
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class SearchAllType extends AbstractSearchType
+class SearchAllApiMethod extends AbstractSearchApiMethod
 {
     /**
      * {@inheritdoc}
      */
-    public function createResponseHelper(Response $response)
+    public function createResponse(Response $response)
     {
-        return new SearchAllResponseHelper($response);
+        return new SearchAllApiMethodResponse($response);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getMethodSlug()
+    public static function getSlug()
     {
         return 'search.all';
     }

@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper;
+namespace CL\Bundle\SlackBundle\Slack\Api\Method\Response;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class SearchFilesResponseHelper extends AbstractSearchResponseHelper
+abstract class AbstractSearchApiMethodResponse extends ApiMethodResponse
 {
     /**
-     * @return array
+     * @return string|null
      */
-    public function getFiles()
+    public function getQuery()
     {
-        return (array) $this->responseBody->getCustomData('files');
+        return $this->responseBody->getCustomData('query');
     }
 }

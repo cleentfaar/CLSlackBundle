@@ -9,13 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Transport;
+namespace CL\Bundle\SlackBundle\Slack\Api\Method\Transport;
 
-use CL\Bundle\SlackBundle\Slack\Payload\PayloadInterface;
-use CL\Bundle\SlackBundle\Slack\Payload\Response\ResponseHelperInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\Request\ApiMethodRequestInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\Response\ApiMethodResponseInterface;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 
 /**
@@ -29,19 +31,19 @@ class Transport implements TransportInterface
     protected $httpClient;
 
     /**
-     * @var Request
+     * @var ApiMethodRequestInterface
      */
     protected $request;
 
     /**
-     * @var Response
+     * @var ApiMethodResponseInterface
      */
     protected $response;
 
     /**
-     * @var ResponseHelperInterface
+     * @var Response
      */
-    protected $responseHelper;
+    protected $httpResponse;
 
     /**
      * {@inheritdoc}
@@ -70,9 +72,9 @@ class Transport implements TransportInterface
     /**
      * {@inheritdoc}
      */
-    public function getResponseHelper()
+    public function getHttpResponse()
     {
-        return $this->responseHelper;
+        return $this->httpResponse;
     }
 
     /**
@@ -86,24 +88,24 @@ class Transport implements TransportInterface
     /**
      * {@inheritdoc}
      */
-    public function send(PayloadInterface $payload)
+    public function send(ApiMethodInterface $method, RequestInterface $request)
     {
-        $this->response       = null;
-        $this->request        = $payload->getType()->createRequest($payload, $this);
-        $this->response       = $this->sendRequest($this->request);
-        $this->responseHelper = $payload->getType()->createResponseHelper($this->response);
+        $this->response     = null;
+        $this->request      = $method->createRequest($request);
+        $this->httpResponse = $this->sendRequest($this->request);
+        $this->response     = $method->createResponse($this->httpResponse);
 
         return $this->response;
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      *
      * @return Response
      *
      * @throws \LogicException
      */
-    protected function sendRequest(Request $request)
+    protected function sendRequest(RequestInterface $request)
     {
         try {
             $response = $this->getHttpClient()->send($request);

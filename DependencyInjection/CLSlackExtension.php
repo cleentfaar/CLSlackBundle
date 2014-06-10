@@ -47,19 +47,7 @@ class CLSlackExtension extends Extension
         } else {
             // note the replaceable variable (%s); the ApiTransport will replace it with the proper slug
             $container->setParameter('cl_slack.api_token', $config['api_token']);
-            $container->setParameter('cl_slack.api_base_url', 'https://slack.com/api/%s?token='.$config['api_token']);
-        }
-
-        if ($config['incoming_webhook_token'] === null || $config['team'] === null) {
-            $container->removeDefinition('cl_slack.incoming_webhook.transport');
-        } else {
-            $container->setParameter('cl_slack.incoming_webhook_token', $config['incoming_webhook_token']);
-            $payloadUrl = sprintf(
-                'https://%s.slack.com/services/hooks/incoming-webhook?token=%s',
-                $config['team'],
-                $config['incoming_webhook_token']
-            );
-            $container->setParameter('cl_slack.incoming_webhook_url', $payloadUrl);
+            $container->setParameter('cl_slack.api_base_url', 'https://slack.com/api/%s');
         }
     }
 }

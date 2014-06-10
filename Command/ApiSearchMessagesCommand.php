@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
+use CL\Bundle\SlackBundle\Slack\Api\Method\SearchMessagesApiMethod;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -31,8 +31,8 @@ class ApiSearchMessagesCommand extends AbstractApiSearchCommand
     /**
      * {@inheritdoc}
      */
-    protected function getType()
+    protected function getMethodSlug()
     {
-        return 'search.messages';
+        return SearchMessagesApiMethod::getSlug();
     }
 }

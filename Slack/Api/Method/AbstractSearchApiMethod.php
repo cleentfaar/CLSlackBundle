@@ -9,19 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace CL\Bundle\SlackBundle\Slack\Payload\Type\Api;
+namespace CL\Bundle\SlackBundle\Slack\Api\Method;
 
-use CL\Bundle\SlackBundle\Slack\Payload\ResponseHelper\SearchAllResponseHelper;
-use CL\Bundle\SlackBundle\Slack\Payload\Type\AbstractApiType;
-use Guzzle\Http\Message\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * This payload allows you to search in Slack's messages and files.
- *
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-abstract class AbstractSearchType extends AbstractApiType
+abstract class AbstractSearchApiMethod extends AbstractApiMethod
 {
     const SORT_SCORE     = 'score';
     const SORT_TIMESTAMP = 'timestamp';
@@ -32,7 +27,7 @@ abstract class AbstractSearchType extends AbstractApiType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function buildOptions(OptionsResolverInterface &$resolver)
     {
         $resolver->setRequired(['query']);
         $resolver->setOptional([

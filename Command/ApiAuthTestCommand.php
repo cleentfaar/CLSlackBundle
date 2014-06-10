@@ -11,8 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
+use CL\Bundle\SlackBundle\Slack\Api\Method\AuthTestApiMethod;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -27,36 +26,13 @@ class ApiAuthTestCommand extends AbstractApiCommand
         parent::configure();
         $this->setName('slack:api:auth-test');
         $this->setDescription('Allows you to test authentication with the Slack API.');
-        $this->addArgument(
-            'token',
-            InputArgument::OPTIONAL,
-            'A token to authenticate with, can be left empty to use the currently configured token.'
-        );
-    }
-
-    /**
-     * @return string
-     */
-    protected function getConfiguredToken()
-    {
-        return $this->getContainer()->getParameter('cl_slack.api_token');
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function buildOptions(array $options, InputInterface $input)
+    protected function getMethodSlug()
     {
-        $options['token'] = $input->getArgument('token') ? : $this->getConfiguredToken();
-
-        return $options;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getType()
-    {
-        return 'auth.test';
+        return AuthTestApiMethod::getSlug();
     }
 }

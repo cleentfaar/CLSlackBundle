@@ -11,7 +11,9 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodFactory;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -21,6 +23,12 @@ abstract class AbstractApiCommand extends AbstractCommand
 {
     protected function configure()
     {
+        $this->addOption(
+            'token',
+            't',
+            InputOption::VALUE_REQUIRED,
+            'A token to authenticate with, can be left empty to use the currently configured token.'
+        );
         $this->setHelp(sprintf(<<<EOF
 These API commands all follow Slack's API documentation as closely as possible.
 You can get detailed usage information about the current command with the URL below:
@@ -28,7 +36,7 @@ You can get detailed usage information about the current command with the URL be
 <info>https://api.slack.com/methods/%s</info>
 
 EOF
-        , $this->getType()));
+            , $this->getMethodSlug()));
     }
 
     /**
@@ -36,29 +44,48 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $typeAlias = $this->getType();
-        $options   = $this->buildOptions([], $input);
-        $payload   = $this->createPayload($typeAlias, $options);
-        $response  = $this->getTransport()->send($payload);
+        $alias    = $this->getMethodAlias();
+        $options  = $this->inputToOptions($input);
+        $method   = $this->getMethodFactory()->create($alias, $options);
+        $request  = $this->getMethodTransport()->getHttpClient()->createRequest('get');
+        $response = $this->getMethodTransport()->send($method, $request);
 
-        return $this->report($this->getTransport(), $payload, $response, $output);
+        return $this->report($this->getMethodTransport(), $method, $response, $output);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getConfiguredToken()
+    {
+        return $this->getContainer()->getParameter('cl_slack.api_token');
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function getTransport()
+    protected function inputToOptions(InputInterface $input)
     {
-        return $this->getContainer()->get('cl_slack.api.transport');
+        $options['token'] = $input->getOption('token') ? : $this->getConfiguredToken();
+
+        return $options;
     }
 
     /**
-     * @param array          $options
-     * @param InputInterface $input
-     *
-     * @return array
+     * @return \CL\Bundle\SlackBundle\Slack\Api\Method\Transport\Transport
      */
-    abstract protected function buildOptions(array $options, InputInterface $input);
+    protected function getMethodTransport()
+    {
+        return $this->getContainer()->get('cl_slack.api_method_transport');
+    }
+
+    /**
+     * @return ApiMethodFactory
+     */
+    protected function getMethodFactory()
+    {
+        return $this->getContainer()->get('cl_slack.api_method_factory');
+    }
 
     /**
      * @todo Find a way so we only have to define the alias in the service definition itself.
@@ -67,5 +94,13 @@ EOF
      *
      * @return string
      */
-    abstract protected function getType();
+    protected function getMethodAlias()
+    {
+        return $this->getMethodSlug();
+    }
+
+    /**
+     * @return string
+     */
+    abstract protected function getMethodSlug();
 }
