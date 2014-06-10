@@ -49,5 +49,11 @@ class CLSlackExtension extends Extension
             $container->setParameter('cl_slack.api_token', $config['api_token']);
             $container->setParameter('cl_slack.api_base_url', 'https://slack.com/api/%s');
         }
+        if ($config['outgoing_webhook_tokens'] === null) {
+            $container->removeDefinition('cl_slack.outgoing_webhook.request_factory');
+        } else {
+            // note the replaceable variable (%s); the ApiTransport will replace it with the proper slug
+            $container->setParameter('cl_slack.outgoing_webhook_tokens', $config['outgoing_webhook_tokens']);
+        }
     }
 }

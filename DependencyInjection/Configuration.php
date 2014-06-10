@@ -31,6 +31,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('team')->end()
                 ->scalarNode('api_token')->end()
+                ->arrayNode('outgoing_webhook_tokens')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end()
         ;
 

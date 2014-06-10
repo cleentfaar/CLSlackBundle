@@ -5,6 +5,7 @@ parameters:
   cl_slack.api_method.search_files.class: CL\Bundle\SlackBundle\Slack\Api\Method\SearchFilesApiMethod
   cl_slack.api_method.search_messages.class: CL\Bundle\SlackBundle\Slack\Api\Method\SearchMessagesApiMethod
   cl_slack.api_method.auth_test.class: CL\Bundle\SlackBundle\Slack\Api\Method\AuthTestApiMethod
+  cl_slack.outgoing_webhook.request_factory.class: CL\Bundle\SlackBundle\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
 
 services:
   cl_slack.api_method_transport:
@@ -28,3 +29,6 @@ services:
     class: %cl_slack.api_method.auth_test.class%
     tags:
       - { name: cl_slack.api_method, alias: auth.test }
+  cl_slack.outgoing_webhook.request_factory:
+    class: %cl_slack.outgoing_webhook.request_factory.class%
+    arguments: [%cl_slack.outgoing_webhook_tokens%]
