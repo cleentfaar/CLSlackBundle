@@ -14,31 +14,26 @@ Slack provides three ways of integrating your project with it's platform:
 ## API methods
 
 The following API methods can be accessed through the ``slack:api`` commands,
-or by including the appropriate class in your code:
+or by manipulating the relevant ApiMethod directly.
 
-### search.all
-Something about this method here...
+*TIP: Click on a method to go to the relevant documentation page of the Slack API.*
 
-### search.messages
-Something about this method here...
+- search.all
+- search.messages
+- search.files
+- auth.test
+- more coming soon!
 
-### search.files
-Something about this method here...
-
-### auth.test
-Something about this method here...
-
-
-# Incoming webhooks
+## Incoming webhooks
 
 Implementation for incoming webhooks has been removed from this bundle because the
 API-methods already provide the same functionality that incoming webhooks currently provides
 (sending messages to Slack).
 
-
-# Outgoing webhooks
+## Outgoing webhooks
 
 You can check out the DemoController's methods to see how you can set up a webhook that can be accessed
 by Slack and responded to appropriately.
-Did you know you can even set-up a custom command within Slack (i.e. ``/foobar``) that triggers this webhook.
-For more information about configuring outgoing webhooks, check out [Slack's documentation on this](#).
+
+*TIP: Did you know you can even set-up a custom command (called a 'trigger word') within Slack that sends a
+request to your controller? For more information about configuring outgoing webhooks, check out [Slack's documentation on this](#).*
