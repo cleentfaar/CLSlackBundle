@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of CLSlackBundle.
+ * This file is part of the CLSlackBundle.
  *
  * (c) Cas Leentfaar <info@casleentfaar.com>
  *
@@ -11,8 +11,17 @@
 
 namespace CL\Bundle\SlackBundle;
 
+use CL\Bundle\SlackBundle\DependencyInjection\Compiler\RegisterApiMethodClassesPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class CLSlackBundle extends Bundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new RegisterApiMethodClassesPass());
+    }
 }

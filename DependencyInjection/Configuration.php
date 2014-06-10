@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of CLSlackBundle.
+ * This file is part of the CLSlackBundle.
  *
  * (c) Cas Leentfaar <info@casleentfaar.com>
  *
@@ -14,6 +14,9 @@ namespace CL\Bundle\SlackBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -26,11 +29,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('username')
-                    ->isRequired()
-                ->end()
-                ->scalarNode('token')
-                    ->isRequired()
+                ->scalarNode('team')->end()
+                ->scalarNode('api_token')->end()
+                ->arrayNode('outgoing_webhook_tokens')
+                    ->prototype('scalar')->end()
                 ->end()
             ->end()
         ;

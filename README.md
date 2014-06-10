@@ -1,24 +1,28 @@
 CLSlackBundle
 =============
-The **CLSlackBundle** allows you to easily interact with the Slack API and webhooks.
+The **CLSlackBundle** allows your Symfony project to interact with your team's Slack API and webhooks.
+This can be done through either a ``Controller`` (responding to webhooks) or specific console commands (for direct API access).
 
 [![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.png)](http://travis-ci.org/cleentfaar/CLSlackBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
 
-Currently, the only interaction available is posting payloads to your Slack webhooks.
-- You can either use the ``AbstractWebhookCommand`` as a base for your payloads or look at the ``NotifyDeploymentCommand``
-that was already made to do just that. Have a look at it and see how you could easily add your own variations to do other things.
-- You can learn a lot more about Slack and it's webhooks by reading the instructions on their website: https://yourusernamehere.slack.com/services/new
-
 
 ### What now?
 
-The documentation for this bundle is available in the `Resources/doc` directory of the bundle:
+Check out the documentation below...
 
-* <del>Read the [CLSlackBundle documentation](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/index.md)</del> Coming soon!
+* [Features](Resources/doc/features.md)
+* [Installation](Resources/doc/installation.md)
+* [Usage](Resources/doc/features.md)
+* Additionally, check out the [API documentation](https://api.slack.com/) of Slack itself.
+
+...and start posting some messages!
+
+``slack:api:send-message MyChannel "This bundle rocks!" --username=MyName``
 
 
-## Credits
+## Contributors
 
-This bundle was based on an idea suggested by [@fieg](http://github.com/fieg).
+[@fieg](http://github.com/fieg), for initial ideas about integrating Slack with our projects.
+The guys at [Slack](https://slack.com/), for making an awesome product and clean documentation.
