@@ -18,28 +18,5 @@ use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
  */
 abstract class AbstractTestCase extends WebTestCase
 {
-    /**
-     * @param string $class
-     * @param array  $constructorArguments
-     * @param array  $methods
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getCustomMock(
-        $class,
-        $constructorArguments = null,
-        array $methods = ['createRequest', 'sendRequest']
-    ) {
-        $mock = $this->getMockBuilder($class);
-        $mock->setMethods($methods);
-        if (!empty($constructorArguments)) {
-            $mock->setConstructorArgs($constructorArguments);
-        } else {
-            $mock->disableOriginalConstructor();
-        }
 
-        $mock->setMethods($methods);
-
-        return $mock->getMock();
-    }
 }

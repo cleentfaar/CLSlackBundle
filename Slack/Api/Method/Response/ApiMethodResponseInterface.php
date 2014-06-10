@@ -13,7 +13,6 @@ namespace CL\Bundle\SlackBundle\Slack\Api\Method\Response;
 
 use Guzzle\Http\Message\Response;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
