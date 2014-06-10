@@ -11,8 +11,6 @@
 
 namespace CL\Bundle\SlackBundle\Slack\Api\Method;
 
-use CL\Bundle\SlackBundle\Slack\Payload\Type\TypeInterface;
-
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
@@ -73,7 +71,7 @@ class ApiMethodFactory
     }
 
     /**
-     * @return TypeInterface[]
+     * @return array
      */
     public function getMethodClasses()
     {

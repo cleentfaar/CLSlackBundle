@@ -39,7 +39,7 @@ class OutgoingWebhookRequestFactory
      */
     public function hasOutgoingWebhookToken($triggerWord, $token)
     {
-        if (array_key_exists($triggerWord, $this->outgoingWebhooks) && $this->outgoingWebhooks[$triggerWord] === $token) {
+        if (array_key_exists($triggerWord, $this->outgoingWebhooks) && $this->outgoingWebhooks[$triggerWord]['token'] === $token) {
             return true;
         }
 
@@ -55,7 +55,6 @@ class OutgoingWebhookRequestFactory
      */
     public function create(array $options)
     {
-        $options['timestamp'] = (float) $options['timestamp'];
         $outgoingWebhookRequest = new OutgoingWebhookRequest($options);
         $token                  = $outgoingWebhookRequest->getToken();
         $triggerWord            = $outgoingWebhookRequest->getTriggerWord();
