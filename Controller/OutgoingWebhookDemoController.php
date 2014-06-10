@@ -6,7 +6,6 @@ use CL\Bundle\SlackBundle\Slack\OutgoingWebhook\Request\OutgoingWebhookRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This controller contains an example of an action you could have in your project that will
