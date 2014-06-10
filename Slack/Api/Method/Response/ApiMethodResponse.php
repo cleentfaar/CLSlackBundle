@@ -13,7 +13,6 @@ namespace CL\Bundle\SlackBundle\Slack\Api\Method\Response;
 
 use Guzzle\Http\Message\Response;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -31,8 +30,7 @@ abstract class ApiMethodResponse implements ApiMethodResponseInterface
      */
     public function __construct(Response $response)
     {
-        $this->response = $response;
-        $this->data     = json_decode($response->getBody(true), true);
+        $this->data = json_decode($response->getBody(true), true);
     }
 
     /**
@@ -48,6 +46,5 @@ abstract class ApiMethodResponse implements ApiMethodResponseInterface
      */
     public function toOutput(OutputInterface $output, Command $command)
     {
-        $output->writeln(sprintf('OK: <comment>%s</comment>', var_export($this->isOk(), true)));
     }
 }

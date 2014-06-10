@@ -43,7 +43,7 @@ class CLSlackExtension extends Extension
     protected function setParameters(ContainerBuilder $container, array $config)
     {
         if ($config['api_token'] === null) {
-            $container->removeDefinition('cl_slack.api.transport');
+            $container->removeDefinition('cl_slack.api_method_transport');
         } else {
             // note the replaceable variable (%s); the ApiTransport will replace it with the proper slug
             $container->setParameter('cl_slack.api_token', $config['api_token']);
