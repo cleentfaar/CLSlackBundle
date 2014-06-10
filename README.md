@@ -10,19 +10,19 @@ This can be done through either a ``Controller`` (responding to webhooks) or spe
 
 ### What now?
 
-Check out the documentation below...
+Check out the documentation!
 
-* [Features](Resources/doc/features.md)
-* [Installation](Resources/doc/installation.md)
-* [Usage](Resources/doc/features.md)
-* Additionally, check out the [API documentation](https://api.slack.com/) of Slack itself.
+- [Features](Resources/doc/1-features.md)
+- [Installation](Resources/doc/2-installation.md)
+- [Outgoing Webhooks](Resources/doc/outgoing-webhooks.md)
+- [API commands](Resources/doc/api-commands.md)
+- [API methods](Resources/doc/api-methods.md)
 
-...and start posting some messages!
-
-``slack:api:send-message MyChannel "This bundle rocks!" --username=MyName``
+Additionally, check out the [API documentation](https://api.slack.com/) of Slack itself to get a
+better picture of what happens in the background.
 
 
 ## Contributors
 
-[@fieg](http://github.com/fieg), for initial ideas about integrating Slack with our projects.
-The guys at [Slack](https://slack.com/), for making an awesome product and clean documentation.
+- [@fieg](http://github.com/fieg), for initial ideas about integrating Slack with our projects.
+- The guys at [Slack](https://slack.com/), for making an awesome product and clean documentation.
