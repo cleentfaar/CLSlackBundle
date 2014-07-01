@@ -7,9 +7,9 @@ If you look at how the code looks below, it is simple a matter of copying it and
 (chat.postMessage here). The arguments required for each method can be found in the official documentation [here](https://api.slack.com).
 
 
-## Sending a message to a Slack channel
+## Sending something to Slack
 
-Sending a message is pretty simple:
+Sending something like a chat-message is pretty simple:
 ```php
 // Acme\DemoBundle\Controller\MySlackController
 $helper   = $this->get('cl_slack.api_method_helper');
@@ -23,7 +23,9 @@ $response = $helper->send('chat.postMessage', [
 In Slack, that should give you something like this in the ``#test`` channel:
 ![Example of a message posted to Slack](img/api-method-chat-postMessage.png)
 
-**Handling the response**
+
+## Handling the response
+
 When you run this for the first time you may find that no message is actually sent.
 This could be for many reasons, but most often it's because the channel you gave does not exist in your Slack Team.
 It could also be that the API token you configured in ``app/config/config.yml`` is wrong (the configured token is used if you do not pass it as one of the options yourself).
