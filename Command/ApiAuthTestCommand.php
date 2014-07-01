@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Bundle\SlackBundle\Slack\Api\Method\AuthTestApiMethod;
+use CL\Slack\Api\Method\AuthTestApiMethod;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>

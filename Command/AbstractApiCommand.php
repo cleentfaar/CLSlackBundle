@@ -11,10 +11,10 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodFactory;
-use CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodInterface;
-use CL\Bundle\SlackBundle\Slack\Api\Method\Response\ApiMethodResponseInterface;
-use CL\Bundle\SlackBundle\Slack\Api\Method\Transport\TransportInterface;
+use CL\Slack\Api\Method\ApiMethodFactory;
+use CL\Slack\Api\Method\ApiMethodInterface;
+use CL\Slack\Api\Method\Response\ApiMethodResponseInterface;
+use CL\Slack\Api\Method\Transport\ApiMethodTransportInterface;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,19 +52,18 @@ EOF
         $alias    = $this->getMethodAlias();
         $options  = $this->inputToOptions($input);
         $method   = $this->getMethodFactory()->create($alias, $options);
-        $request  = $this->getMethodTransport()->getHttpClient()->createRequest('get');
-        $response = $this->getMethodTransport()->send($method, $request);
+        $response = $this->getMethodTransport()->send($method);
 
         return $this->report($this->getMethodTransport(), $method, $response, $output);
     }
     /**
-     * @param TransportInterface $transport
-     * @param ApiMethodInterface $method
-     * @param OutputInterface    $output
+     * @param ApiMethodTransportInterface $transport
+     * @param ApiMethodInterface          $method
+     * @param OutputInterface             $output
      *
      * @return int
      */
-    protected function reportDry(TransportInterface $transport, ApiMethodInterface $method, OutputInterface $output)
+    protected function reportDry(ApiMethodTransportInterface $transport, ApiMethodInterface $method, OutputInterface $output)
     {
         $url          = $transport->getRequest()->getUrl(false);
         $output->writeln(sprintf('<fg=green>✔</fg=green> Dry-run completed for method: <comment>%s</comment>', $method->getAlias()));
@@ -76,14 +75,14 @@ EOF
     }
 
     /**
-     * @param TransportInterface         $transport
-     * @param ApiMethodInterface         $method
-     * @param ApiMethodResponseInterface $response
-     * @param OutputInterface            $output
+     * @param ApiMethodTransportInterface $transport
+     * @param ApiMethodInterface          $method
+     * @param ApiMethodResponseInterface  $response
+     * @param OutputInterface             $output
      *
      * @return int
      */
-    protected function report(TransportInterface $transport, ApiMethodInterface $method, ApiMethodResponseInterface $response, OutputInterface $output)
+    protected function report(ApiMethodTransportInterface $transport, ApiMethodInterface $method, ApiMethodResponseInterface $response, OutputInterface $output)
     {
         $url          = $transport->getRequest()->getUrl(false);
         $responseBody = $transport->getHttpResponse()->getBody(true);
@@ -184,7 +183,7 @@ EOF
     }
 
     /**
-     * @return \CL\Bundle\SlackBundle\Slack\Api\Method\Transport\Transport
+     * @return ApiMethodTransportInterface
      */
     protected function getMethodTransport()
     {

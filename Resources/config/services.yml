@@ -1,13 +1,18 @@
 parameters:
-  cl_slack.api_method_transport.class: CL\Bundle\SlackBundle\Slack\Api\Method\Transport\Transport
-  cl_slack.api_method_factory.class: CL\Bundle\SlackBundle\Slack\Api\Method\ApiMethodFactory
-  cl_slack.api_method.search_all.class: CL\Bundle\SlackBundle\Slack\Api\Method\SearchAllApiMethod
-  cl_slack.api_method.search_files.class: CL\Bundle\SlackBundle\Slack\Api\Method\SearchFilesApiMethod
-  cl_slack.api_method.search_messages.class: CL\Bundle\SlackBundle\Slack\Api\Method\SearchMessagesApiMethod
-  cl_slack.api_method.auth_test.class: CL\Bundle\SlackBundle\Slack\Api\Method\AuthTestApiMethod
-  cl_slack.outgoing_webhook.request_factory.class: CL\Bundle\SlackBundle\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
+  cl_slack.api_method_helper.class: CL\Slack\Api\Method\ApiMethodHelper
+  cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\ApiMethodTransport
+  cl_slack.api_method_factory.class: CL\Slack\Api\Method\ApiMethodFactory
+  cl_slack.api_method.search_all.class: CL\Slack\Api\Method\SearchAllApiMethod
+  cl_slack.api_method.search_files.class: CL\Slack\Api\Method\SearchFilesApiMethod
+  cl_slack.api_method.search_messages.class: CL\Slack\Api\Method\SearchMessagesApiMethod
+  cl_slack.api_method.auth_test.class: CL\Slack\Api\Method\AuthTestApiMethod
+  cl_slack.api_method.chat_postmessage.class: CL\Slack\Api\Method\ChatPostMessageApiMethod
+  cl_slack.outgoing_webhook.request_factory.class: CL\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
 
 services:
+  cl_slack.api_method_helper:
+    class: %cl_slack.api_method_helper.class%
+    arguments: [@cl_slack.api_method_factory, @cl_slack.api_method_transport, %cl_slack.api_token%]
   cl_slack.api_method_transport:
     class: %cl_slack.api_method_transport.class%
     arguments: [%cl_slack.api_base_url%]
@@ -29,6 +34,10 @@ services:
     class: %cl_slack.api_method.auth_test.class%
     tags:
       - { name: cl_slack.api_method, alias: auth.test }
+  cl_slack.api_method.chat_postmessage:
+    class: %cl_slack.api_method.chat_postmessage.class%
+    tags:
+      - { name: cl_slack.api_method, alias: chat.postMessage }
   cl_slack.outgoing_webhook.request_factory:
     class: %cl_slack.outgoing_webhook.request_factory.class%
     arguments: [%cl_slack.outgoing_webhooks%]
