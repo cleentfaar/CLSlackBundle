@@ -14,12 +14,13 @@ repository [here](https://github.com/cleentfaar/CLSlack).
 
 ### What now?
 
-Well we all know that all you came here for is to send messages to your Slack channels, who doesn't want that!?
-For instructions on that and other scenarios, check out the documentation below.
+Well you probably came here with the idea of sending messages to Slack from within your project?
+You can find a simple example of it in the usage documentation below. First you need to get the bundle installed of
+course, so check out the installation documentation first.
 
 - [Installation](Resources/doc/installation.md)
 - [Usage examples](Resources/doc/usage.md)
-- [API Commands](Resources/doc/api-commands.md)
+- [Commands for the Symfony Console](Resources/doc/api-commands.md)
 
 This bundle depends on the [CLSlack](https://github.com/cleentfaar/CLSlack) library,
 check out it's documentation [here](https://github.com/cleentfaar/CLSlack/Resources/doc/index.md).

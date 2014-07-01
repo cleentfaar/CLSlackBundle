@@ -1,12 +1,27 @@
 <?php
 
+/*
+ * This file is part of the CLSlackBundle.
+ *
+ * (c) Cas Leentfaar <info@casleentfaar.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace CL\Bundle\SlackBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
+/**
+ * @author Cas Leentfaar <info@casleentfaar.com>
+ */
 class RegisterApiMethodClassesPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $definitionId      = 'cl_slack.api_method_factory';
