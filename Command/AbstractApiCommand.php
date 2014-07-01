@@ -88,7 +88,11 @@ EOF
         $responseBody = $transport->getHttpResponse()->getBody(true);
         if ($responseBody === "ok" || $responseBody === "error") {
             $errorMessage = 'unknown';
-            $ok           = false;
+            if ($responseBody !== "ok") {
+                $ok = false;
+            } else {
+                $ok = true;
+            }
         } else {
             $responseBodyArray = (array) json_decode($responseBody);
             $errorMessage      = array_key_exists('error', $responseBodyArray) ? $responseBodyArray['error'] : 'unknown';
@@ -96,9 +100,7 @@ EOF
         }
         switch ($ok) {
             case true:
-                if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-                    $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
-                }
+                $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
                 $response->toOutput($output, $this);
                 $return = 0;
                 break;

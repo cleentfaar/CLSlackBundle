@@ -1,7 +1,7 @@
 {
   "name": "cleentfaar/slack-bundle",
-  "description": "This bundle provides integration with the Slack API and webhooks",
-  "keywords": ["slack"],
+  "description": "This bundle provides integration with the CLSlack library",
+  "keywords": ["slack", "slack api", "slack bundle", "symfony", "bundle"],
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
@@ -15,8 +15,7 @@
     "symfony/framework-bundle": "~2.4",
     "symfony/http-foundation": "~2.4",
     "symfony/console": "~2.4",
-    "symfony/options-resolver": "~2.4",
-    "guzzle/guzzle": "~3.7"
+    "cleentfaar/slack": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~3.7"
