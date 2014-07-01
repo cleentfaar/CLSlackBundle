@@ -1,8 +1,8 @@
 # Installation
 
-## Step 1) Get the bundle and the library
+## Step 1) Get the bundle
 
-First, grab the CLSlackBundle. There are two ways to do this:
+First you need to get a hold of this bundle. There are two ways to do this:
 
 
 ### Method a) Using composer
