@@ -1,8 +1,10 @@
-# API commands
+API commands
+============
 
-Documentation coming soon!
+## Sending a message
 
+```
+$ php app/console slack:api:chat-post-message MyChannel "This is my message"
+```
 
-# Got it?
-
-Check out the next chapter about working with the [API methods](api-methods.md) directly.
+All commands have a help message that you can check out for more information, but more documentation will be here soon!

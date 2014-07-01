@@ -1,4 +1,3 @@
-<a name="installation"></a>
 # Installation
 
 ## Step 1) Get the bundle and the library
@@ -72,9 +71,7 @@ cl_slack:
 
 **Note:** You do not need to have the outgoing_webhook_tokens entry if you do not wish to respond to any Outgoing Webhooks.
 
-<a name="outgoing-webhooks-creating-your-own-responses"></a>
-
 
 # Ready?
 
-Check out the next chapter about setting up responses for [Outgoing Webhooks](outgoing-webhooks.md)!
+Check out the [usage documenatation](usage.md)!

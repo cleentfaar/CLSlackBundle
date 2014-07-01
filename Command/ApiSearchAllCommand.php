@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Bundle\SlackBundle\Slack\Api\Method\SearchAllApiMethod;
+use CL\Slack\Api\Method\SearchAllApiMethod;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
