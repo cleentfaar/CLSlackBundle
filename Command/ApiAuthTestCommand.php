@@ -12,6 +12,7 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\AuthTestApiMethod;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -34,5 +35,16 @@ class ApiAuthTestCommand extends AbstractApiCommand
     protected function getMethodSlug()
     {
         return AuthTestApiMethod::getSlug();
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param array          $options
+     *
+     * @return array
+     */
+    protected function inputToOptions(InputInterface $input, array $options)
+    {
+        return $options;
     }
 }

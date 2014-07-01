@@ -37,17 +37,14 @@ class ApiChatPostMessageCommand extends AbstractApiCommand
     }
 
     /**
-     * @param InputInterface $input
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    protected function inputToOptions(InputInterface $input)
+    protected function inputToOptions(InputInterface $input, array $options)
     {
-        $options               = parent::inputToOptions($input);
         $options['channel']    = '#' . ltrim($input->getArgument('channel'), '#');
         $options['text']       = $input->getArgument('text');
         $options['icon_url']   = (string) $input->getOption('icon-url');
-        $options['icon_emoji'] = $input->hasOption('icon-emoji') ? ':' . trim($input->getOption('icon-emoji'), ':') . ':' : '';
+        $options['icon_emoji'] = $input->getOption('icon-emoji') ? ':' . trim($input->getOption('icon-emoji'), ':') . ':' : '';
         $options['username']   = (string) $input->getOption('username');
 
         return $options;

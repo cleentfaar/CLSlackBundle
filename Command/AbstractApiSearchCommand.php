@@ -35,9 +35,8 @@ abstract class AbstractApiSearchCommand extends AbstractApiCommand
     /**
      * {@inheritdoc}
      */
-    protected function inputToOptions(InputInterface $input)
+    protected function inputToOptions(InputInterface $input, array $options)
     {
-        $options          = parent::inputToOptions($input);
         $options['query'] = $input->getArgument('query');
 
         return $options;

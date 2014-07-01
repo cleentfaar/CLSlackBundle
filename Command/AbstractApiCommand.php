@@ -50,12 +50,16 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $alias    = $this->getMethodAlias();
-        $options  = $this->inputToOptions($input);
+        $options  = $this->inputToOptions($input, []);
+        $options  = array_merge($options, [
+            'token' => $input->getOption('token') ? : $this->getConfiguredToken(),
+        ]);
         $method   = $this->getMethodFactory()->create($alias, $options);
         $response = $this->getMethodTransport()->send($method);
 
         return $this->report($this->getMethodTransport(), $method, $response, $output);
     }
+
     /**
      * @param ApiMethodTransportInterface $transport
      * @param ApiMethodInterface          $method
@@ -65,7 +69,7 @@ EOF
      */
     protected function reportDry(ApiMethodTransportInterface $transport, ApiMethodInterface $method, OutputInterface $output)
     {
-        $url          = $transport->getRequest()->getUrl(false);
+        $url = $transport->getRequest()->getUrl(false);
         $output->writeln(sprintf('<fg=green>✔</fg=green> Dry-run completed for method: <comment>%s</comment>', $method->getAlias()));
         $output->writeln(sprintf('Would\'ve used the following base URL: <comment>%s</comment>', $url));
         $output->writeln('Would\'ve used the following options:');
@@ -173,16 +177,11 @@ EOF
 
     /**
      * @param InputInterface $input
+     * @param array          $options
      *
      * @return array
      */
-    protected function inputToOptions(InputInterface $input)
-    {
-        $options = [];
-        $options['token'] = $input->getOption('token') ? : $this->getConfiguredToken();
-
-        return $options;
-    }
+    abstract protected function inputToOptions(InputInterface $input, array $options);
 
     /**
      * @return ApiMethodTransportInterface
