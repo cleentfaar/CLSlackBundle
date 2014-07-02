@@ -176,14 +176,6 @@ EOF
     }
 
     /**
-     * @param InputInterface $input
-     * @param array          $options
-     *
-     * @return array
-     */
-    abstract protected function inputToOptions(InputInterface $input, array $options);
-
-    /**
      * @return ApiMethodTransportInterface
      */
     protected function getMethodTransport()
@@ -215,4 +207,12 @@ EOF
      * @return string
      */
     abstract protected function getMethodSlug();
+
+    /**
+     * @param InputInterface $input
+     * @param array          $options
+     *
+     * @return array
+     */
+    abstract protected function inputToOptions(InputInterface $input, array $options);
 }

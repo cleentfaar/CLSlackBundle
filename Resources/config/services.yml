@@ -2,11 +2,13 @@ parameters:
   cl_slack.api_method_helper.class: CL\Slack\Api\Method\ApiMethodHelper
   cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\ApiMethodTransport
   cl_slack.api_method_factory.class: CL\Slack\Api\Method\ApiMethodFactory
+  cl_slack.api_method.channels_history.class: CL\Slack\Api\Method\ChannelsHistoryApiMethod
   cl_slack.api_method.search_all.class: CL\Slack\Api\Method\SearchAllApiMethod
   cl_slack.api_method.search_files.class: CL\Slack\Api\Method\SearchFilesApiMethod
   cl_slack.api_method.search_messages.class: CL\Slack\Api\Method\SearchMessagesApiMethod
   cl_slack.api_method.auth_test.class: CL\Slack\Api\Method\AuthTestApiMethod
   cl_slack.api_method.chat_postmessage.class: CL\Slack\Api\Method\ChatPostMessageApiMethod
+  cl_slack.api_method.users_list.class: CL\Slack\Api\Method\UsersListApiMethod
   cl_slack.outgoing_webhook.request_factory.class: CL\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
 
 services:
@@ -18,6 +20,10 @@ services:
     arguments: [%cl_slack.api_base_url%]
   cl_slack.api_method_factory:
     class: %cl_slack.api_method_factory.class%
+  cl_slack.api_method.channels_history:
+    class: %cl_slack.api_method.channels_history.class%
+    tags:
+      - { name: cl_slack.api_method, alias: channels.history }
   cl_slack.api_method.search_all:
     class: %cl_slack.api_method.search_all.class%
     tags:
@@ -38,6 +44,10 @@ services:
     class: %cl_slack.api_method.chat_postmessage.class%
     tags:
       - { name: cl_slack.api_method, alias: chat.postMessage }
+  cl_slack.api_method.users_list:
+    class: %cl_slack.api_method.users_list.class%
+    tags:
+      - { name: cl_slack.api_method, alias: users.list }
   cl_slack.outgoing_webhook.request_factory:
     class: %cl_slack.outgoing_webhook.request_factory.class%
     arguments: [%cl_slack.outgoing_webhooks%]
