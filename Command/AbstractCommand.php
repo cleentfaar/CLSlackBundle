@@ -21,6 +21,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class AbstractCommand extends ContainerAwareCommand
 {
     /**
+     * Renders a table with a pre-set format of a Key and a Value column,
+     * allowing you to supply a simple one-dimensional key-value array as the $rows argument
+     *
+     * @param array           $rows The keys and values to display in a table, as a one-dimensional array
+     * @param OutputInterface $output
+     */
+    protected function renderTableKeyValue(array $rows, OutputInterface $output)
+    {
+        $i         = 0;
+        $finalRows = [];
+        foreach ($rows as $x => $row) {
+            $finalRows[$i++] = [$x, $row];
+        }
+
+        $this->renderTable(['Key', 'Value'], $finalRows, $output);
+    }
+
+    /**
      * Renders a table from the given arguments and sends it to the output.
      *
      * @param array           $headers The headers to use for the table, leave empty to use the keys from the $rows argument.
@@ -42,22 +60,17 @@ abstract class AbstractCommand extends ContainerAwareCommand
             $headers = array_keys($firstRow);
         }
 
-        $finalRows = [];
-        $i         = 0;
-
         /** @var Table $tableHelper */
         $tableHelper = $this->getHelper('table');
+        $finalRows   = [];
+        $i           = 0;
         $tableHelper->setHeaders($headers);
         foreach ($rows as $x => $row) {
-            if (!is_array($row)) {
-                $finalRows[$i] = [$x, $row];
-            } else {
-                foreach ($row as $column => $value) {
-                    if (is_array($value)) {
-                        $finalRows[$i][$column] = implode($value);
-                    } else {
-                        $finalRows[$i][$column] = $value;
-                    }
+            foreach ($row as $column => $value) {
+                if (is_array($value)) {
+                    $finalRows[$i][$column] = implode($value);
+                } else {
+                    $finalRows[$i][$column] = $value;
                 }
             }
             $i++;

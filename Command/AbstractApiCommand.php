@@ -15,6 +15,8 @@ use CL\Slack\Api\Method\MethodFactory;
 use CL\Slack\Api\Method\MethodInterface;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Transport\TransportInterface;
+use CL\Slack\Guzzle\Log\ConsoleOutputLogAdapter;
+use Guzzle\Plugin\Log\LogPlugin;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -47,42 +49,38 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $alias    = $this->getMethodAlias();
-        $options  = $this->inputToOptions($input, []);
-        $options  = array_merge($options, [
+        $alias   = $this->getMethodAlias();
+        $options = $this->inputToOptions($input, []);
+        $options = array_merge($options, [
             'token' => $input->getOption('token') ? : $this->getConfiguredToken(),
         ]);
-        $method   = $this->getMethodFactory()->create($alias, $options);
         try {
-            $response = $this->getMethodTransport()->send($method);
+            $method    = $this->getMethodFactory()->create($alias, $options);
+            $transport = $this->getMethodTransport();
+            $client    = $transport->getHttpClient();
+            if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+                $subscriber = LogPlugin::getDebugPlugin(function ($message, $priority = LOG_INFO, $extras = array()) use ($output) {
+                    $output->writeln($message);
+                });
+                $client->addSubscriber($subscriber);
+            }
+
+            $response = $transport->send($method);
         } catch (\Exception $e) {
-            $output->writeln(sprintf('<fg=red>✘</fg=red> Slack did not respond correctly: %s', $e->getMessage()));
+            $output->writeln(sprintf('<fg=red>✘</fg=red> %s', $e->getMessage()));
 
             return 1;
         }
 
-        return $this->report($method, $response, $output);
-    }
-
-    /**
-     * @param MethodInterface   $method
-     * @param ResponseInterface $response
-     * @param OutputInterface   $output
-     *
-     * @return int
-     */
-    protected function report(MethodInterface $method, ResponseInterface $response, OutputInterface $output)
-    {
         $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
-        $output->writeln('<comment>Data received:</comment>');
-        $this->responseToOutput($response, $output);
-        $return = 0;
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>Options sent:</comment>');
             $this->renderTable(['Key', 'Value'], $method->getOptions(), $output);
         }
+        $output->writeln('<comment>Data received:</comment>');
+        $this->responseToOutput($response, $output);
 
-        return $return;
+        return 0;
     }
 
     /**

@@ -12,6 +12,7 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ChatPostMessageMethod;
+use CL\Slack\Api\Method\Response\ChatPostMessageResponse;
 use CL\Slack\Api\Method\Response\Response;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -62,12 +63,12 @@ class ApiChatPostMessageCommand extends AbstractApiCommand
     }
 
     /**
-     * @param Response $response
+     * @param ChatPostMessageResponse $response
      *
      * {@inheritdoc}
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
-        throw new \Exception('Not yet implemented...');
+        $this->renderTableKeyValue(['Timestamp' => $response->getTimestamp()], $output);
     }
 }

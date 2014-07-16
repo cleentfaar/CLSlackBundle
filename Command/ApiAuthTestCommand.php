@@ -14,7 +14,6 @@ namespace CL\Bundle\SlackBundle\Command;
 use CL\Slack\Api\Method\AuthTestMethod;
 use CL\Slack\Api\Method\Response\AuthTestResponse;
 use CL\Slack\Api\Method\Response\ResponseInterface;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -57,4 +56,3 @@ class ApiAuthTestCommand extends AbstractApiCommand
         $this->renderTable(['Key', 'Value'], $rows, $output);
     }
 }
-``
