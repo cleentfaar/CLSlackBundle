@@ -1,56 +1,21 @@
 parameters:
+  cl_slack.api_client.class: Guzzle\Http\Client
+  cl_slack.api_method_factory.class: CL\Slack\Api\Method\MethodFactory
   cl_slack.api_method_helper.class: CL\Slack\Api\Method\MethodHelper
   cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\Transport
-  cl_slack.api_method_factory.class: CL\Slack\Api\Method\MethodFactory
-  cl_slack.api_method.channels_history.class: CL\Slack\Api\Method\ChannelsHistoryMethod
-  cl_slack.api_method.search_all.class: CL\Slack\Api\Method\SearchAllMethod
-  cl_slack.api_method.search_files.class: CL\Slack\Api\Method\SearchFilesMethod
-  cl_slack.api_method.search_messages.class: CL\Slack\Api\Method\SearchMessagesMethod
-  cl_slack.api_method.auth_test.class: CL\Slack\Api\Method\AuthTestMethod
-  cl_slack.api_method.chat_postmessage.class: CL\Slack\Api\Method\ChatPostMessageMethod
-  cl_slack.api_method.users_list.class: CL\Slack\Api\Method\UsersListMethod
   cl_slack.outgoing_webhook.request_factory.class: CL\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
 
 services:
+  cl_slack.api_client:
+    class: %cl_slack.api_client.class%
+  cl_slack.api_method_factory:
+    class: %cl_slack.api_method_factory.class%
   cl_slack.api_method_helper:
     class: %cl_slack.api_method_helper.class%
     arguments: [@cl_slack.api_method_factory, @cl_slack.api_method_transport, %cl_slack.api_token%]
-  cl_slack.api_client:
-    class: Guzzle\Http\Client
-    arguments: [%cl_slack.api_base_url%]
   cl_slack.api_method_transport:
     class: %cl_slack.api_method_transport.class%
     arguments: [@cl_slack.api_client]
-  cl_slack.api_method_factory:
-    class: %cl_slack.api_method_factory.class%
-  cl_slack.api_method.channels_history:
-    class: %cl_slack.api_method.channels_history.class%
-    tags:
-      - { name: cl_slack.api_method, alias: channels.history }
-  cl_slack.api_method.search_all:
-    class: %cl_slack.api_method.search_all.class%
-    tags:
-      - { name: cl_slack.api_method, alias: search.all }
-  cl_slack.api_method.search_files:
-    class: %cl_slack.api_method.search_files.class%
-    tags:
-      - { name: cl_slack.api_method, alias: search.files }
-  cl_slack.api_method.search_messages:
-    class: %cl_slack.api_method.search_messages.class%
-    tags:
-      - { name: cl_slack.api_method, alias: search.messages }
-  cl_slack.api_method.auth_test:
-    class: %cl_slack.api_method.auth_test.class%
-    tags:
-      - { name: cl_slack.api_method, alias: auth.test }
-  cl_slack.api_method.chat_postmessage:
-    class: %cl_slack.api_method.chat_postmessage.class%
-    tags:
-      - { name: cl_slack.api_method, alias: chat.postMessage }
-  cl_slack.api_method.users_list:
-    class: %cl_slack.api_method.users_list.class%
-    tags:
-      - { name: cl_slack.api_method, alias: users.list }
   cl_slack.outgoing_webhook.request_factory:
     class: %cl_slack.outgoing_webhook.request_factory.class%
-    arguments: [%cl_slack.outgoing_webhooks%]
+    arguments: [[]]

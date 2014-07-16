@@ -11,8 +11,6 @@
 
 namespace CL\Bundle\SlackBundle;
 
-use CL\Bundle\SlackBundle\DependencyInjection\Compiler\RegisterApiMethodClassesPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -20,8 +18,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class CLSlackBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new RegisterApiMethodClassesPass());
-    }
+
 }
