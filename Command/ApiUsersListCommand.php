@@ -13,7 +13,7 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Response\UsersListResponse;
-use CL\Slack\Api\Method\UsersListApiMethod;
+use CL\Slack\Api\Method\UsersListMethod;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -37,7 +37,7 @@ class ApiUsersListCommand extends AbstractApiCommand
      */
     protected function getMethodSlug()
     {
-        return UsersListApiMethod::getSlug();
+        return UsersListMethod::getSlug();
     }
 
     /**

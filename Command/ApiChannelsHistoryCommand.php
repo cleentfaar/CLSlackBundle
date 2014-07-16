@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Api\Method\ChannelsHistoryApiMethod;
+use CL\Slack\Api\Method\ChannelsHistoryMethod;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,7 +42,7 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
      */
     protected function getMethodSlug()
     {
-        return ChannelsHistoryApiMethod::getSlug();
+        return ChannelsHistoryMethod::getSlug();
     }
 
     /**
@@ -50,7 +50,7 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
      */
     protected function inputToOptions(InputInterface $input, array $options)
     {
-        $options['channel'] = $input->getArgument('channel');
+        $options['channel']    = '#' . ltrim($input->getArgument('channel'), '#');
         $options['latest']  = $input->getOption('latest');
         $options['oldest']  = $input->getOption('oldest');
         $options['count']   = $input->getOption('count');
@@ -59,8 +59,6 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
     }
 
     /**
-     * @param ChannelsHistoryResponse $response
-     *
      * {@inheritdoc}
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)

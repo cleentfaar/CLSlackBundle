@@ -34,13 +34,35 @@ abstract class AbstractCommand extends ContainerAwareCommand
         }
 
         if (empty($headers)) {
-            $headers = array_keys(reset($rows));
+            $firstRow = reset($rows);
+            if (!is_array($firstRow)) {
+                var_dump($firstRow, $rows);
+                exit;
+            }
+            $headers = array_keys($firstRow);
         }
+
+        $finalRows = [];
+        $i         = 0;
 
         /** @var Table $tableHelper */
         $tableHelper = $this->getHelper('table');
         $tableHelper->setHeaders($headers);
-        $tableHelper->setRows($rows);
+        foreach ($rows as $x => $row) {
+            if (!is_array($row)) {
+                $finalRows[$i] = [$x, $row];
+            } else {
+                foreach ($row as $column => $value) {
+                    if (is_array($value)) {
+                        $finalRows[$i][$column] = implode($value);
+                    } else {
+                        $finalRows[$i][$column] = $value;
+                    }
+                }
+            }
+            $i++;
+        }
+        $tableHelper->setRows($finalRows);
         $tableHelper->render($output);
     }
 }

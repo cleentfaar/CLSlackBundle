@@ -13,7 +13,7 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Response\SearchAllResponse;
-use CL\Slack\Api\Method\SearchAllApiMethod;
+use CL\Slack\Api\Method\SearchAllMethod;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -36,7 +36,7 @@ class ApiSearchAllCommand extends AbstractApiSearchCommand
      */
     protected function getMethodSlug()
     {
-        return SearchAllApiMethod::getSlug();
+        return SearchAllMethod::getSlug();
     }
 
     /**

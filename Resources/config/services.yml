@@ -1,23 +1,26 @@
 parameters:
-  cl_slack.api_method_helper.class: CL\Slack\Api\Method\ApiMethodHelper
-  cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\ApiMethodTransport
-  cl_slack.api_method_factory.class: CL\Slack\Api\Method\ApiMethodFactory
-  cl_slack.api_method.channels_history.class: CL\Slack\Api\Method\ChannelsHistoryApiMethod
-  cl_slack.api_method.search_all.class: CL\Slack\Api\Method\SearchAllApiMethod
-  cl_slack.api_method.search_files.class: CL\Slack\Api\Method\SearchFilesApiMethod
-  cl_slack.api_method.search_messages.class: CL\Slack\Api\Method\SearchMessagesApiMethod
-  cl_slack.api_method.auth_test.class: CL\Slack\Api\Method\AuthTestApiMethod
-  cl_slack.api_method.chat_postmessage.class: CL\Slack\Api\Method\ChatPostMessageApiMethod
-  cl_slack.api_method.users_list.class: CL\Slack\Api\Method\UsersListApiMethod
+  cl_slack.api_method_helper.class: CL\Slack\Api\Method\MethodHelper
+  cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\Transport
+  cl_slack.api_method_factory.class: CL\Slack\Api\Method\MethodFactory
+  cl_slack.api_method.channels_history.class: CL\Slack\Api\Method\ChannelsHistoryMethod
+  cl_slack.api_method.search_all.class: CL\Slack\Api\Method\SearchAllMethod
+  cl_slack.api_method.search_files.class: CL\Slack\Api\Method\SearchFilesMethod
+  cl_slack.api_method.search_messages.class: CL\Slack\Api\Method\SearchMessagesMethod
+  cl_slack.api_method.auth_test.class: CL\Slack\Api\Method\AuthTestMethod
+  cl_slack.api_method.chat_postmessage.class: CL\Slack\Api\Method\ChatPostMessageMethod
+  cl_slack.api_method.users_list.class: CL\Slack\Api\Method\UsersListMethod
   cl_slack.outgoing_webhook.request_factory.class: CL\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
 
 services:
   cl_slack.api_method_helper:
     class: %cl_slack.api_method_helper.class%
     arguments: [@cl_slack.api_method_factory, @cl_slack.api_method_transport, %cl_slack.api_token%]
+  cl_slack.api_client:
+    class: Guzzle\Http\Client
+    arguments: [%cl_slack.api_base_url%]
   cl_slack.api_method_transport:
     class: %cl_slack.api_method_transport.class%
-    arguments: [%cl_slack.api_base_url%]
+    arguments: [@cl_slack.api_client]
   cl_slack.api_method_factory:
     class: %cl_slack.api_method_factory.class%
   cl_slack.api_method.channels_history:

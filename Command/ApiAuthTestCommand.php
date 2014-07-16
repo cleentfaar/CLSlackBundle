@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Api\Method\AuthTestApiMethod;
+use CL\Slack\Api\Method\AuthTestMethod;
 use CL\Slack\Api\Method\Response\AuthTestResponse;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,18 +37,7 @@ class ApiAuthTestCommand extends AbstractApiCommand
      */
     protected function getMethodSlug()
     {
-        return AuthTestApiMethod::getSlug();
-    }
-
-    /**
-     * @param InputInterface $input
-     * @param array          $options
-     *
-     * @return array
-     */
-    protected function inputToOptions(InputInterface $input, array $options)
-    {
-        return $options;
+        return AuthTestMethod::getSlug();
     }
 
     /**
@@ -58,13 +47,14 @@ class ApiAuthTestCommand extends AbstractApiCommand
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
-        $rows = [[
+        $rows = [
             ['User',    $response->getUser()],
             ['User ID', $response->getUserId()],
             ['Team',    $response->getTeam()],
             ['Team ID', $response->getTeamId()],
             ['URL',     $response->getUrl()],
-        ]];
+        ];
         $this->renderTable(['Key', 'Value'], $rows, $output);
     }
 }
+``

@@ -13,7 +13,7 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Response\SearchFilesResponse;
-use CL\Slack\Api\Method\SearchFilesApiMethod;
+use CL\Slack\Api\Method\SearchFilesMethod;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -36,7 +36,7 @@ class ApiSearchFilesCommand extends AbstractApiSearchCommand
      */
     protected function getMethodSlug()
     {
-        return SearchFilesApiMethod::getSlug();
+        return SearchFilesMethod::getSlug();
     }
 
     /**

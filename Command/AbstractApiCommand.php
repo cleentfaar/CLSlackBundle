@@ -11,10 +11,10 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Api\Method\ApiMethodFactory;
-use CL\Slack\Api\Method\ApiMethodInterface;
+use CL\Slack\Api\Method\MethodFactory;
+use CL\Slack\Api\Method\MethodInterface;
 use CL\Slack\Api\Method\Response\ResponseInterface;
-use CL\Slack\Api\Method\Transport\ApiMethodTransportInterface;
+use CL\Slack\Api\Method\Transport\TransportInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -53,50 +53,33 @@ EOF
             'token' => $input->getOption('token') ? : $this->getConfiguredToken(),
         ]);
         $method   = $this->getMethodFactory()->create($alias, $options);
-        $response = $this->getMethodTransport()->send($method);
+        try {
+            $response = $this->getMethodTransport()->send($method);
+        } catch (\Exception $e) {
+            $output->writeln(sprintf('<fg=red>✘</fg=red> Slack did not respond correctly: %s', $e->getMessage()));
 
-        return $this->report($this->getMethodTransport(), $method, $response, $output);
-    }
-
-    /**
-     * @param ApiMethodTransportInterface $transport
-     * @param ApiMethodInterface          $method
-     * @param OutputInterface             $output
-     *
-     * @return int
-     */
-    protected function reportDry(ApiMethodTransportInterface $transport, ApiMethodInterface $method, OutputInterface $output)
-    {
-        $url = $transport->getRequest()->getUrl(false);
-        $output->writeln(sprintf('<fg=green>✔</fg=green> Dry-run completed for method: <comment>%s</comment>', $method->getAlias()));
-        $output->writeln(sprintf('Would\'ve used the following base URL: <comment>%s</comment>', $url));
-        $output->writeln('Would\'ve used the following options:');
-        $this->renderTable(array_keys($method->getOptions()), $method->getOptions(), $output);
-
-        return 0;
-    }
-
-    /**
-     * @param ApiMethodInterface         $method
-     * @param ApiMethodResponseInterface $response
-     * @param OutputInterface            $output
-     *
-     * @return int
-     */
-    protected function report(ApiMethodInterface $method, ApiMethodResponseInterface $response, OutputInterface $output)
-    {
-        if ($response->isOk() === true) {
-            $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
-            $this->responseToOutput($response, $output);
-            $return = 0;
-        } else {
-            $errorMessage = $response->getError();
-            $output->writeln(sprintf('<fg=red>✘</fg=red> Slack did not respond correctly: %s', $errorMessage));
-            $return = 1;
+            return 1;
         }
+
+        return $this->report($method, $response, $output);
+    }
+
+    /**
+     * @param MethodInterface   $method
+     * @param ResponseInterface $response
+     * @param OutputInterface   $output
+     *
+     * @return int
+     */
+    protected function report(MethodInterface $method, ResponseInterface $response, OutputInterface $output)
+    {
+        $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
+        $output->writeln('<comment>Data received:</comment>');
+        $this->responseToOutput($response, $output);
+        $return = 0;
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>Options sent:</comment>');
-            $this->renderTable([], $method->getOptions(), $output);
+            $this->renderTable(['Key', 'Value'], $method->getOptions(), $output);
         }
 
         return $return;
@@ -119,7 +102,7 @@ EOF
     }
 
     /**
-     * @return ApiMethodTransportInterface
+     * @return TransportInterface
      */
     protected function getMethodTransport()
     {
@@ -127,7 +110,7 @@ EOF
     }
 
     /**
-     * @return ApiMethodFactory
+     * @return MethodFactory
      */
     protected function getMethodFactory()
     {
@@ -148,7 +131,7 @@ EOF
 
     /**
      * Returns the slug related to the current command's API method. Used for the method factory to create the right
-     * ApiMethod instance and for displaying an URL to the official documentation for this method.
+     * Method instance and for displaying an URL to the official documentation for this method.
      *
      * @return string
      */

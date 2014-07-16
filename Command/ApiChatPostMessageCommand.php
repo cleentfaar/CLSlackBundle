@@ -11,7 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Api\Method\ChatPostMessageApiMethod;
+use CL\Slack\Api\Method\ChatPostMessageMethod;
 use CL\Slack\Api\Method\Response\Response;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -58,7 +58,7 @@ class ApiChatPostMessageCommand extends AbstractApiCommand
      */
     protected function getMethodSlug()
     {
-        return ChatPostMessageApiMethod::getSlug();
+        return ChatPostMessageMethod::getSlug();
     }
 
     /**

@@ -43,7 +43,7 @@ class CLSlackExtension extends Extension
     protected function setParameters(ContainerBuilder $container, array $config)
     {
         $container->setParameter('cl_slack.api_token', $config['api_token']);
-        $container->setParameter('cl_slack.api_base_url', 'https://slack.com/api/%s');
+        $container->setParameter('cl_slack.api_base_url', 'https://slack.com/api/');
         $container->setParameter('cl_slack.outgoing_webhooks', $config['outgoing_webhooks']);
     }
 }
