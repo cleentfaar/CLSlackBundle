@@ -40,6 +40,14 @@ class ApiSearchAllCommand extends AbstractApiSearchCommand
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function getMethodAlias()
+    {
+        return SearchAllMethod::getAlias();
+    }
+
+    /**
      * @param SearchAllResponse $response
      *
      * {@inheritdoc}

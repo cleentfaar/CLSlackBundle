@@ -122,16 +122,9 @@ EOF
     }
 
     /**
-     * @todo Find a way so we only have to define the alias in the service definition itself.
-     *       This is currently impossible because we need it's value during configure();
-     *       where the container is not yet available
-     *
      * @return string
      */
-    protected function getMethodAlias()
-    {
-        return $this->getMethodSlug();
-    }
+    abstract protected function getMethodAlias();
 
     /**
      * Returns the slug related to the current command's API method. Used for the method factory to create the right

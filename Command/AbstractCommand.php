@@ -24,15 +24,14 @@ abstract class AbstractCommand extends ContainerAwareCommand
      * Renders a table with a pre-set format of a Key and a Value column,
      * allowing you to supply a simple one-dimensional key-value array as the $rows argument
      *
-     * @param array           $rows The keys and values to display in a table, as a one-dimensional array
+     * @param array           $rows   The keys and values to display in a table, as a one-dimensional array
      * @param OutputInterface $output
      */
     protected function renderTableKeyValue(array $rows, OutputInterface $output)
     {
-        $i         = 0;
         $finalRows = [];
         foreach ($rows as $x => $row) {
-            $finalRows[$i++] = [$x, $row];
+            $finalRows[] = [$x, $row];
         }
 
         $this->renderTable(['Key', 'Value'], $finalRows, $output);
@@ -65,7 +64,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $finalRows   = [];
         $i           = 0;
         $tableHelper->setHeaders($headers);
-        foreach ($rows as $x => $row) {
+        foreach ($rows as $row) {
             foreach ($row as $column => $value) {
                 if (is_array($value)) {
                     $finalRows[$i][$column] = implode($value);

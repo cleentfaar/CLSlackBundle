@@ -63,6 +63,14 @@ class ApiChatPostMessageCommand extends AbstractApiCommand
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function getMethodAlias()
+    {
+        return ChatPostMessageMethod::getAlias();
+    }
+
+    /**
      * @param ChatPostMessageResponse $response
      *
      * {@inheritdoc}

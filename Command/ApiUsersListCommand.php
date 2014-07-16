@@ -41,6 +41,14 @@ class ApiUsersListCommand extends AbstractApiCommand
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function getMethodAlias()
+    {
+        return UsersListMethod::getAlias();
+    }
+
+    /**
      * @param InputInterface $input
      * @param array          $options
      *

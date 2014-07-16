@@ -12,7 +12,6 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ChannelsHistoryMethod;
-use CL\Slack\Api\Method\Response\ChannelsHistoryResponse;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,6 +48,14 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
     /**
      * {@inheritdoc}
      */
+    protected function getMethodAlias()
+    {
+        return ChannelsHistoryMethod::getAlias();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function inputToOptions(InputInterface $input, array $options)
     {
         $options['channel'] = $input->getArgument('channel');
@@ -70,6 +77,7 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
         $total    = count($messages);
         $output->writeln(sprintf('Messages found: <comment>%d</comment>', $total));
         if ($total > 0) {
+            var_dump($messages);
             $this->renderTable(['Name', 'Title', 'Type'], $messages, $output);
         }
     }

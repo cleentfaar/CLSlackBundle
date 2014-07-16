@@ -40,19 +40,27 @@ class ApiAuthTestCommand extends AbstractApiCommand
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function getMethodAlias()
+    {
+        return AuthTestMethod::getAlias();
+    }
+
+    /**
      * @param AuthTestResponse $response
      *
      * {@inheritdoc}
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
-        $rows = [
-            ['User',    $response->getUser()],
-            ['User ID', $response->getUserId()],
-            ['Team',    $response->getTeam()],
-            ['Team ID', $response->getTeamId()],
-            ['URL',     $response->getUrl()],
+        $data = [
+            'User'    => $response->getUser(),
+            'User ID' => $response->getUserId(),
+            'Team'    => $response->getTeam(),
+            'Team ID' => $response->getTeamId(),
+            'URL'     => $response->getUrl(),
         ];
-        $this->renderTable(['Key', 'Value'], $rows, $output);
+        $this->renderTableKeyValue($data, $output);
     }
 }
