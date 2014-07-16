@@ -12,9 +12,11 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ChannelsHistoryApiMethod;
+use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -54,5 +56,15 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
         $options['count']   = $input->getOption('count');
 
         return $options;
+    }
+
+    /**
+     * @param ChannelsHistoryResponse $response
+     *
+     * {@inheritdoc}
+     */
+    protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
+    {
+        throw new \Exception('Not yet implemented...');
     }
 }

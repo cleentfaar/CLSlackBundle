@@ -11,7 +11,10 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Slack\Api\Method\Response\ResponseInterface;
+use CL\Slack\Api\Method\Response\SearchFilesResponse;
 use CL\Slack\Api\Method\SearchFilesApiMethod;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -34,5 +37,19 @@ class ApiSearchFilesCommand extends AbstractApiSearchCommand
     protected function getMethodSlug()
     {
         return SearchFilesApiMethod::getSlug();
+    }
+
+    /**
+     * @param SearchFilesResponse $response
+     *
+     * {@inheritdoc}
+     */
+    protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
+    {
+        $totalFiles = $response->getNumberOfFiles();
+        $output->writeln(sprintf('Files found: <comment>%d</comment>', $totalFiles));
+        if ($totalFiles > 0) {
+            $this->renderTable(['Name', 'Title', 'Type'], $response->getFiles(), $output);
+        }
     }
 }

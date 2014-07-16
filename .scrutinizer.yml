@@ -7,7 +7,7 @@ before_commands:
 tools:
   php_code_sniffer:
     config:
-      standard: PSR2
+      standard: Symfony2
   php_cpd: true
   php_cs_fixer:
     config:

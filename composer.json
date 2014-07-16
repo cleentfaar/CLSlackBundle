@@ -1,7 +1,7 @@
 {
   "name": "cleentfaar/slack-bundle",
   "description": "This bundle provides integration with the CLSlack library",
-  "keywords": ["slack", "slack api", "slack bundle", "symfony", "bundle"],
+  "keywords": ["slack", "slack api", "symfony", "bundle"],
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [

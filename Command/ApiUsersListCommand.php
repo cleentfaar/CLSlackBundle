@@ -11,8 +11,11 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Slack\Api\Method\Response\ResponseInterface;
+use CL\Slack\Api\Method\Response\UsersListResponse;
 use CL\Slack\Api\Method\UsersListApiMethod;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -46,5 +49,31 @@ class ApiUsersListCommand extends AbstractApiCommand
     protected function inputToOptions(InputInterface $input, array $options)
     {
         return $options;
+    }
+
+    /**
+     * @param UsersListResponse $response
+     *
+     * {@inheritdoc}
+     */
+    protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
+    {
+        $members     = $response->getMembers();
+        $output->writeln(sprintf('Members found: <comment>%d</comment>', count($members)));
+        if ($members > 0) {
+            $this->renderTable([
+                    'ID',
+                    'Name',
+                    'Deleted',
+                    'Color',
+                    'Profile',
+                    'Is admin',
+                    'Is owner',
+                    'Has files',
+                ],
+                $members,
+                $output
+            );
+        }
     }
 }

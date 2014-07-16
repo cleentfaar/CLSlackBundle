@@ -13,10 +13,8 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ApiMethodFactory;
 use CL\Slack\Api\Method\ApiMethodInterface;
-use CL\Slack\Api\Method\Response\ApiMethodResponseInterface;
+use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Transport\ApiMethodTransportInterface;
-use Symfony\Component\Console\Helper\FormatterHelper;
-use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -73,101 +71,46 @@ EOF
         $output->writeln(sprintf('<fg=green>✔</fg=green> Dry-run completed for method: <comment>%s</comment>', $method->getAlias()));
         $output->writeln(sprintf('Would\'ve used the following base URL: <comment>%s</comment>', $url));
         $output->writeln('Would\'ve used the following options:');
-        $this->outputOptions($method->getOptions(), $output);
+        $this->renderTable(array_keys($method->getOptions()), $method->getOptions(), $output);
 
         return 0;
     }
 
     /**
-     * @param ApiMethodTransportInterface $transport
-     * @param ApiMethodInterface          $method
-     * @param ApiMethodResponseInterface  $response
-     * @param OutputInterface             $output
+     * @param ApiMethodInterface         $method
+     * @param ApiMethodResponseInterface $response
+     * @param OutputInterface            $output
      *
      * @return int
      */
-    protected function report(ApiMethodTransportInterface $transport, ApiMethodInterface $method, ApiMethodResponseInterface $response, OutputInterface $output)
+    protected function report(ApiMethodInterface $method, ApiMethodResponseInterface $response, OutputInterface $output)
     {
-        $url          = $transport->getRequest()->getUrl(false);
-        $responseBody = $transport->getHttpResponse()->getBody(true);
-        if ($responseBody === "ok" || $responseBody === "error") {
-            $errorMessage = 'unknown';
-            if ($responseBody !== "ok") {
-                $ok = false;
-            } else {
-                $ok = true;
-            }
+        if ($response->isOk() === true) {
+            $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
+            $this->responseToOutput($response, $output);
+            $return = 0;
         } else {
-            $responseBodyArray = (array) json_decode($responseBody);
-            $errorMessage      = array_key_exists('error', $responseBodyArray) ? $responseBodyArray['error'] : 'unknown';
-            $ok                = $response->isOk();
-        }
-        switch ($ok) {
-            case true:
-                $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
-                $response->toOutput($output, $this);
-                $return = 0;
-                break;
-            default:
-                $output->writeln(sprintf('<fg=red>✘</fg=red> Slack did not respond correctly (ok: <comment>%s</comment>)', var_export($ok, true)));
-                $output->writeln(sprintf('The error returned was: <error>%s</error>', $errorMessage));
-                $return = 1;
-                break;
+            $errorMessage = $response->getError();
+            $output->writeln(sprintf('<fg=red>✘</fg=red> Slack did not respond correctly: %s', $errorMessage));
+            $return = 1;
         }
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-            $output->writeln(sprintf("<comment>URL used: %s</comment>", $url));
             $output->writeln('<comment>Options sent:</comment>');
-            $this->outputOptions($method->getOptions(), $output);
-            if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERY_VERBOSE) {
-                /** @var FormatterHelper $formatterHelper */
-                $formatterHelper = $this->getHelper('formatter');
-                $output->writeln('The response body was:');
-                $output->writeln($formatterHelper->formatBlock($responseBody, 'comment'));
-            }
+            $this->renderTable([], $method->getOptions(), $output);
         }
 
         return $return;
     }
 
     /**
-     * @param array           $options
-     * @param OutputInterface $output
+     * @param ResponseInterface $response
+     * @param OutputInterface   $output
      */
-    protected function outputOptions(array $options, OutputInterface $output)
-    {
-        /** @var TableHelper $tableHelper */
-        $tableHelper = $this->getHelper('table');
-        $tableHelper->setHeaders([
-            'Key',
-            'Value'
-        ]);
-        $rows = [];
-        foreach ($options as $key => $value) {
-            $rows[] = [$key, $value];
-        }
-        $tableHelper->setRows($rows);
-        $tableHelper->render($output);
-    }
+    abstract protected function responseToOutput(ResponseInterface $response, OutputInterface $output);
 
     /**
-     * @param string   $message
-     * @param string[] $variables
+     * Returns the API token as it is defined in your application's configuration.
      *
-     * @return string
-     */
-    protected function parseMessage($message, array $variables = [])
-    {
-        $search  = [];
-        $replace = [];
-        foreach ($variables as $key => $value) {
-            $search[]  = sprintf('{{ %s }}', $key);
-            $replace[] = $value;
-        }
-
-        return str_replace($search, $replace, $message);
-    }
-
-    /**
      * @return string
      */
     protected function getConfiguredToken()
@@ -204,15 +147,24 @@ EOF
     }
 
     /**
+     * Returns the slug related to the current command's API method. Used for the method factory to create the right
+     * ApiMethod instance and for displaying an URL to the official documentation for this method.
+     *
      * @return string
      */
     abstract protected function getMethodSlug();
 
     /**
+     * Overwrite this method in your subclasses to convert input arguments and options
+     * to the related API method's options.
+     *
      * @param InputInterface $input
      * @param array          $options
      *
      * @return array
      */
-    abstract protected function inputToOptions(InputInterface $input, array $options);
+    protected function inputToOptions(InputInterface $input, array $options)
+    {
+        return $options;
+    }
 }
