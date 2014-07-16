@@ -12,10 +12,8 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\MethodFactory;
-use CL\Slack\Api\Method\MethodInterface;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Transport\TransportInterface;
-use CL\Slack\Guzzle\Log\ConsoleOutputLogAdapter;
 use Guzzle\Plugin\Log\LogPlugin;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -67,18 +65,26 @@ EOF
 
             $response = $transport->send($method);
         } catch (\Exception $e) {
-            $output->writeln(sprintf('<fg=red>✘</fg=red> %s', $e->getMessage()));
+            $output->writeln(sprintf('<fg=red>✘</fg=red> Failed to send payload: %s', $e->getMessage()));
 
             return 1;
         }
 
-        $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
+        if ($response->isOk() !== true) {
+            $output->writeln(sprintf('<fg=red>✘</fg=red> Slack returned an error: %s', $response->getError()));
+        } else {
+            $output->writeln(sprintf('<fg=green>✔</fg=green> Successfully executed API method <comment>%s</comment>', $method->getAlias()));
+        }
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>Options sent:</comment>');
-            $this->renderTable(['Key', 'Value'], $method->getOptions(), $output);
+            $this->renderTableKeyValue($method->getOptions(), $output);
         }
-        $output->writeln('<comment>Data received:</comment>');
-        $this->responseToOutput($response, $output);
+        if ($response->isOk() !== true) {
+            return 1;
+        } else {
+            $output->writeln('<comment>Response for this method:</comment>');
+            $this->responseToOutput($response, $output);
+        }
 
         return 0;
     }

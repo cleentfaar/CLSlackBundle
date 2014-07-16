@@ -12,6 +12,7 @@
 namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ChannelsHistoryMethod;
+use CL\Slack\Api\Method\Response\ChannelsHistoryResponse;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,7 +51,7 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
      */
     protected function inputToOptions(InputInterface $input, array $options)
     {
-        $options['channel']    = '#' . ltrim($input->getArgument('channel'), '#');
+        $options['channel'] = $input->getArgument('channel');
         $options['latest']  = $input->getOption('latest');
         $options['oldest']  = $input->getOption('oldest');
         $options['count']   = $input->getOption('count');
@@ -59,10 +60,17 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
     }
 
     /**
+     * @param ChannelsHistoryResponse
+     *
      * {@inheritdoc}
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
-        throw new \Exception('Not yet implemented...');
+        $messages = $response->getMessages();
+        $total    = count($messages);
+        $output->writeln(sprintf('Messages found: <comment>%d</comment>', $total));
+        if ($total > 0) {
+            $this->renderTable(['Name', 'Title', 'Type'], $messages, $output);
+        }
     }
 }
