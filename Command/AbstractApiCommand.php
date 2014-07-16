@@ -56,7 +56,7 @@ EOF
             $method    = $this->getMethodFactory()->create($alias, $options);
             $transport = $this->getMethodTransport();
             $client    = $transport->getHttpClient();
-            if ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+            if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
                 $subscriber = LogPlugin::getDebugPlugin(function ($message, $priority = LOG_INFO, $extras = array()) use ($output) {
                     $output->writeln($message);
                 });

@@ -52,10 +52,6 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         if (empty($headers)) {
             $firstRow = reset($rows);
-            if (!is_array($firstRow)) {
-                var_dump($firstRow, $rows);
-                exit;
-            }
             $headers = array_keys($firstRow);
         }
 
@@ -66,8 +62,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $tableHelper->setHeaders($headers);
         foreach ($rows as $row) {
             foreach ($row as $column => $value) {
-                if (is_array($value)) {
-                    $finalRows[$i][$column] = implode($value);
+                if (!is_scalar($value)) {
+                    $finalRows[$i][$column] = gettype($value);
                 } else {
                     $finalRows[$i][$column] = $value;
                 }

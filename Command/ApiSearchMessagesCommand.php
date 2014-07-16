@@ -11,6 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Slack\Api\Method\Response\Representation\Message;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Response\SearchMessagesResponse;
 use CL\Slack\Api\Method\SearchMessagesMethod;
@@ -54,10 +55,14 @@ class ApiSearchMessagesCommand extends AbstractApiSearchCommand
      */
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
-        $totalFiles = $response->getNumberOfMessages();
-        $output->writeln(sprintf('Files found: <comment>%d</comment>', $totalFiles));
-        if ($totalFiles > 0) {
-            $this->renderTable(['Name', 'Title', 'Type'], $response->getFiles(), $output);
+        $total = $response->getNumberOfMessages();
+        $output->writeln(sprintf('Messages found: <comment>%d</comment>', $total));
+        if ($total > 0) {
+            $this->renderTable(
+                [],
+                array_map(function (Message $message) { return $message->toArray(); },$response->getMessages()),
+                $output
+            );
         }
     }
 }
