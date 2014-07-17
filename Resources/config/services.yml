@@ -1,5 +1,5 @@
 parameters:
-  cl_slack.api_client.class: Guzzle\Http\Client
+  cl_slack.api_client.class: GuzzleHttp\Client
   cl_slack.api_method_factory.class: CL\Slack\Api\Method\MethodFactory
   cl_slack.api_method_helper.class: CL\Slack\Api\Method\MethodHelper
   cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\Transport
