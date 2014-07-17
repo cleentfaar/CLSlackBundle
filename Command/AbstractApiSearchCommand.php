@@ -13,6 +13,7 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
@@ -30,6 +31,12 @@ abstract class AbstractApiSearchCommand extends AbstractApiCommand
             InputArgument::REQUIRED,
             'The query to search with.'
         );
+        $this->addOption(
+            'highlight',
+            null,
+            InputOption::VALUE_NONE,
+            'Highlights the places in the results where the query matches with.'
+        );
     }
 
     /**
@@ -37,7 +44,8 @@ abstract class AbstractApiSearchCommand extends AbstractApiCommand
      */
     protected function inputToOptions(InputInterface $input, array $options)
     {
-        $options['query'] = $input->getArgument('query');
+        $options['query']     = $input->getArgument('query');
+        $options['highlight'] = $input->getOption('highlight') ? 1 : 0;
 
         return $options;
     }
