@@ -14,8 +14,8 @@ namespace CL\Bundle\SlackBundle\Command;
 use CL\Slack\Api\Method\MethodFactory;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Transport\TransportInterface;
-use Guzzle\Plugin\Log\LogPlugin;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,12 +58,11 @@ EOF
             $transport = $this->getMethodTransport();
 
             /** @var ClientInterface $client */
-            $client    = $transport->getHttpClient();
+            $client = $transport->getHttpClient();
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
-                $subscriber = LogPlugin::getDebugPlugin(function ($message, $priority = LOG_INFO, $extras = array()) use ($output) {
+                $client->getEmitter()->attach(new LogSubscriber(function ($priority = LOG_INFO, $message, $extras = array()) use ($output) {
                     $output->writeln($message);
-                });
-                $client->addSubscriber($subscriber);
+                }));
             }
 
             $response = $transport->send($method);
