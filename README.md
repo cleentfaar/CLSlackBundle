@@ -7,7 +7,7 @@ It lets you interact with the Slack API and webhooks through easy to use service
 Since most of this bundle relies on the library, documentation about the fundamental code can be found in it's own
 repository [here](https://github.com/cleentfaar/CLSlack).
 
-[![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.png)](http://travis-ci.org/cleentfaar/CLSlackBundle)
+[![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.svg)](http://travis-ci.org/cleentfaar/CLSlackBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
 
