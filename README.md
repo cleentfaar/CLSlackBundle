@@ -1,15 +1,18 @@
 CLSlackBundle
 =============
 
-The **CLSlackBundle** integrates the CLSlack library into your Symfony Framework project.
-It lets you interact with the Slack API and webhooks through easy to use services and commands.
+The **CLSlackBundle** allows your Symfony2 project to interact with the Slack API through easy-to-use services and console commands.
 
-Since most of this bundle relies on the library, documentation about the fundamental code can be found in it's own
-repository [here](https://github.com/cleentfaar/CLSlack).
+Since most of this bundle relies on the [CLSlack library]((https://github.com/cleentfaar/CLSlack)), most of the
+detailed documentation can be found in it's own repository [here](https://github.com/cleentfaar/CLSlack).
 
 [![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.svg)](http://travis-ci.org/cleentfaar/CLSlackBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)<br/>
+[![Latest Stable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/stable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+[![Total Downloads](https://poser.pugx.org/cleentfaar/slack-bundle/downloads.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/unstable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+[![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 
 ### What now?
