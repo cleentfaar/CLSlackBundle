@@ -58,7 +58,7 @@ EOF
             $transport = $this->getMethodTransport();
             $client    = $transport->getHttpClient();
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
-                $client->getEmitter()->attach(new LogSubscriber(function ($priority = LOG_INFO, $message, $extras = array()) use ($output) {
+                $client->getEmitter()->attach(new LogSubscriber(function ($message) use ($output) {
                     $output->writeln($message);
                 }));
             }
