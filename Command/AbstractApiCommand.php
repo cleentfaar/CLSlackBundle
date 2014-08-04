@@ -14,7 +14,6 @@ namespace CL\Bundle\SlackBundle\Command;
 use CL\Slack\Api\Method\MethodFactory;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use CL\Slack\Api\Method\Transport\TransportInterface;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Subscriber\Log\LogSubscriber;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -80,8 +79,10 @@ EOF
             $this->renderTableKeyValue($method->getOptions(), $output);
         }
         if ($response->isOk() !== true) {
+            $output->writeln(sprintf('<comment>Slack could not process your call (ok = false): %s</comment>', $response->getError()));
+
             return 1;
-        } else {
+        } elseif ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>Response for this method:</comment>');
             $this->responseToOutput($response, $output);
         }
