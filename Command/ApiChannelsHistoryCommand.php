@@ -29,6 +29,7 @@ class ApiChannelsHistoryCommand extends AbstractApiCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:channels-history');
         $this->setDescription('Returns a portion of messages/events from the specified Slack channel. To read the entire history for a channel, call the method with no latest or oldest arguments, and then continue paging using the instructions in the API documentation');
         $this->addArgument('channel', InputArgument::REQUIRED, 'Channel to fetch history for.');

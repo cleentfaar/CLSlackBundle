@@ -28,6 +28,7 @@ class ApiUsersListCommand extends AbstractApiCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:users-list');
         $this->setDescription('Returns a list of all users in your Slack team. This includes deleted/deactivated users.');
     }

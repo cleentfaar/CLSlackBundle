@@ -52,22 +52,17 @@ EOF
         $options = array_merge($options, [
             'token' => $input->getOption('token') ? : $this->getConfiguredToken(),
         ]);
-        try {
-            $method    = $this->getMethodFactory()->create($alias, $options);
-            $transport = $this->getMethodTransport();
-            $client    = $transport->getHttpClient();
-            if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
-                $client->getEmitter()->attach(new LogSubscriber(function ($message) use ($output) {
-                    $output->writeln($message);
-                }));
-            }
 
-            $response = $transport->send($method);
-        } catch (\Exception $e) {
-            $output->writeln(sprintf('<fg=red>✘</fg=red> Failed to send payload: %s', $e->getMessage()));
-
-            return 1;
+        $method    = $this->getMethodFactory()->create($alias, $options);
+        $transport = $this->getMethodTransport();
+        $client    = $transport->getHttpClient();
+        if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
+            $client->getEmitter()->attach(new LogSubscriber(function ($message) use ($output) {
+                $output->writeln($message);
+            }));
         }
+
+        $response = $transport->send($method);
 
         if ($response->isOk() !== true) {
             $output->writeln(sprintf('<fg=red>✘</fg=red> Slack returned an error: %s', $response->getError()));

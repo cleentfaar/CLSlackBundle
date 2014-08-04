@@ -28,6 +28,7 @@ class ApiSearchMessagesCommand extends AbstractApiSearchCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:search-messages');
         $this->setDescription('Searches your Slack\'s instance for messages matching a given query.');
     }

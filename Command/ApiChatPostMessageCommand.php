@@ -13,7 +13,6 @@ namespace CL\Bundle\SlackBundle\Command;
 
 use CL\Slack\Api\Method\ChatPostMessageMethod;
 use CL\Slack\Api\Method\Response\ChatPostMessageResponse;
-use CL\Slack\Api\Method\Response\Response;
 use CL\Slack\Api\Method\Response\ResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,6 +30,7 @@ class ApiChatPostMessageCommand extends AbstractApiCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:chat-post-message');
         $this->setDescription('Sends a message to a Slack channel of your choice');
         $this->addArgument('channel', InputArgument::REQUIRED, 'The channel to send the text to');

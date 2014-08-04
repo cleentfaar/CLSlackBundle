@@ -27,6 +27,7 @@ class ApiAuthTestCommand extends AbstractApiCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:auth-test');
         $this->setDescription('Allows you to test authentication with the Slack API.');
     }

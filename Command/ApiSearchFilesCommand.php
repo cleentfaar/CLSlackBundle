@@ -27,6 +27,7 @@ class ApiSearchFilesCommand extends AbstractApiSearchCommand
     protected function configure()
     {
         parent::configure();
+
         $this->setName('slack:api:search-files');
         $this->setDescription('Searches your Slack\'s instance for files matching a given query.');
     }

@@ -26,6 +26,7 @@ abstract class AbstractApiSearchCommand extends AbstractApiCommand
     protected function configure()
     {
         parent::configure();
+
         $this->addArgument(
             'query',
             InputArgument::REQUIRED,
