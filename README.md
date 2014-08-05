@@ -1,5 +1,4 @@
-CLSlackBundle
-=============
+# CLSlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 The **CLSlackBundle** allows your Symfony2 project to interact with the Slack API through easy-to-use services and console commands.
 
@@ -9,10 +8,9 @@ The **CLSlackBundle** allows your Symfony2 project to interact with the Slack AP
 [![Latest Stable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/stable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 [![Total Downloads](https://poser.pugx.org/cleentfaar/slack-bundle/downloads.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/unstable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
-[![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 
-### What now?
+## What now?
 
 Well you probably came here with the idea of sending messages to Slack from within your project?
 You can find a simple example of it in the usage documentation below. First you need to get the bundle installed of
@@ -31,7 +29,12 @@ named and configured the same as the official API so that you can use the offici
 of this bundle, if you wish to do so.
 
 
-## Contributors
+## Thanks
 
 - [@fieg](http://github.com/fieg), for initial ideas about integrating Slack with our projects.
 - The guys at [Slack](https://slack.com/), for making an awesome product and clean documentation.
+
+
+## Contributing
+
+If you would like to contribute to this package, check out the contribution doc [here](Resources/doc/contributing.md).

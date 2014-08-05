@@ -29,7 +29,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('team')->end()
                 ->scalarNode('api_token')->end()
             ->end()
         ;

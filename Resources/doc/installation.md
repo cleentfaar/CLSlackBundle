@@ -9,10 +9,10 @@ First you need to get a hold of this bundle. There are two ways to do this:
 Add the following to your ``composer.json`` (see http://getcomposer.org/)
 
     "require" :  {
-        // ...
         "cleentfaar/slack-bundle": "1.0.*@dev"
     }
 
+**NOTE:** There is no stable version yet because Slack's API is not yet stable. I expect this to happen very soon though!
 
 ### Method b) Using submodules
 
@@ -60,16 +60,14 @@ public function registerBundles()
 
 ## Step 4) Configure the bundle
 
-The bundle requires you to define some initial configuration, which is listed below.
-
+The bundle requires you to define a small piece of configuration before you start, here is an example:
 ```yaml
 # app/config/config.yml
 cl_slack:
-    team: MyTeam # replace with the name of your team in Slack
     api_token: xoxp-1234567890-1234567890-1234567890-1a1234 # replace with your own (see: https://api.slack.com/tokens)
 ```
 
 
 # Ready?
 
-Check out the [usage documenatation](usage.md)!
+Let's send some messages to Slack! Check out the [usage documentation](usage.md)!

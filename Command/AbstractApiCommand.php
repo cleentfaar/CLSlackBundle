@@ -30,11 +30,11 @@ abstract class AbstractApiCommand extends AbstractCommand
             'token',
             't',
             InputOption::VALUE_REQUIRED,
-            'A token to authenticate with, can be left empty to use the currently configured token.'
+            'A token to authenticate the API calls with, can be left empty to use the token configured.'
         );
         $this->setHelp(sprintf(<<<EOF
-These API commands all follow Slack's API documentation as closely as possible.
-You can get detailed usage information about the current command with the URL below:
+These commands all follow Slack's API documentation as closely as possible.
+You can get detailed information on how to use this command with the URL below:
 
 <info>https://api.slack.com/methods/%s</info>
 
@@ -77,12 +77,12 @@ EOF
             $output->writeln(sprintf('<comment>Slack could not process your call (ok = false): %s</comment>', $response->getError()));
 
             return 1;
-        } elseif ($output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+        } elseif ($response->hasRelevantResponse() === true || $output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln('<comment>Response for this method:</comment>');
             $this->responseToOutput($response, $output);
         }
 
-        return 0;
+        return (int) $response->isOk();
     }
 
     /**

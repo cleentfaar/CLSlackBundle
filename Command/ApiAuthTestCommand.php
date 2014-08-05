@@ -29,7 +29,7 @@ class ApiAuthTestCommand extends AbstractApiCommand
         parent::configure();
 
         $this->setName('slack:api:auth-test');
-        $this->setDescription('Allows you to test authentication with the Slack API.');
+        $this->setDescription('This command checks your Slack authentication and tells you who you are.');
     }
 
     /**
@@ -56,11 +56,11 @@ class ApiAuthTestCommand extends AbstractApiCommand
     protected function responseToOutput(ResponseInterface $response, OutputInterface $output)
     {
         $data = [
-            'User'    => $response->getUser(),
-            'User ID' => $response->getUserId(),
-            'Team'    => $response->getTeam(),
-            'Team ID' => $response->getTeamId(),
-            'URL'     => $response->getUrl(),
+            'Username' => $response->getUsername(),
+            'User ID'  => $response->getUserId(),
+            'Team'     => $response->getTeam(),
+            'Team ID'  => $response->getTeamId(),
+            'URL'      => $response->getUrl(),
         ];
         $this->renderTableKeyValue($data, $output);
     }

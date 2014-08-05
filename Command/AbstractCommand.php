@@ -11,6 +11,7 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
+use CL\Humanizer\Humanizer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -52,7 +53,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         if (empty($headers)) {
             $firstRow = reset($rows);
-            $headers = array_keys($firstRow);
+            $headers  = array_keys($firstRow);
         }
 
         /** @var Table $tableHelper */
@@ -62,11 +63,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $tableHelper->setHeaders($headers);
         foreach ($rows as $row) {
             foreach ($row as $column => $value) {
-                if (!is_scalar($value)) {
-                    $finalRows[$i][$column] = gettype($value);
-                } else {
-                    $finalRows[$i][$column] = $value;
-                }
+                $humanizedValue         = Humanizer::humanize($value, Humanizer::DETAIL_MEDIUM);
+                $finalRows[$i][$column] = $humanizedValue;
             }
             $i++;
         }

@@ -1,23 +1,30 @@
 # Usage
 
-Since all of the API methods that are implemented follow the original API's naming scheme directly,
-we simply suffice here to show you an example about only one of the API methods.
+The [SlackBundle](https://github.com/cleentfaar/CLSlackBundle) implements the [Slack](https://github.com/cleentfaar/slack) PHP library into your Symfony2 project.
+Therefore you can find most of the documentation about interacting with the Slack API [there](https://github.com/cleentfaar/slack/Resources/doc/usage.md).
 
-If you look at how the code looks below, it is simple a matter of copying it and changing the method slug
-(chat.postMessage here). The arguments required for each method can be found in the official documentation [here](https://api.slack.com).
+
+## Console Commands
+
+Besides making different factories from the library available as services in your project, special commands have been
+created for the console application (`php app/console`) that you may find useful to (for example) quickly send messages to a Slack channel.
+
+For more information about the commands, check out the [Console Commands documentation](commands.md).
 
 
 ## Sending something to Slack
 
-Sending something like a chat-message is pretty simple:
+Sending something like a chat-message is pretty simple. Here is how you could this inside on of your controllers:
 ```php
 // Acme\DemoBundle\Controller\MySlackController
 $helper   = $this->get('cl_slack.api_method_helper');
-$response = $helper->send('chat.postMessage', [
+$response = $helper->send(MethodFactory::METHOD_CHAT_POSTMESSAGE, [
     'text'    => 'Sending a test...',
     'channel' => '#test'
 ]);
-// ...
+
+// display the Slack timestamp on which the message was posted (note: NON-unix timestamp!)
+echo $response->getTimestamp(); // would return something like '1407190762.000000'
 ```
 
 In Slack, that should give you something like this in the ``#test`` channel:
@@ -26,10 +33,13 @@ In Slack, that should give you something like this in the ``#test`` channel:
 
 ## Handling the response
 
-When you run this for the first time you may find that no message is actually sent.
+When you run this for the first time you may find that no message is actually sent, or an exception is thrown.
 This could be for many reasons, but most often it's because the channel you gave does not exist in your Slack Team.
-It could also be that the API token you configured in ``app/config/config.yml`` is wrong (the configured token is used if you do not pass it as one of the options yourself).
-To get a better picture of what actually went wrong, you can use the response from Slack to find out.
+It could also be that the API token you configured in ``app/config/config.yml`` is wrong, as the configured token is
+used if you do not pass it as one of the options yourself.
+
+Because there are so many things that Slack might not accept or know how to deal with, you can use the response from
+Slack to find out more.
 
 *As a sidenote, even the response is following the same scheme defined in the official Slack API documentation,
 so it should feel familiar if you checked it out beforehand.*
@@ -52,6 +62,6 @@ if (!$response->isOk()) {
 ```
 
 
-# Got it?
+## Got it?
 
-Check out the next chapter about working with the [API Commands](api-commands.md).
+If you haven't done so yet, check out the chapter about working with the [Console Commands](commands.md) or [creating a bot](creating-a-bot.md).
