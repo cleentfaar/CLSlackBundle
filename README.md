@@ -1,6 +1,6 @@
 # CLSlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
-The **CLSlackBundle** allows your Symfony2 project to interact with the Slack API through easy-to-use services and console commands.
+This bundle provides integration with the Slack library, allowing you to interact with the Slack API within your Symfony projects.
 
 [![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.svg)](http://travis-ci.org/cleentfaar/CLSlackBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
@@ -10,23 +10,12 @@ The **CLSlackBundle** allows your Symfony2 project to interact with the Slack AP
 [![Latest Unstable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/unstable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 
-## What now?
+## Documentation
 
-Well you probably came here with the idea of sending messages to Slack from within your project?
-You can find a simple example of it in the usage documentation below. First you need to get the bundle installed of
-course, so check out the installation documentation first.
+Check out the [documentation](Resources/doc/index.md).
 
-- [Installation](Resources/doc/installation.md)
-- [Usage examples](Resources/doc/usage.md)
-- [Commands for the Symfony Console](Resources/doc/api-commands.md)
-
-Since most of this bundle relies on the [CLSlack library]((https://github.com/cleentfaar/CLSlack)),
-the more  detailed documentation can be found in it's own repository [here](https://github.com/cleentfaar/CLSlack).
-
-Additionally, check out the [API documentation](https://api.slack.com/) of Slack itself to get a
-better picture of what happens in the background. You'll be happy to know that everything in the bundle and library are
-named and configured the same as the official API so that you can use the official documentation during integration
-of this bundle, if you wish to do so.
+To get a better understanding of the functionality that this bundle integrates, you should also check out the documentation
+of the actual library [here](https://github.com/cleentfaar/slack/Resources/doc/usage.md).
 
 
 ## Thanks

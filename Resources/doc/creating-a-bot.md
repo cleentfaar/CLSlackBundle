@@ -5,6 +5,8 @@ Check out the [library's documentation](https://github.com/cleentfaar/slack/Reso
 
 ## Enjoying it so far?
 
+If you haven't done so yet, check out the chapter about the available [console commands](commands.md).
+
 That's about it for the documentation part of this bundle, be sure to check out the [library's documentation](https://github.com/cleentfaar/slack/Resources/doc/usage.md)
 for a more detailed explanation of the ways you can interact with your team's Slack API.
 
