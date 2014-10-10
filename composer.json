@@ -13,8 +13,8 @@
   ],
   "require": {
     "php": ">=5.4",
-    "symfony/framework-bundle": "~2.4",
-    "symfony/console": "~2.4",
+    "symfony/framework-bundle": "~2.2",
+    "symfony/console": "~2.2",
     "cleentfaar/slack": "~0.9.4",
     "cleentfaar/humanizer": "~1.1"
   },
