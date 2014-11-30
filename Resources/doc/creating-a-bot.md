@@ -1,6 +1,7 @@
 # Creating a bot
 
-Check out the [library's documentation](https://github.com/cleentfaar/slack/Resources/doc/creating-a-bot.md) for this, it is applicable to Symfony2 projects as well!
+Check out the [library's documentation](https://github.com/cleentfaar/slack/Resources/doc/creating-a-bot.md) for this,
+it is applicable to Symfony2 projects as well!
 
 
 ## Enjoying it so far?

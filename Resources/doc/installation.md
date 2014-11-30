@@ -9,10 +9,10 @@ First you need to get a hold of this bundle. There are two ways to do this:
 Add the following to your ``composer.json`` (see http://getcomposer.org/)
 
     "require" :  {
-        "cleentfaar/slack-bundle": "1.0.*@dev"
+        "cleentfaar/slack-bundle": "~0.10"
     }
 
-**NOTE:** There is no stable version yet because Slack's API is not yet stable. I expect this to happen very soon though!
+**NOTE:** There is no stable version yet because Slack's API is not yet stable.
 
 ### Method b) Using submodules
 
@@ -33,7 +33,7 @@ Add the following two namespace entries to the `registerNamespaces` call in your
 // app/autoload.php
 $loader->registerNamespaces(array(
     // ...
-    'CL\Bundle' => __DIR__.'/../vendor/bundles',
+    'CL\Bundle\SlackBundle' => __DIR__.'/../vendor/bundles/cleentfaar/slack-bundle',
     // ...
 ));
 ```
@@ -70,4 +70,4 @@ cl_slack:
 
 # Ready?
 
-Let's send some messages to Slack! Check out the [usage documentation](usage.md)!
+Let's start interacting with the Slack API! Check out the [usage documentation](usage.md)!

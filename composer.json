@@ -15,11 +15,13 @@
     "php": ">=5.4",
     "symfony/framework-bundle": "~2.2",
     "symfony/console": "~2.2",
-    "cleentfaar/slack": "~0.9.4",
-    "cleentfaar/humanizer": "~1.1"
+    "cleentfaar/slack": "~0.10"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.1"
+  },
+  "suggest": {
+    "cleentfaar/slack-cli-bundle": "Adds console commands for all the Slack API methods, making it easier to set-up cron jobs... or just be geeky ;)"
   },
   "autoload": {
     "psr-0": {

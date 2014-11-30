@@ -1,21 +1,200 @@
 parameters:
-  cl_slack.api_client.class: GuzzleHttp\Client
-  cl_slack.api_method_factory.class: CL\Slack\Api\Method\MethodFactory
-  cl_slack.api_method_helper.class: CL\Slack\Api\Method\MethodHelper
-  cl_slack.api_method_transport.class: CL\Slack\Api\Method\Transport\Transport
-  cl_slack.outgoing_webhook.request_factory.class: CL\Slack\OutgoingWebhook\Request\OutgoingWebhookRequestFactory
+  cl_slack.http_client.class: GuzzleHttp\Client
+  cl_slack.api_client.class: CL\Slack\Transport\ApiClient
+  cl_slack.payload_registry.class: CL\Slack\Util\PayloadRegistry
+  cl_slack.payload.api_test.class: CL\Slack\Payload\ApiTestPayload
+  cl_slack.payload.auth_test.class: CL\Slack\Payload\AuthTestPayload
+  cl_slack.payload.channels_archive.class: CL\Slack\Payload\ChannelsArchivePayload
+  cl_slack.payload.channels_create.class: CL\Slack\Payload\ChannelsCreatePayload
+  cl_slack.payload.channels_history.class: CL\Slack\Payload\ChannelsHistoryPayload
+  cl_slack.payload.channels_info.class: CL\Slack\Payload\ChannelsInfoPayload
+  cl_slack.payload.channels_invite.class: CL\Slack\Payload\ChannelsInvitePayload
+  cl_slack.payload.channels_join.class: CL\Slack\Payload\ChannelsJoinPayload
+  cl_slack.payload.channels_leave.class: CL\Slack\Payload\ChannelsLeavePayload
+  cl_slack.payload.channels_list.class: CL\Slack\Payload\ChannelsListPayload
+  cl_slack.payload.channels_rename.class: CL\Slack\Payload\ChannelsRenamePayload
+  cl_slack.payload.channels_set_purpose.class: CL\Slack\Payload\ChannelsSetPurposePayload
+  cl_slack.payload.channels_set_topic.class: CL\Slack\Payload\ChannelsSetTopicPayload
+  cl_slack.payload.channels_unarchive.class: CL\Slack\Payload\ChannelsUnarchivePayload
+  cl_slack.payload.chat_delete.class: CL\Slack\Payload\ChatDeletePayload
+  cl_slack.payload.chat_post_message.class: CL\Slack\Payload\ChatPostMessagePayload
+  cl_slack.payload.emoji_list.class: CL\Slack\Payload\EmojiListPayload
+  cl_slack.payload.files_info.class: CL\Slack\Payload\FilesInfoPayload
+  cl_slack.payload.files_list.class: CL\Slack\Payload\FilesListPayload
+  cl_slack.payload.files_upload.class: CL\Slack\Payload\FilesUploadPayload
+  cl_slack.payload.groups_archive.class: CL\Slack\Payload\GroupsArchivePayload
+  cl_slack.payload.groups_close.class: CL\Slack\Payload\GroupsClosePayload
+  cl_slack.payload.groups_create.class: CL\Slack\Payload\GroupsCreatePayload
+  cl_slack.payload.groups_create_child.class: CL\Slack\Payload\GroupsCreateChildPayload
+  cl_slack.payload.groups_history.class: CL\Slack\Payload\GroupsHistoryPayload
+  cl_slack.payload.groups_invite.class: CL\Slack\Payload\GroupsInvitePayload
+  cl_slack.payload.search_all.class: CL\Slack\Payload\SearchAllPayload
+  cl_slack.payload.search_files.class: CL\Slack\Payload\SearchFilesPayload
+  cl_slack.payload.search_messages.class: CL\Slack\Payload\SearchMessagesPayload
+  cl_slack.payload.users_list.class: CL\Slack\Payload\UsersListPayload
 
 services:
+  cl_slack.http_client:
+    class: %cl_slack.http_client.class%
+
   cl_slack.api_client:
     class: %cl_slack.api_client.class%
-  cl_slack.api_method_factory:
-    class: %cl_slack.api_method_factory.class%
-  cl_slack.api_method_helper:
-    class: %cl_slack.api_method_helper.class%
-    arguments: [@cl_slack.api_method_factory, @cl_slack.api_method_transport, %cl_slack.api_token%]
-  cl_slack.api_method_transport:
-    class: %cl_slack.api_method_transport.class%
-    arguments: [@cl_slack.api_client]
-  cl_slack.outgoing_webhook.request_factory:
-    class: %cl_slack.outgoing_webhook.request_factory.class%
-    arguments: [[]]
+    arguments:
+      - @jms_serializer.serializer
+      - @validator
+      - @cl_slack.http_client
+      - @event_dispatcher
+      - %cl_slack.api_token%
+
+  cl_slack.payload_registry:
+    class: %cl_slack.payload_registry.class%
+
+  cl_slack.payload.api_test:
+    class: %cl_slack.payload.api_test.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.auth_test:
+    class: %cl_slack.payload.auth_test.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_archive:
+    class: %cl_slack.payload.channels_archive.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_create:
+    class: %cl_slack.payload.channels_create.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_history:
+    class: %cl_slack.payload.channels_history.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_info:
+    class: %cl_slack.payload.channels_info.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_invite:
+    class: %cl_slack.payload.channels_invite.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_join:
+    class: %cl_slack.payload.channels_join.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_leave:
+    class: %cl_slack.payload.channels_leave.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_list:
+    class: %cl_slack.payload.channels_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_rename:
+    class: %cl_slack.payload.channels_rename.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_set_purpose:
+    class: %cl_slack.payload.channels_set_purpose.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_set_topic:
+    class: %cl_slack.payload.channels_set_topic.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_unarchive:
+    class: %cl_slack.payload.channels_unarchive.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.chat_delete:
+    class: %cl_slack.payload.chat_delete.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.chat_post_message:
+    class: %cl_slack.payload.chat_post_message.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.emoji_list:
+    class: %cl_slack.payload.emoji_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.files_info:
+    class: %cl_slack.payload.files_info.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.files_list:
+    class: %cl_slack.payload.files_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.files_upload:
+    class: %cl_slack.payload.files_upload.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_archive:
+    class: %cl_slack.payload.groups_archive.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_close:
+    class: %cl_slack.payload.groups_close.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_create:
+    class: %cl_slack.payload.groups_create.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_create_child:
+    class: %cl_slack.payload.groups_create_child.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_history:
+    class: %cl_slack.payload.groups_history.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_invite:
+    class: %cl_slack.payload.groups_invite.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.search_all:
+    class: %cl_slack.payload.search_all.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.search_files:
+    class: %cl_slack.payload.search_files.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.search_messages:
+    class: %cl_slack.payload.search_messages.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.users_list:
+    class: %cl_slack.payload.users_list.class%
+    tags:
+      - { name: cl_slack.payload }

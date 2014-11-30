@@ -1,4 +1,4 @@
-# CLSlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+# SlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 This bundle provides integration with the Slack library, allowing you to interact with the Slack API within your Symfony projects.
 
