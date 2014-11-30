@@ -41,7 +41,7 @@ $loader->registerNamespaces(array(
 
 ## Step 3) Register the bundle
 
-To start using the bundle, register it in your Kernel:
+To start using the bundle, register it in your Kernel.
 
 ``` php
 <?php
@@ -56,7 +56,6 @@ public function registerBundles()
     // ...
 }
 ```
-
 
 ## Step 4) Configure the bundle
 
