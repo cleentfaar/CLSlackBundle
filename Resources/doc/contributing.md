@@ -19,6 +19,4 @@ You may be interested in [PHP Coding Standards Fixer](https://github.com/fabpot/
 
 - Add tests! This package is still undergoing huge refactorings in short periods of time (this is another reason why the
 version hasn't reached `1.0` yet), but tests should be completed now to solidify the codebase.
-- Improving the way data is validated before sending it to Slack (whilst creating a request), and receiving it from Slack
-(whilst creating a response).
 - Further extend documentation, especially the [library's](https://github.com/cleentfaar/slack).
