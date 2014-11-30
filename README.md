@@ -42,8 +42,6 @@ These and more examples can be found in the [usage](Resources/doc/usage.md) docu
 
 ## Documentation
 
-Check out the [documentation](Resources/doc/index.md):
-
 - [Installation](Resources/doc/installation.md)
 - [Usage](Resources/doc/usage.md)
 - [Contributing](Resources/doc/contributing.md)
