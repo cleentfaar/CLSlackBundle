@@ -18,6 +18,7 @@ public function sendAction()
     $payload = new ChatPostMessagePayload();
     $payload->setChannel('#general');
     $payload->setMessage('This message was sent using the <https://github.com/cleentfaar/CLSlackBundle|SlackBundle>!');
+    $payload->setUsername('acmebot');
     $payload->setIconEmoji(':birthday:');
 
     $response = $this->get('cl_slack.api_client')->send($payload);
