@@ -17,8 +17,8 @@ use CL\Slack\Payload\PayloadInterface;
 use CL\Slack\Payload\PayloadResponseInterface;
 use CL\Slack\Transport\ApiClient;
 use CL\Slack\Transport\ApiClientEvents;
-use CL\Slack\Transport\Events\AfterEvent;
-use CL\Slack\Transport\Events\BeforeEvent;
+use CL\Slack\Transport\Events\RequestEvent;
+use CL\Slack\Transport\Events\ResponseEvent;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
@@ -283,8 +283,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         $apiClient->getEventDispatcher()->addListener(
             ApiClientEvents::EVENT_BEFORE,
-            function (BeforeEvent $event) use ($output, $self) {
-                $self->rawRequest = $event->getPayloadData();
+            function (RequestEvent $event) use ($output, $self) {
+                $self->rawRequest = $event->getRawPayload();
                 if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
                     $output->writeln('<comment>Debug: sending payload...</comment>');
                     $this->renderKeyValueTable($output, $self->rawRequest);
@@ -294,8 +294,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         $apiClient->getEventDispatcher()->addListener(
             ApiClientEvents::EVENT_AFTER,
-            function (AfterEvent $event) use ($output, $self) {
-                $self->rawResponse = $event->getPayloadResponseData();
+            function (ResponseEvent $event) use ($output, $self) {
+                $self->rawResponse = $event->getRawPayloadResponse();
                 if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
                     $output->writeln('<comment>Debug: received payload response...</comment>');
                     $this->renderKeyValueTable($output, $self->rawResponse);
