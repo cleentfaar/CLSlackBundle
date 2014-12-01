@@ -15,24 +15,23 @@ Sending a message to one of your Slack channels is pretty easy. Here is how you 
 
 public function sendAction()
 {
-    $payload = $this->get('cl_slack.payload_registry')->get('chat.postMessage');
+    $payload = new ChatPostMessagePayload();
     $payload->setChannel('#general');
     $payload->setMessage('This message was sent using the <https://github.com/cleentfaar/CLSlackBundle|SlackBundle>!');
-    $payload->setUsername('acmebot');
     $payload->setIconEmoji(':birthday:');
 
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
-    // echo $response->getChannel(); // would return something like 'C01234567'
+    echo $response->getChannel(); // would return something like 'C01234567'
 
     // display the Slack timestamp on which the message was posted (note: NON-unix timestamp!)
-    // echo $response->getTimestamp(); // would return something like '1407190762.000000'
+    echo $response->getTimestamp(); // would return something like '1407190762.000000'
 }
 ```
 
 In Slack, that should give you something like this in the ``#test`` channel:
-![Example of a message posted to Slack](img/api-method-chat-postMessage.png)
+![Example of a message posted to Slack](https://github.com/cleentfaar/slack/Resources/img/api-method-chat-postMessage.png)
 
 
 ## Handling the response
