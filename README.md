@@ -17,22 +17,19 @@ Here is an example of how you can access the API's `chat.postMessage` method to 
 ```php
 // Acme\DemoBundle\Controller\MySlackController
 
-public function sendAction()
-{
-    $payload = new ChatPostMessagePayload();
-    $payload->setChannel('#general');
-    $payload->setMessage('This message was sent using the <https://github.com/cleentfaar/CLSlackBundle|SlackBundle>!');
-    $payload->setUsername('acmebot');
-    $payload->setIconEmoji(':birthday:');
+$payload = new ChatPostMessagePayload();
+$payload->setChannel('#general');
+$payload->setMessage('This message was sent using the <https://github.com/cleentfaar/CLSlackBundle|SlackBundle>!');
+$payload->setUsername('acmebot');
+$payload->setIconEmoji(':birthday:');
 
-    $response = $this->get('cl_slack.api_client')->send($payload);
+$response = $this->get('cl_slack.api_client')->send($payload);
 
-    // display the Slack channel ID on which the message was posted
-    echo $response->getChannel(); // would return something like 'C01234567'
+// display the Slack channel ID on which the message was posted
+echo $response->getChannel(); // would return something like 'C01234567'
 
-    // display the Slack timestamp on which the message was posted (note: NON-unix timestamp!)
-    echo $response->getTimestamp(); // would return something like '1407190762.000000'
-}
+// display the Slack timestamp on which the message was posted (note: NON-unix timestamp!)
+echo $response->getTimestamp(); // would return something like '1407190762.000000'
 ```
 
 In Slack, that should give you something like this in the `#general` channel:

@@ -40,11 +40,8 @@ services:
   cl_slack.api_client:
     class: %cl_slack.api_client.class%
     arguments:
-      - @jms_serializer.serializer
-      - @validator
-      - @cl_slack.http_client
-      - @event_dispatcher
       - %cl_slack.api_token%
+      - @jms_serializer.serializer
 
   cl_slack.payload_registry:
     class: %cl_slack.payload_registry.class%

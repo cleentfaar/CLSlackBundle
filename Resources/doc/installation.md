@@ -66,6 +66,11 @@ cl_slack:
     api_token: xoxp-1234567890-1234567890-1234567890-1a1234 # replace with your own (see: https://api.slack.com/tokens)
 ```
 
+If you don't have an API token yet, follow this link: [https://api.slack.com/#auth](https://api.slack.com/#auth).
+It takes you to the Slack API site which (if you are logged in, then scroll down) lets you generate an API token for your account.
+
+This is all you need to start working with this bundle.
+
 
 # Ready?
 
