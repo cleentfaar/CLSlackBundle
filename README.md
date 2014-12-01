@@ -35,7 +35,7 @@ public function sendAction()
 ```
 
 In Slack, that should give you something like this in the ``#test`` channel:
-![Example of a message posted to Slack](https://github.com/cleentfaar/CLSlackBundle/Resources/img/api-method-chat-postMessage.png)
+![Example of a message posted to Slack](https://github.com/cleentfaar/CLSlackBundle/Resources/doc/img/api-method-chat-postMessage.png)
 
 These and more examples can be found in the [usage](Resources/doc/usage.md) documentation.
 
