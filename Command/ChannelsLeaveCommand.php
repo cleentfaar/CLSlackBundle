@@ -33,7 +33,7 @@ class ChannelsLeaveCommand extends AbstractCommand
 
         $this->setName('slack:channels:leave');
         $this->setDescription('Leave a channel (as the user of the token).');
-        $this->addArgument('channel-id', InputArgument::REQUIRED, 'The ID of the channel to get information on');
+        $this->addArgument('channel-id', InputArgument::REQUIRED, 'The ID of the channel to leav');
         $this->setHelp(<<<EOT
 The <info>slack:channels:leave</info> command leaves a channel as the user of the token.
 

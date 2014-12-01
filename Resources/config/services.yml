@@ -10,6 +10,7 @@ parameters:
   cl_slack.payload.channels_info.class: CL\Slack\Payload\ChannelsInfoPayload
   cl_slack.payload.channels_invite.class: CL\Slack\Payload\ChannelsInvitePayload
   cl_slack.payload.channels_join.class: CL\Slack\Payload\ChannelsJoinPayload
+  cl_slack.payload.channels_kick.class: CL\Slack\Payload\ChannelsKickPayload
   cl_slack.payload.channels_leave.class: CL\Slack\Payload\ChannelsLeavePayload
   cl_slack.payload.channels_list.class: CL\Slack\Payload\ChannelsListPayload
   cl_slack.payload.channels_rename.class: CL\Slack\Payload\ChannelsRenamePayload
@@ -28,6 +29,17 @@ parameters:
   cl_slack.payload.groups_create_child.class: CL\Slack\Payload\GroupsCreateChildPayload
   cl_slack.payload.groups_history.class: CL\Slack\Payload\GroupsHistoryPayload
   cl_slack.payload.groups_invite.class: CL\Slack\Payload\GroupsInvitePayload
+  cl_slack.payload.groups_kick.class: CL\Slack\Payload\GroupsKickPayload
+  cl_slack.payload.groups_leave.class: CL\Slack\Payload\GroupsLeavePayload
+  cl_slack.payload.groups_list.class: CL\Slack\Payload\GroupsListPayload
+  cl_slack.payload.groups_open.class: CL\Slack\Payload\GroupsOpenPayload
+  cl_slack.payload.groups_rename.class: CL\Slack\Payload\GroupsRenamePayload
+  cl_slack.payload.groups_set_purpose.class: CL\Slack\Payload\GroupsSetPurposePayload
+  cl_slack.payload.groups_set_topic.class: CL\Slack\Payload\GroupsSetTopicPayload
+  cl_slack.payload.groups_unarchive.class: CL\Slack\Payload\GroupsUnarchivePayload
+  cl_slack.payload.im_close.class: CL\Slack\Payload\ImClosePayload
+  cl_slack.payload.im_history.class: CL\Slack\Payload\ImHistoryPayload
+  cl_slack.payload.im_list.class: CL\Slack\Payload\ImListPayload
   cl_slack.payload.search_all.class: CL\Slack\Payload\SearchAllPayload
   cl_slack.payload.search_files.class: CL\Slack\Payload\SearchFilesPayload
   cl_slack.payload.search_messages.class: CL\Slack\Payload\SearchMessagesPayload
@@ -83,6 +95,11 @@ services:
 
   cl_slack.payload.channels_join:
     class: %cl_slack.payload.channels_join.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.channels_kick:
+    class: %cl_slack.payload.channels_kick.class%
     tags:
       - { name: cl_slack.payload }
 
@@ -173,6 +190,56 @@ services:
 
   cl_slack.payload.groups_invite:
     class: %cl_slack.payload.groups_invite.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_kick:
+    class: %cl_slack.payload.groups_kick.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_leave:
+    class: %cl_slack.payload.groups_leave.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_list:
+    class: %cl_slack.payload.groups_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_open:
+    class: %cl_slack.payload.groups_open.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_rename:
+    class: %cl_slack.payload.groups_rename.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_set_purpose:
+    class: %cl_slack.payload.groups_set_purpose.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_set_topic:
+    class: %cl_slack.payload.groups_set_topic.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.groups_unarchive:
+    class: %cl_slack.payload.groups_unarchive.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.im_history:
+    class: %cl_slack.payload.im_history.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.im_list:
+    class: %cl_slack.payload.im_list.class%
     tags:
       - { name: cl_slack.payload }
 

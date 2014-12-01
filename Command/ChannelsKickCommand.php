@@ -49,7 +49,7 @@ EOT
      */
     protected function getMethod()
     {
-        return 'channels.invite';
+        return 'channels.kick';
     }
 
     /**

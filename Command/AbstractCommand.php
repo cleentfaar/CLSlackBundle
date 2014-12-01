@@ -268,6 +268,15 @@ abstract class AbstractCommand extends ContainerAwareCommand
      * @param OutputInterface $output
      * @param string          $message
      */
+    protected function writeComment(OutputInterface $output, $message)
+    {
+        $output->writeln(sprintf('<comment>%s</comment>', $message));
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param string          $message
+     */
     protected function writeError(OutputInterface $output, $message)
     {
         $output->writeln(sprintf('<fg=red>✘</fg=red> %s', $message));

@@ -11,8 +11,6 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Payload\ChannelsLeavePayload;
-use CL\Slack\Payload\ChannelsLeavePayloadResponse;
 use CL\Slack\Payload\ChannelsRenamePayload;
 use CL\Slack\Payload\ChannelsRenamePayloadResponse;
 use CL\Slack\Payload\PayloadInterface;
