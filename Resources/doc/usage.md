@@ -77,4 +77,4 @@ For more information about the commands, check out the [Console Commands documen
 
 ## Got it?
 
-If you haven't done so yet, check out the chapter about working with the [Console Commands](commands.md) or [creating a bot](creating-a-bot.md).
+If you haven't done so yet, check out the chapter about working with the [Console Commands](commands.md).
