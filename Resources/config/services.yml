@@ -40,6 +40,8 @@ parameters:
   cl_slack.payload.im_close.class: CL\Slack\Payload\ImClosePayload
   cl_slack.payload.im_history.class: CL\Slack\Payload\ImHistoryPayload
   cl_slack.payload.im_list.class: CL\Slack\Payload\ImListPayload
+  cl_slack.payload.oauth_access.class: CL\Slack\Payload\OauthAccessPayload
+  cl_slack.payload.presence_set.class: CL\Slack\Payload\PresenceSetPayload
   cl_slack.payload.search_all.class: CL\Slack\Payload\SearchAllPayload
   cl_slack.payload.search_files.class: CL\Slack\Payload\SearchFilesPayload
   cl_slack.payload.search_messages.class: CL\Slack\Payload\SearchMessagesPayload
@@ -240,6 +242,16 @@ services:
 
   cl_slack.payload.im_list:
     class: %cl_slack.payload.im_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.oauth_access:
+    class: %cl_slack.payload.oauth_access.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.presence_set:
+    class: %cl_slack.payload.presence_set.class%
     tags:
       - { name: cl_slack.payload }
 
