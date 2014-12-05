@@ -39,6 +39,9 @@ class ChannelsListCommand extends AbstractCommand
 This command returns a list of all channels in your Slack team.
 This includes channels the caller is in, channels they are not currently in, and archived channels.
 The number of (non-deactivated) members in each channel is also returned.
+
+For more information about the related API method, check out the official documentation:
+<comment>https://api.slack.com/methods/channels.list</comment>
 EOT
         );
     }

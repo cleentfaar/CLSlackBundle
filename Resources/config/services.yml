@@ -45,7 +45,10 @@ parameters:
   cl_slack.payload.search_all.class: CL\Slack\Payload\SearchAllPayload
   cl_slack.payload.search_files.class: CL\Slack\Payload\SearchFilesPayload
   cl_slack.payload.search_messages.class: CL\Slack\Payload\SearchMessagesPayload
+  cl_slack.payload.stars_list.class: CL\Slack\Payload\StarsListPayload
+  cl_slack.payload.users_info.class: CL\Slack\Payload\UsersInfoPayload
   cl_slack.payload.users_list.class: CL\Slack\Payload\UsersListPayload
+  cl_slack.payload.users_set_active.class: CL\Slack\Payload\UsersSetActivePayload
 
 services:
   cl_slack.http_client:
@@ -270,7 +273,22 @@ services:
     tags:
       - { name: cl_slack.payload }
 
+  cl_slack.payload.stars_list:
+    class: %cl_slack.payload.stars_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.users_info:
+    class: %cl_slack.payload.users_info.class%
+    tags:
+      - { name: cl_slack.payload }
+
   cl_slack.payload.users_list:
     class: %cl_slack.payload.users_list.class%
+    tags:
+      - { name: cl_slack.payload }
+
+  cl_slack.payload.users_set_active:
+    class: %cl_slack.payload.users_set_active.class%
     tags:
       - { name: cl_slack.payload }

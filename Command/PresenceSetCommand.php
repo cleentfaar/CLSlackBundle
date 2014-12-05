@@ -32,7 +32,7 @@ class PresenceSetCommand extends AbstractCommand
         parent::configure();
 
         $this->setName('slack:presence:set');
-        $this->setDescription('This method lets you manually override the token user\'s presence value');
+        $this->setDescription('Override the token user\'s presence value');
         $this->addArgument('presence', InputArgument::REQUIRED, 'Either active or away');
         $this->setHelp(<<<EOT
 The <info>slack:presence:set</info> command lets you manually override the token user's presence value.

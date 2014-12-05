@@ -11,8 +11,8 @@
 
 namespace CL\Bundle\SlackBundle\Command;
 
-use CL\Slack\Payload\ImClosePayload;
-use CL\Slack\Payload\ImClosePayloadResponse;
+use CL\Slack\Payload\UsersInfoPayload;
+use CL\Slack\Payload\UsersInfoPayloadResponse;
 use CL\Slack\Payload\PayloadInterface;
 use CL\Slack\Payload\PayloadResponseInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Cas Leentfaar <info@casleentfaar.com>
  */
-class ImCloseCommand extends AbstractCommand
+class UsersInfoCommand extends AbstractCommand
 {
     /**
      * {@inheritDoc}
@@ -31,14 +31,14 @@ class ImCloseCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('slack:im:close');
-        $this->setDescription('Closes a given Slack IM channel');
-        $this->addArgument('im-id', InputArgument::REQUIRED, 'The ID of an IM channel to close');
+        $this->setName('slack:users:info');
+        $this->setDescription('Returns information about a team member');
+        $this->addArgument('user-id', InputArgument::REQUIRED, 'User to get info on');
         $this->setHelp(<<<EOT
-The <info>slack:im:close</info> command let's you close a IM channel
+The <info>slack:users:info</info> command returns information about a team member.
 
 For more information about the related API method, check out the official documentation:
-<comment>https://api.slack.com/methods/im.close</comment>
+<comment>https://api.slack.com/methods/users.info</comment>
 EOT
         );
     }
@@ -48,35 +48,33 @@ EOT
      */
     protected function getMethod()
     {
-        return 'im.close';
+        return 'users.info';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param ImClosePayload $payload
-     * @param InputInterface $input
+     * @param UsersInfoPayload $payload
+     * @param InputInterface   $input
      */
     protected function configurePayload(PayloadInterface $payload, InputInterface $input)
     {
-        $payload->setImId($input->getArgument('im-id'));
+        $payload->setUserId($input->getArgument('user-id'));
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param ImClosePayloadResponse $payloadResponse
+     * @param UsersInfoPayloadResponse $payloadResponse
+     * @param InputInterface           $input
+     * @param OutputInterface          $output
      */
     protected function handleResponse(PayloadResponseInterface $payloadResponse, InputInterface $input, OutputInterface $output)
     {
         if ($payloadResponse->isOk()) {
-            if ($payloadResponse->isAlreadyClosed()) {
-                $output->writeln('<comment>Couldn\'t close IM channel: the channel has already been closed</comment>');
-            } else {
-                $this->writeOk($output, 'Successfully closed IM channel!');
-            }
+            $this->renderKeyValueTable($output, $payloadResponse->getUser());
         } else {
-            $this->writeError($output, sprintf('Failed to close IM channel: %s', $payloadResponse->getErrorExplanation()));
+            $this->writeError($output, sprintf('Failed to fetch information about the user: %s', $payloadResponse->getErrorExplanation()));
         }
     }
 }

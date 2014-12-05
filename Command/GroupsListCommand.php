@@ -37,6 +37,9 @@ class GroupsListCommand extends AbstractCommand
         $this->setHelp(<<<EOT
 This method returns a list of groups in the team that the caller is in and archived groups that the caller was in.
 The list of (non-deactivated) members in each group is also returned.
+
+For more information about the related API method, check out the official documentation:
+<comment>https://api.slack.com/methods/groups.list</comment>
 EOT
         );
     }
