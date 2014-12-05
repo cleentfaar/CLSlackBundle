@@ -16,7 +16,6 @@ use CL\Slack\Model\Customizable;
 use CL\Slack\Payload\PayloadInterface;
 use CL\Slack\Payload\PayloadResponseInterface;
 use CL\Slack\Transport\ApiClient;
-use CL\Slack\Transport\ApiClientEvents;
 use CL\Slack\Transport\Events\RequestEvent;
 use CL\Slack\Transport\Events\ResponseEvent;
 use JMS\Serializer\SerializerInterface;
@@ -290,8 +289,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
     {
         $self = $this;
 
-        $apiClient->getEventDispatcher()->addListener(
-            ApiClientEvents::EVENT_BEFORE,
+        $apiClient->addListener(
+            ApiClient::EVENT_REQUEST,
             function (RequestEvent $event) use ($output, $self) {
                 $self->rawRequest = $event->getRawPayload();
                 if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
@@ -301,8 +300,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
             }
         );
 
-        $apiClient->getEventDispatcher()->addListener(
-            ApiClientEvents::EVENT_AFTER,
+        $apiClient->addListener(
+            ApiClient::EVENT_RESPONSE,
             function (ResponseEvent $event) use ($output, $self) {
                 $self->rawResponse = $event->getRawPayloadResponse();
                 if ($output->getVerbosity() > OutputInterface::VERBOSITY_VERBOSE) {
