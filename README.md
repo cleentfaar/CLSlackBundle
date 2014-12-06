@@ -1,6 +1,6 @@
 # SlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
-Symfony bundle that let's you access the Slack API by integrating the [Slack API client](https://cleentfaar.github.io/slack) package.
+Symfony bundle that let's you access the Slack API by integrating the [Slack API client](https://github.com/cleentfaar/slack) package.
 
 Besides providing easy-to-access services, **commands are provided for all of the API methods** so you
  can easily set-up cronjobs to handle Slack automation, or just be geeky :smile:...
@@ -48,7 +48,7 @@ These and more examples can be found in the [usage](Resources/doc/usage.md) docu
 - [Commands](Resources/doc/commands.md)
 - [Contributing](Resources/doc/contributing.md)
 
-Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API](https://cleentfaar.github.io/slack)
+Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API client](https://github.com/cleentfaar/slack)
 
 To get a better understanding of the functionality that this bundle integrates, you should also check out the documentation
 of the actual library [here](https://github.com/cleentfaar/slack/Resources/doc/usage.md).
