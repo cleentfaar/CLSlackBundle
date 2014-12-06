@@ -40,7 +40,7 @@ The <info>slack:groups:set-topic</info> command changes the topic of a group.
 The calling user must be a member of the group.
 
 For more information about the related API method, check out the official documentation:
-<comment>https://api.slack.com/methods/groups.set-topic</comment>
+<comment>https://api.slack.com/methods/groups.setTopic</comment>
 EOT
         );
     }

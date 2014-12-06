@@ -40,7 +40,7 @@ The <info>slack:channels:set-purpose</info> command changes the purpose of a cha
 The calling user must be a member of the channel.
 
 For more information about the related API method, check out the official documentation:
-<comment>https://api.slack.com/methods/channels.set-purpose</comment>
+<comment>https://api.slack.com/methods/channels.setPurpose</comment>
 EOT
         );
     }
