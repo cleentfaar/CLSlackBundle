@@ -9,10 +9,9 @@ First you need to get a hold of this bundle. There are two ways to do this:
 Add the following to your ``composer.json`` (see http://getcomposer.org/)
 
     "require" :  {
-        "cleentfaar/slack-bundle": "~0.10"
+        "cleentfaar/slack-bundle": "~0.11"
     }
 
-**NOTE:** There is no stable version yet because Slack's API is not yet stable.
 
 ### Method b) Using submodules
 
@@ -66,7 +65,7 @@ cl_slack:
     api_token: xoxp-1234567890-1234567890-1234567890-1a1234 # replace with your own (see: https://api.slack.com/tokens)
 ```
 
-If you don't have an API token yet, follow this link: [https://api.slack.com/#auth](https://api.slack.com/#auth).
+If you don't have an API token yet, follow this link: [https://api.slack.com/web](https://api.slack.com/web).
 It takes you to the Slack API site which (if you are logged in, then scroll down) lets you generate an API token for your account.
 
 This is all you need to start working with this bundle.

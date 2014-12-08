@@ -1,9 +1,5 @@
 # Contributing
 
-**IMPORTANT:** Although I am happy to include your PRs, contributions may get delayed from merging until the official
-Slack API has reached a stable version. I am anticipating this to happen very soon though, and will then change the
-version of this package to 1.0 (stable) to reflect that.
-
 ## Coding standards
 
 Your PRs must adhere to the [Symfony2 Coding Standards](http://symfony.com/doc/current/contributing/code/standards.html).
