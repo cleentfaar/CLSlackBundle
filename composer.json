@@ -13,12 +13,15 @@
   ],
   "require": {
     "php": ">=5.4",
+    "cleentfaar/slack": "~0.12",
     "symfony/framework-bundle": "~2.2",
-    "jms/serializer-bundle": "~0.13",
-    "cleentfaar/slack": "~0.11"
+    "jms/serializer-bundle": "~0.13"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4"
+  },
+  "suggest": {
+    "cleentfaar/slack-cli": "Command-line application for interacting with the Slack API"
   },
   "autoload": {
     "psr-0": {

@@ -49,8 +49,6 @@ Slack to find out more.
 so it should feel familiar if you checked it out beforehand.*
 
 ```php
-// $response = $helper->send('theMethod.slugHere', [...]);
-// ...
 if (!$response->isOk()) {
     switch ($response->getError()) {
         case ApiMethodResponseInterface::ERROR_CHANNEL_NOT_FOUND:
