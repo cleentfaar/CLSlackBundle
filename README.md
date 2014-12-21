@@ -1,15 +1,14 @@
-# SlackBundle [![License](https://poser.pugx.org/cleentfaar/slack-bundle/license.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+# SlackBundle [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/cleentfaar/CLSlackBundle/tree/master/LICENSE.md)
 
 Symfony bundle that integrates the [Slack API client](https://github.com/cleentfaar/slack) by providing easy-to-use services and configuration.
 
 If you would like to access the Slack API from the command-line, consider installing the [slack-cli](https://github.com/cleentfaar/slack-cli) package.
 
-[![Build Status](https://secure.travis-ci.org/cleentfaar/CLSlackBundle.svg)](http://travis-ci.org/cleentfaar/CLSlackBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/?branch=master)<br/>
-[![Latest Stable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/stable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
-[![Total Downloads](https://poser.pugx.org/cleentfaar/slack-bundle/downloads.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/cleentfaar/slack-bundle/v/unstable.svg)](https://packagist.org/packages/cleentfaar/slack-bundle)
+[![Build Status](https://img.shields.io/travis/cleentfaar/CLSlackBundle/master.svg?style=flat-square)](https://travis-ci.org/cleentfaar/CLSlackBundle)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/cleentfaar/CLSlackBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/cleentfaar/CLSlackBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle)
+[![Latest Version](https://img.shields.io/github/release/cleentfaar/CLSlackBundle.svg?style=flat-square)](https://github.com/cleentfaar/CLSlackBundle/releases)
+[![Total Downloads](https://img.shields.io/packagist/dt/cleentfaar/slack-bundle.svg?style=flat-square)](https://packagist.org/packages/cleentfaar/slack-bundle)
 
 
 ## Quick example
