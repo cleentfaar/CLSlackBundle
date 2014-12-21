@@ -43,7 +43,6 @@ These and more examples can be found in the [usage](Resources/doc/usage.md) docu
 
 - [Installation](Resources/doc/installation.md)
 - [Usage](Resources/doc/usage.md)
-- [Commands](Resources/doc/commands.md) (moved to separate package!)
 - [Contributing](Resources/doc/contributing.md)
 
 Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API client](https://github.com/cleentfaar/slack)
