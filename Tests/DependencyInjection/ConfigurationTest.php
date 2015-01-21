@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\Bundle\SlackBundle\Tests;
+namespace CL\Bundle\SlackBundle\Tests\DependencyInjection;
 
 use CL\Bundle\SlackBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
