@@ -1,7 +1,12 @@
 {
   "name": "cleentfaar/slack-bundle",
   "description": "This bundle provides integration with the Slack API library, allowing you to interact with the Slack API from within your Symfony projects",
-  "keywords": ["slack", "api", "symfony", "bundle"],
+  "keywords": [
+    "slack",
+    "api",
+    "symfony",
+    "bundle"
+  ],
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
@@ -18,15 +23,20 @@
     "jms/serializer-bundle": "~0.13"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4"
+    "phpunit/phpunit": "~4.4",
+    "matthiasnoback/symfony-config-test": "~0.2",
+    "matthiasnoback/symfony-dependency-injection-test": "~0.7"
   },
   "suggest": {
     "cleentfaar/slack-cli": "Command-line application for interacting with the Slack API"
   },
   "autoload": {
-    "psr-0": {
-      "CL\\Bundle\\SlackBundle": ""
+    "psr-4": {
+      "CL\\Bundle\\SlackBundle\\": ""
     }
   },
-  "target-dir": "CL/Bundle/SlackBundle"
+  "target-dir": "CL/Bundle/SlackBundle",
+  "config": {
+    "bin-dir": "bin"
+  }
 }
