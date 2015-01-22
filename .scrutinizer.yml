@@ -2,8 +2,8 @@ inherit: true
 
 filter:
   excluded_paths:
-    - 'vendor/*'
-    - 'bin/*'
+    - 'CLSlackBundle.php'
+    - 'Test/*'
     - 'Tests/*'
 
 before_commands:
