@@ -36,14 +36,14 @@ echo $response->getTimestamp(); // would return something like '1407190762.00000
 In Slack, that should give you something like this in the `#general` channel:
 ![Example of a message posted to Slack](https://raw.githubusercontent.com/cleentfaar/CLSlackBundle/master/Resources/doc/img/api-method-chat-postMessage.png)
 
-These and more examples can be found in the [usage](Resources/doc/usage.md) documentation.
+These and more examples can be found in the [usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md) documentation.
 
 
 ## Documentation
 
-- [Installation](Resources/doc/installation.md)
-- [Usage](Resources/doc/usage.md)
-- [Contributing](Resources/doc/contributing.md)
+- [Installation](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/installation.md)
+- [Usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md)
+- [Contributing](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/contributing.md)
 
 Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API client](https://github.com/cleentfaar/slack)
 
