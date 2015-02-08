@@ -9,7 +9,7 @@ First you need to get a hold of this bundle. There are two ways to do this:
 Add the following to your ``composer.json`` (see http://getcomposer.org/)
 
     "require" :  {
-        "cleentfaar/slack-bundle": "~0.12"
+        "cleentfaar/slack-bundle": "~0.10"
     }
 
 
@@ -58,13 +58,17 @@ public function registerBundles()
 }
 ```
 
-## Step 4) Configure the bundle
+## Step 4) Configure the default API token to use (optional)
 
-The bundle requires you to define a small piece of configuration before you start, here is an example:
+The bundle tries to make sending payloads to Slack a little easier by letting you
+define the API token to use beforehand. NOTE: This is not required; you can still choose to leave
+the configuration empty and pass the API token of your choice to the `ApiClient` instance directly.
+
+Here is an example:
 ```yaml
 # app/config/config.yml
 cl_slack:
-    api_token: xoxp-1234567890-1234567890-1234567890-1a1234 # replace with your own (see: https://api.slack.com/tokens)
+    api_token: 1234 # replace with your own (see: https://api.slack.com/tokens)
 ```
 
 If you don't have an API token yet, follow this link: [https://api.slack.com/web](https://api.slack.com/web).
@@ -75,4 +79,4 @@ This is all you need to start working with this bundle.
 
 # Ready?
 
-Let's start interacting with the Slack API! Check out the [usage documentation](usage.md)!
+Let's start interacting with the Slack API! Check out the [usage documentation](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md)!

@@ -7,20 +7,18 @@ Therefore you can find most of the documentation about interacting with the Slac
 for examples on setting up the API client manually.
 
 
-## chat.postMessage: Sending a message to one of your Slack channels
+## Sending a message to one of your Slack channels
 
-Sending a message to one of your Slack channels is pretty easy. Here is how you could do this inside one of your controllers:
+Sending a message to one of your Slack channels is pretty easy.
+Here is how you could do this inside one of your controllers:
+
 ```php
 // Acme\DemoBundle\Controller\MySlackController
 
 public function sendAction()
 {
-    $payload = new ChatPostMessagePayload();
-    $payload->setChannel('#general');
-    $payload->setMessage('This message was sent using the <https://github.com/cleentfaar/CLSlackBundle|SlackBundle>!');
-    $payload->setUsername('acmebot');
-    $payload->setIconEmoji(':birthday:');
-
+    $factory  = $this->get('cl_slack.payload_factory');
+    $payload  = $factory->chatPostMessage('general', 'Hello world!', 'acme', 'birthday');
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
@@ -66,13 +64,9 @@ if (!$response->isOk()) {
 
 ## Console Commands
 
-Besides making different factories from the library available as services in your project, special commands have been
-created for the console application (`php app/console`) that you may find useful to (for example) quickly send messages
-to a Slack channel.
+Previously, this bundle provided commands for the Symfony Console application.
+However, to have more users use them outside Symfony projects and keep separation of concerns,
+the commands have been moved to a separate package: [Slack CLI](https://github.com/cleentfaar/slack-cli).
 
-For more information about the commands, check out the [Console Commands documentation](commands.md).
-
-
-## Got it?
-
-If you haven't done so yet, check out the chapter about working with the [Console Commands](commands.md).
+The CLI application is actually a `phar`-executable, and still allows you to set a default token if you wish
+to do so (using the `config.set` command).
