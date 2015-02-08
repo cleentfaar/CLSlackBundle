@@ -7,7 +7,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
 
 class ConfigurationTest extends AbstractConfigurationTestCase
 {
-    public function testValuesAreValidWithToken()
+    public function testValuesAreValidWithTokenOrNull()
     {
         $this->assertConfigurationIsValid(
             [
@@ -16,14 +16,29 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 ]
             ]
         );
+
+        $this->assertConfigurationIsValid(
+            [
+                [
+                    'api_token' => null,
+                ]
+            ]
+        );
     }
 
-    public function testValuesAreInvalidIfRequiredValueIsNotProvided()
+    public function testValuesAreInvalidIfTypeOfApiTokenIsInvalid()
     {
-        $this->assertConfigurationIsInvalid(
-            [[]], // no values at all
-            'api_token' // (part of) the expected exception message
-        );
+        $this->assertConfigurationIsInvalid([
+            [
+                'api_token' => [],
+            ]
+        ], 'api_token');
+
+        $this->assertConfigurationIsInvalid([
+            [
+                'api_token' => new \stdClass(),
+            ]
+        ], 'api_token');
     }
 
     /**

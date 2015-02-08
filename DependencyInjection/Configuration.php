@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('api_token')->isRequired()->end()
+                ->scalarNode('api_token')->defaultNull()->end()
             ->end()
         ;
 
