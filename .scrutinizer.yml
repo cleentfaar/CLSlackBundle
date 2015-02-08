@@ -2,9 +2,10 @@ inherit: true
 
 filter:
   excluded_paths:
+    - 'bin'
     - 'CLSlackBundle.php'
-    - 'Test/*'
-    - 'Tests/*'
+    - 'Resources'
+    - 'vendor'
 
 before_commands:
   - 'sudo composer self-update'

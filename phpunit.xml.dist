@@ -11,8 +11,6 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Command</directory>
-                <directory>./DependencyInjection</directory>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
