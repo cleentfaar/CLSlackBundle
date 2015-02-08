@@ -35,7 +35,7 @@ public function sendAction()
 ```
 
 In Slack, that should give you something like this in the `#general` channel:
-![Example of a message posted to Slack](https://raw.githubusercontent.com/cleentfaar/CLSlackBundle/master/Resources/doc/img/api-method-chat-postMessage.png)
+![Example of a message posted to Slack](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/img/api-method-chat-postMessage.png)
 
 These and more examples can be found in the [usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md) documentation.
 
@@ -46,10 +46,7 @@ These and more examples can be found in the [usage](https://github.com/cleentfaa
 - [Usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md)
 - [Contributing](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/contributing.md)
 
-Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API client](https://github.com/cleentfaar/slack)
-
-To get a better understanding of the functionality that this bundle integrates, you should also check out the documentation
-of the actual library [here](https://github.com/cleentfaar/slack/Resources/doc/usage.md).
+Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API library](https://github.com/cleentfaar/slack)
 
 
 ## Thanks
@@ -60,4 +57,4 @@ of the actual library [here](https://github.com/cleentfaar/slack/Resources/doc/u
 
 ## Contributing
 
-If you would like to contribute to this package, check out the contribution doc [here](Resources/doc/contributing.md).
+If you would like to contribute to this package, check out the contribution doc [here](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/contributing.md).
