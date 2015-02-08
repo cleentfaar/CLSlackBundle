@@ -34,4 +34,3 @@ class ConfigurationTest extends AbstractConfigurationTestCase
         return new Configuration();
     }
 }
-
