@@ -5,6 +5,7 @@ filter:
     - 'bin'
     - 'CLSlackBundle.php'
     - 'Resources'
+    - 'Tests'
     - 'vendor'
 
 before_commands:
