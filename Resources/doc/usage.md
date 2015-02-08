@@ -18,7 +18,7 @@ Here is how you could do this inside one of your controllers:
 public function sendAction()
 {
     $factory  = $this->get('cl_slack.payload_factory');
-    $payload  = $factory->chatPostMessage('general', 'Hello world!', 'acme', 'birthday');
+    $payload  = $factory->chatPostMessage('#general', 'Hello world!', 'acme', 'birthday');
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted

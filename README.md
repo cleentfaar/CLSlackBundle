@@ -22,7 +22,7 @@ Here is an example of how you can access the API's `chat.postMessage` method to 
 public function sendAction()
 {
     $factory  = $this->get('cl_slack.payload_factory');
-    $payload  = $factory->chatPostMessage('general', 'Hello world!', 'acme');
+    $payload  = $factory->chatPostMessage('#general', 'Hello world!', 'acme');
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
