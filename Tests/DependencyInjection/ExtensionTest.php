@@ -30,8 +30,6 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('cl_slack.payload_factory', 'CL\Slack\Util\PayloadFactory');
 
         $this->assertContainerBuilderHasService('cl_slack.payload_serializer', 'CL\Slack\Util\PayloadSerializer');
-
-        $this->assertContainerBuilderHasService('cl_slack.payload_registry', 'CL\Slack\Util\PayloadRegistry');
     }
 
     /**
