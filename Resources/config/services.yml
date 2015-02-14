@@ -19,5 +19,3 @@ services:
 
   cl_slack.payload_serializer:
     class: %cl_slack.payload_serializer.class%
-    arguments:
-      - @jms_serializer.serializer

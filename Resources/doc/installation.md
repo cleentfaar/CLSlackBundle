@@ -32,7 +32,6 @@ Otherwise, add the following two namespace entries to the `registerNamespaces` c
 // app/autoload.php
 $loader->registerNamespaces(array(
     // ...
-    'JMS\SerializerBundle' => __DIR__.'/../vendor/bundles/jms/serializer-bundle',
     'CL\Bundle\SlackBundle' => __DIR__.'/../vendor/bundles/cleentfaar/slack-bundle',
     // ...
 ));
@@ -51,7 +50,6 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new JMS\SerializerBundle\JMSSerializerBundle(), // required for this bundle
         new CL\Bundle\SlackBundle\CLSlackBundle(),
         // ...
     );
