@@ -11,11 +11,11 @@ services:
     arguments:
       - %cl_slack.api_token%
 
-  cl_slack.payload_factory:
-    class: %cl_slack.payload_factory.class%
-
   cl_slack.model_serializer:
     class: %cl_slack.model_serializer.class%
+
+  cl_slack.payload_factory:
+    class: %cl_slack.payload_factory.class%
 
   cl_slack.payload_serializer:
     class: %cl_slack.payload_serializer.class%
