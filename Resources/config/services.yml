@@ -10,7 +10,6 @@ services:
     class: %cl_slack.api_client.class%
     arguments:
       - %cl_slack.api_token%
-      - @cl_slack.payload_serializer
 
   cl_slack.payload_factory:
     class: %cl_slack.payload_factory.class%
