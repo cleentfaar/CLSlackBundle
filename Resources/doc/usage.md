@@ -17,8 +17,12 @@ Here is how you could do this inside one of your controllers:
 
 public function sendAction()
 {
-    $factory  = $this->get('cl_slack.payload_factory');
-    $payload  = $factory->chatPostMessage('#general', 'Hello world!', 'acme', 'birthday');
+    $payload  = new ChatPostMessagePayload();
+    $payload->setChannel('#general');   // Channel names must begin with a hash-sign '#'
+    $payload->setText('Hello world!');  // also supports Slack formatting
+    $payload->setUsername('acme');      // can be anything you want
+    $payload->setIconEmoji('birthday'); // check out emoji.list-payload for a list of available emojis
+
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
@@ -47,26 +51,19 @@ Slack to find out more.
 so it should feel familiar if you checked it out beforehand.*
 
 ```php
-if (!$response->isOk()) {
-    switch ($response->getError()) {
-        case ApiMethodResponseInterface::ERROR_CHANNEL_NOT_FOUND:
-            throw new \InvalidArgumentException(sprintf("Wait a tick... That channel does not even exist! Given: %s", $channel));
-            break;
-        case ApiMethodResponseInterface::ERROR_INVALID_TOKEN:
-            throw new \InvalidArgumentException("Wait a tick... We got the wrong token configured!");
-            break;
-        default:
-            throw new \InvalidArgumentException($response->getError());
-    }
+// the following is very much up to you, this is just a very simple example
+if ($response->isOk()) {
+    // do what you want...
+} else {
+    echo sprintf('Something seemed to have gone wrong: %s', $response->getErrorExplanation());
 }
 ```
 
 
 ## Console Commands
 
-Previously, this bundle provided commands for the Symfony Console application.
-However, to have more users use them outside Symfony projects and keep separation of concerns,
-the commands have been moved to a separate package: [Slack CLI](https://github.com/cleentfaar/slack-cli).
+Previously, this bundle provided commands for the Symfony Console application. However, to allow non-Symfony projects
+to use them (and keep separation of concerns), the commands have been moved to a separate package: [Slack CLI](https://github.com/cleentfaar/slack-cli).
 
 The CLI application is actually a `phar`-executable, and still allows you to set a default token if you wish
 to do so (using the `config.set` command).
