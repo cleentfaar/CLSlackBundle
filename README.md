@@ -1,5 +1,7 @@
 # SlackBundle [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/cleentfaar/CLSlackBundle/tree/master/LICENSE.md)
 
+**UPDATE:** There were issues with earlier releases, please try using `~0.15.1` and report any further issues asap!
+
 Symfony bundle that integrates the [Slack API client](https://github.com/cleentfaar/slack) by providing easy-to-use services and configuration.
 
 If you would like to access the Slack API from the command-line, consider installing the [slack-cli](https://github.com/cleentfaar/slack-cli) package.
