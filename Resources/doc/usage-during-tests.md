@@ -18,7 +18,13 @@ public function testSend()
     // no connection will be made by using the mocked client, it will simply create the proper response
     // for this payload and fill it with some sensible data.
     $response = $this->get('cl_slack.mock_api_client')->send($payload);
+
+    // display the Slack channel ID on which the message was posted
+    echo $response->getChannel(); // would return mocked data, like 'C01234567'
+
+    // display the Slack timestamp on which the message was posted (note: NON-unix timestamp!)
+    echo $response->getTimestamp(); // would return mocked data, like '12345678.12345678'
 }
 ```
 
-You can check out the `MockApiClient` class itself in the *library's* documentation [here](https://github.com/cleentfaar/slack/blob/master/src/CL/Slack/Test/Transport/MockApiClient.php).
+You can read more out the `MockApiClient` class itself in the *library's* documentation [here](https://github.com/cleentfaar/slack/blob/master/src/CL/Slack/Test/Transport/MockApiClient.php).
