@@ -4,7 +4,7 @@ To make your functional tests easier, you can use the `MockApiClient` class to s
 to access (mocked) responses.
 
 
-## Using the `cl_slack.mock_api_client` service
+#### Using the `cl_slack.mock_api_client` service
 
 For this bundle, a special service has been made to make this a bit easier: `cl_slack.mock_api_client`.
 It behaves the same as the normal `cl_slack.api_client` service, the difference being that no
@@ -35,7 +35,7 @@ public function testSend()
 }
 ```
 
-## Using the `test` option
+#### Using the `test` option
 
 If you configure the bundle's `test` option to `true`, the `cl_slack.api_client` service will become a mocked
 API client. This can be useful during functional tests, where you don't want to connect to remote services
