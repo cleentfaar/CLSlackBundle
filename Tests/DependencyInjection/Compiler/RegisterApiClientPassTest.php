@@ -9,21 +9,22 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterApiClientPassTest extends AbstractCompilerPassTestCase
 {
+    public function testApiClientIsMockedWhenTestIsTrue()
+    {
+        $apiClientId     = 'cl_slack.api_client';
+        $mockApiClientId = 'cl_slack.mock_api_client';
+
+        $this->setDefinition($apiClientId, new Definition());
+        $this->setDefinition($mockApiClientId, new Definition());
+        $this->setParameter('cl_slack.test', true);
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasAlias($apiClientId, $mockApiClientId);
+    }
+
     protected function registerCompilerPass(ContainerBuilder $container)
     {
         $container->addCompilerPass(new RegisterApiClientPass());
-    }
-    /**
-     * @test
-     */
-    public function testApiClientIsMockedWhenTestIsTrue()
-    {
-        $collectingService = new Definition();
-        $this->setDefinition('cl_slack.api_client', $collectingService);
-        $this->setParameter('cl_slack.test', true);
-        $this->setParameter('cl_slack.mock_api_client.class', 'TestClass');
-        $this->compile();
-
-        $this->assertContainerBuilderHasService('cl_slack.api_client', 'TestClass');
     }
 }

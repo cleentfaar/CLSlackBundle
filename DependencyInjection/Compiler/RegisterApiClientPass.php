@@ -10,10 +10,11 @@ class RegisterApiClientPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $clientId = 'cl_slack.api_client';
+        $mockClientId = 'cl_slack.mock_api_client';
 
         if (!$container->hasDefinition($clientId) ||
-            !$container->hasParameter('cl_slack.test') ||
-            !$container->hasParameter('cl_slack.mock_api_client.class')
+            !$container->hasDefinition($mockClientId) ||
+            !$container->hasParameter('cl_slack.test')
         ) {
             return;
         }
@@ -22,7 +23,7 @@ class RegisterApiClientPass implements CompilerPassInterface
             return;
         }
 
-        $clientDefinition = $container->getDefinition($clientId);
-        $clientDefinition->setClass($container->getParameter('cl_slack.mock_api_client.class'));
+        $container->removeDefinition($clientId);
+        $container->setAlias($clientId, $mockClientId);
     }
 }
