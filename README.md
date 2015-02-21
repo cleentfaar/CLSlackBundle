@@ -23,8 +23,12 @@ Here is an example of how you can access the API's `chat.postMessage` method to 
 
 public function sendAction()
 {
-    $factory  = $this->get('cl_slack.payload_factory');
-    $payload  = $factory->chatPostMessage('#general', 'Hello world!', 'acme');
+    $payload  = new ChatPostMessagePayload();
+    $payload->setChannel('#general');   // Channel names must begin with a hash-sign '#'
+    $payload->setText('Hello world!');  // also supports Slack formatting
+    $payload->setUsername('acme');      // can be anything you want
+    $payload->setIconEmoji('birthday'); // check out emoji.list-payload for a list of available emojis
+
     $response = $this->get('cl_slack.api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
@@ -46,6 +50,7 @@ These and more examples can be found in the [usage](https://github.com/cleentfaa
 
 - [Installation](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/installation.md)
 - [Usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md)
+- [Usage during tests](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage-during-tests.md)
 - [Contributing](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/contributing.md)
 
 Detailed documentation on how to access each API method can be found in the documentation of the package that this bundle integrates: [Slack API library](https://github.com/cleentfaar/slack)
