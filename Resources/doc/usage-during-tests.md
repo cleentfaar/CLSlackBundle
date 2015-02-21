@@ -15,8 +15,10 @@ public function testSend()
     $payload->setUsername('acme');
     $payload->setIconEmoji('birthday');
 
-    // no connection will be made by using the mocked client, it will simply create the proper response
-    // for this payload and fill it with some sensible data.
+    // no connection will be made by using the mocked client,
+    // it will simply create the proper response for this payload,
+    // in this case an instance of ChatPostMessagePayloadResponse,
+    // and fill it with some sensible data.
     $response = $this->get('cl_slack.mock_api_client')->send($payload);
 
     // display the Slack channel ID on which the message was posted
