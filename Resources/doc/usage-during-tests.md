@@ -3,7 +3,13 @@
 To make your functional tests easier, you can use the `MockApiClient` class to still be able
 to access (mocked) responses.
 
-For this bundle, a special service has been made to make this a bit easier:
+
+## Using the `cl_slack.mock_api_client` service
+
+For this bundle, a special service has been made to make this a bit easier: `cl_slack.mock_api_client`.
+It behaves the same as the normal `cl_slack.api_client` service, the difference being that no
+connection is made to the API client and the data returned is mocked.
+
 ```php
 // Acme\DemoBundle\Tests\AcmeChatService
 
@@ -29,4 +35,10 @@ public function testSend()
 }
 ```
 
-You can read more out the `MockApiClient` class itself in the *library's* documentation [here](https://github.com/cleentfaar/slack/blob/master/src/CL/Slack/Test/Transport/MockApiClient.php).
+## Using the `test` option
+
+If you configure the bundle's `test` option to `true`, the `cl_slack.api_client` service will become a mocked
+API client. This can be useful during functional tests, where you don't want to connect to remote services
+but still get a real-life response for your tests.
+
+You can read more out the `test` option in the [configuration](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/configuration.md) chapter.

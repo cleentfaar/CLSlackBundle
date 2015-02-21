@@ -11,6 +11,7 @@
 
 namespace CL\Bundle\SlackBundle;
 
+use CL\Bundle\MailerBundle\DependencyInjection\Compiler\RegisterApiClientPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -19,4 +20,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class CLSlackBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new RegisterApiClientPass());
+    }
 }

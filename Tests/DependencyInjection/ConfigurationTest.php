@@ -12,7 +12,8 @@ class ConfigurationTest extends AbstractConfigurationTestCase
         $this->assertConfigurationIsValid(
             [
                 [
-                    'api_token' => '1234'
+                    'api_token' => '1234',
+                    'test'      => true,
                 ]
             ]
         );
@@ -21,7 +22,14 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             [
                 [
                     'api_token' => null,
+                    'test'      => false,
                 ]
+            ]
+        );
+
+        $this->assertConfigurationIsValid(
+            [
+                []
             ]
         );
     }

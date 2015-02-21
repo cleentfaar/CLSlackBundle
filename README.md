@@ -49,6 +49,7 @@ These and more examples can be found in the [usage](https://github.com/cleentfaa
 ## Documentation
 
 - [Installation](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/installation.md)
+- [Configuration](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/configuration.md)
 - [Usage](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage.md)
 - [Usage during tests](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/usage-during-tests.md)
 - [Contributing](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/contributing.md)

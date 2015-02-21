@@ -58,9 +58,15 @@ public function registerBundles()
 
 ## Step 4) Configure the default API token to use (optional)
 
+If you don't have an API token yet, follow this link: [https://api.slack.com/web](https://api.slack.com/web).
+It takes you to the Slack API site which (if you are logged in, then scroll down) lets you
+generate an API token for your account.
+
 The bundle tries to make sending payloads to Slack a little easier by letting you
-define the API token to use beforehand. NOTE: This is not required; you can still choose to leave
-the configuration empty and pass the API token of your choice to the `ApiClient` instance directly.
+define the API token to use beforehand.
+
+**NOTE:** Setting the token beforehand is not required; you can still choose to leave the
+configuration empty and pass the API token of your choice when sending a payload: `$apiClient->send($payload, 'your-token-here')`.
 
 Here is an example:
 ```yaml
@@ -69,10 +75,8 @@ cl_slack:
     api_token: 1234 # replace with your own (see: https://api.slack.com/tokens)
 ```
 
-If you don't have an API token yet, follow this link: [https://api.slack.com/web](https://api.slack.com/web).
-It takes you to the Slack API site which (if you are logged in, then scroll down) lets you generate an API token for your account.
-
-This is all you need to start working with this bundle.
+This is all you need to start working with this bundle. If you would like to see a complete reference of
+all configuration options, check out the [configuration](https://github.com/cleentfaar/CLSlackBundle/blob/master/Resources/doc/configuration.md) chapter.
 
 
 # Ready?

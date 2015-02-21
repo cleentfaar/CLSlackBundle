@@ -4,7 +4,6 @@ namespace CL\Bundle\SlackBundle\Tests\DependencyInjection;
 
 use CL\Bundle\SlackBundle\DependencyInjection\CLSlackExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Symfony\Component\DependencyInjection\Reference;
 
 class ExtensionTest extends AbstractExtensionTestCase
 {
@@ -12,9 +11,11 @@ class ExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([
             'api_token' => '1234',
+            'test'      => true,
         ]);
 
         $this->assertContainerBuilderHasParameter('cl_slack.api_token', '1234');
+        $this->assertContainerBuilderHasParameter('cl_slack.test', true);
     }
 
     public function testServiceDefinitions()
