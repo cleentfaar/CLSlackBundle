@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": ">=5.4",
-    "cleentfaar/slack": "~0.15.3",
+    "cleentfaar/slack": "~0.17.1",
     "symfony/framework-bundle": "~2.2"
   },
   "require-dev": {
