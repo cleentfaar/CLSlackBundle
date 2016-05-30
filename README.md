@@ -1,10 +1,8 @@
 # SlackBundle [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/cleentfaar/CLSlackBundle/tree/master/LICENSE.md)
 
-**UPDATE:** There were issues with earlier releases, please try using `~0.15.1` and report any further issues asap!
-
 Symfony bundle that integrates the [Slack API client](https://github.com/cleentfaar/slack) by providing easy-to-use services and configuration.
 
-If you would like to access the Slack API from the command-line, consider installing the [slack-cli](https://github.com/cleentfaar/slack-cli) package.
+If you would like to access the Slack Web API from the command-line, consider installing the [slack-cli](https://github.com/cleentfaar/slack-cli) package.
 
 [![Build Status](https://img.shields.io/travis/cleentfaar/CLSlackBundle/master.svg?style=flat-square)](https://travis-ci.org/cleentfaar/CLSlackBundle)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/cleentfaar/CLSlackBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/cleentfaar/CLSlackBundle/code-structure)
@@ -23,7 +21,7 @@ Here is an example of how you can access the API's `chat.postMessage` method to 
 
 public function sendAction()
 {
-    $payload  = new ChatPostMessagePayload();
+    $payload = new ChatPostMessagePayload();
     $payload->setChannel('#general');   // Channel names must begin with a hash-sign '#'
     $payload->setText('Hello world!');  // also supports Slack formatting
     $payload->setUsername('acme');      // can be anything you want
