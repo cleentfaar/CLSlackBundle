@@ -7,34 +7,10 @@ use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
 
 class ConfigurationTest extends AbstractConfigurationTestCase
 {
-    public function testValuesAreValidWithTokenOrNull()
-    {
-        $this->assertConfigurationIsValid(
-            [
-                [
-                    'api_token' => '1234',
-                    'test'      => true,
-                ]
-            ]
-        );
-
-        $this->assertConfigurationIsValid(
-            [
-                [
-                    'api_token' => null,
-                    'test'      => false,
-                ]
-            ]
-        );
-
-        $this->assertConfigurationIsValid(
-            [
-                []
-            ]
-        );
-    }
-
-    public function testValuesAreInvalidIfTypeOfApiTokenIsInvalid()
+    /**
+     * @test
+     */
+    public function it_can_not_be_valid_with_an_api_token_of_the_wrong_type()
     {
         $this->assertConfigurationIsInvalid([
             [

@@ -3,7 +3,7 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="SlackBundle Test Suite">
-            <directory suffix="Test.php">./Tests/</directory>
+            <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
 

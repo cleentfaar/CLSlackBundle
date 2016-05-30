@@ -8,7 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class BundleTest extends \PHPUnit_Framework_TestCase
 {
-    public function testBundleRegistersCompilerPasses()
+    /**
+     * @test
+     */
+    public function it_registers_the_expected_compiler_pass()
     {
         $found     = false;
         $container = new ContainerBuilder();

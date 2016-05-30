@@ -16,6 +16,9 @@ class RegisterApiClientPassTest extends AbstractCompilerPassTestCase
     private $apiClientClass;
     private $mockApiClientClass;
 
+    /**
+     * @inheritdoc
+     */
     protected function setUp()
     {
         parent::setUp();
@@ -28,18 +31,10 @@ class RegisterApiClientPassTest extends AbstractCompilerPassTestCase
 
     }
 
-    public function testApiClientIsNotMockedWhenTestIsFalse()
-    {
-        $this->setParameter('cl_slack.test', false);
-
-        $this->compile();
-
-        $this->assertContainerBuilderNotHasAlias(self::API_CLIENT_ID, $this->mockApiClientClass);
-        $this->assertContainerBuilderHasService(self::API_CLIENT_ID, $this->apiClientClass);
-        $this->assertContainerBuilderHasService(self::MOCK_API_CLIENT_ID, $this->mockApiClientClass);
-    }
-
-    public function testApiClientIsMockedWhenTestIsTrue()
+    /**
+     * @test
+     */
+    public function the_api_client_is_mocked_when_test_mode_is_disabled()
     {
         $this->setParameter('cl_slack.test', true);
 
@@ -50,16 +45,37 @@ class RegisterApiClientPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasService(self::MOCK_API_CLIENT_ID, $this->mockApiClientClass);
     }
 
-    protected function assertContainerBuilderNotHasAlias($aliasId, $expectedServiceId)
+    /**
+     * @test
+     */
+    public function the_api_client_is_not_mocked_when_test_mode_is_disabled()
+    {
+        $this->setParameter('cl_slack.test', false);
+
+        $this->compile();
+
+        $this->assertContainerBuilderDoesNotHaveAlias(self::API_CLIENT_ID, $this->mockApiClientClass);
+        $this->assertContainerBuilderHasService(self::API_CLIENT_ID, $this->apiClientClass);
+        $this->assertContainerBuilderHasService(self::MOCK_API_CLIENT_ID, $this->mockApiClientClass);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new RegisterApiClientPass());
+    }
+
+    /**
+     * @param string $aliasId
+     * @param string $expectedServiceId
+     */
+    private function assertContainerBuilderDoesNotHaveAlias($aliasId, $expectedServiceId)
     {
         self::assertThat(
             $this->container,
             new \PHPUnit_Framework_Constraint_Not(new ContainerBuilderHasAliasConstraint($aliasId, $expectedServiceId))
         );
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new RegisterApiClientPass());
     }
 }
