@@ -7,18 +7,18 @@ parameters:
 
 services:
   cl_slack.api_client:
-    class: %cl_slack.api_client.class%
+    class: "%cl_slack.api_client.class%"
     arguments:
-      - %cl_slack.api_token%
+      - "%cl_slack.api_token%"
 
   cl_slack.mock_api_client:
-    class: %cl_slack.mock_api_client.class%
+    class: "%cl_slack.mock_api_client.class%"
 
   cl_slack.model_serializer:
-    class: %cl_slack.model_serializer.class%
+    class: "%cl_slack.model_serializer.class%"
 
   cl_slack.payload_serializer:
-    class: %cl_slack.payload_serializer.class%
+    class: "%cl_slack.payload_serializer.class%"
 
   cl_slack.payload_response_serializer:
-    class: %cl_slack.payload_response_serializer.class%
+    class: "%cl_slack.payload_response_serializer.class%"
