@@ -1,9 +1,9 @@
 # Usage
 
 The [SlackBundle](https://github.com/cleentfaar/CLSlackBundle) implements the [Slack](https://github.com/cleentfaar/slack) PHP library into your Symfony2 project.
-Therefore you can find most of the documentation about interacting with the Slack API [there](https://github.com/cleentfaar/slack/Resources/doc/usage.md).
+Therefore you can find most of the documentation about interacting with the Slack API [there](https://github.com/cleentfaar/slack/blob/master/src/CL/Slack/Resources/doc/usage.md).
 
-**NOTE:** The example shown below is specific to this bundle; you should refer to the [library usage docs](https://github.com/cleentfaar/slack/Resources/doc/usage.md)
+**NOTE:** The example shown below is specific to this bundle; you should refer to the [library usage docs](https://github.com/cleentfaar/slack/blob/master/src/CL/Slack/Resources/doc/usage.md)
 for examples on setting up the API client manually.
 
 
