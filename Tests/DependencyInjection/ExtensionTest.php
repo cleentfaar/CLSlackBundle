@@ -34,7 +34,6 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('cl_slack.api_client', 0, '%cl_slack.api_token%');
 
         $this->assertContainerBuilderHasService('cl_slack.mock_api_client', 'CL\Slack\Test\Transport\MockApiClient');
-        $this->assertContainerBuilderHasService('cl_slack.model_serializer', 'CL\Slack\Serializer\ModelSerializer');
         $this->assertContainerBuilderHasService('cl_slack.payload_serializer', 'CL\Slack\Serializer\PayloadSerializer');
         $this->assertContainerBuilderHasService('cl_slack.payload_response_serializer', 'CL\Slack\Serializer\PayloadResponseSerializer');
     }
