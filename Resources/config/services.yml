@@ -1,24 +1,20 @@
 parameters:
   cl_slack.api_client.class: CL\Slack\Transport\ApiClient
   cl_slack.mock_api_client.class: CL\Slack\Test\Transport\MockApiClient
-  cl_slack.model_serializer.class: CL\Slack\Serializer\ModelSerializer
   cl_slack.payload_serializer.class: CL\Slack\Serializer\PayloadSerializer
   cl_slack.payload_response_serializer.class: CL\Slack\Serializer\PayloadResponseSerializer
 
 services:
   cl_slack.api_client:
-    class: %cl_slack.api_client.class%
+    class: "%cl_slack.api_client.class%"
     arguments:
-      - %cl_slack.api_token%
+      - "%cl_slack.api_token%"
 
   cl_slack.mock_api_client:
-    class: %cl_slack.mock_api_client.class%
-
-  cl_slack.model_serializer:
-    class: %cl_slack.model_serializer.class%
+    class: "%cl_slack.mock_api_client.class%"
 
   cl_slack.payload_serializer:
-    class: %cl_slack.payload_serializer.class%
+    class: "%cl_slack.payload_serializer.class%"
 
   cl_slack.payload_response_serializer:
-    class: %cl_slack.payload_response_serializer.class%
+    class: "%cl_slack.payload_response_serializer.class%"
